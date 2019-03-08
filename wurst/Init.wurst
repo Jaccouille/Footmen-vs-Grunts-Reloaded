@@ -31,7 +31,9 @@ public class BuildingSpawner
     var footmenShopNorthPos = gg_rct_FootmenShopNorth.getCenter()
     var footmenShopSouthPos = gg_rct_FootmenShopSouth.getCenter()
     var footmenTavernPos = gg_rct_FootmenTavern.getCenter()
-    var footmenFirstLineTower = gg_rct_FootmenFirstLineTower.getCenter()
+    var footmenFirstLineTowerPos = gg_rct_FootmenFirstLineTower.getCenter()
+    var footmenNorthShipYardPos = gg_rct_FootmenNorthShipyard.getCenter()
+    var footmenSouthShipYardPos = gg_rct_FootmenSouthShipyard.getCenter()
 
     function spawnBuildings()
 
@@ -48,6 +50,7 @@ public class BuildingSpawner
         spawnMiddleTower()
         spawnFrontTower()
         spawnHeart()
+        spawnShipYard()
 
     function spawnKeep(int i)
         var pos = footmenStartPos
@@ -72,6 +75,7 @@ public class BuildingSpawner
     function spawnBackTower(int i)
         var backTowerPos = footmenBackTowerPos
         backTowerPos.y -= BACK_TOWER_OFFSET * i
+
         createUnit(Player(0), 'owtw', backTowerPos, (270).asAngleDegrees())
         createUnit(Player(0), 'owtw', backTowerPos.getGruntSidePos(), (270).asAngleDegrees())
         
@@ -79,13 +83,15 @@ public class BuildingSpawner
         var middleTowerPos = footmenMiddleTowerPos
         createUnit(Player(0), 'owtw', middleTowerPos, (270).asAngleDegrees())
         createUnit(Player(0), 'owtw', middleTowerPos.getGruntSidePos(), (270).asAngleDegrees())
+
         middleTowerPos.y -= BACK_TOWER_OFFSET * 4
+
         createUnit(Player(0), 'owtw', middleTowerPos, (270).asAngleDegrees())
         createUnit(Player(0), 'owtw', middleTowerPos.getGruntSidePos(), (270).asAngleDegrees())
 
     function spawnFrontTower()
         var frontTowerPos = footmenFrontTowerPos
-        var firstLineTowerPos = footmenFirstLineTower
+        var firstLineTowerPos = footmenFirstLineTowerPos
 
         createUnit(Player(0), 'owtw', firstLineTowerPos, (270).asAngleDegrees())
         createUnit(Player(0), 'owtw', firstLineTowerPos.getGruntSidePos(), (270).asAngleDegrees())
@@ -119,5 +125,12 @@ public class BuildingSpawner
             createUnit(Player(0), 'hhou', tavernPos, (270).asAngleDegrees())
             tavernPos.x += 100
 
+    function spawnShipYard()
+        createUnit(Player(0), 'hhou', footmenNorthShipYardPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'hhou', footmenSouthShipYardPos, (270).asAngleDegrees()) 
+        createUnit(Player(0), 'hhou', footmenNorthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())
+        createUnit(Player(0), 'hhou', footmenSouthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())         
+
+        
 init
     new BuildingSpawner().spawnBuildings()
