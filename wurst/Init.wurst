@@ -1,0 +1,123 @@
+package Init
+import LinkedList
+import Utility
+import HashMap
+
+constant let KEEP_OFFSET = 1024
+constant let BACK_TOWER_OFFSET = 1120 - 608
+constant let MIDDLE_TOWER_OFFSET = 5280 - 4512
+constant let TECH_OFFSET = 400
+
+public class BuildingSpawner
+
+    let buildingsRegion = asList(
+        gg_rct_FootmenStart.getCenter().toPair(),
+        gg_rct_FootmenHeart.getCenter().toPair(),
+        gg_rct_FootmenBackTower.getCenter().toPair(),
+        gg_rct_FootmenFrontTower.getCenter().toPair(),
+        gg_rct_FootmenMiddleTower.getCenter().toPair(),
+        gg_rct_FootmenTavern.getCenter().toPair(),
+        gg_rct_FootmenShopNorth.getCenter().toPair(),
+        gg_rct_FootmenShopSouth.getCenter().toPair()
+    ) 
+
+    var footmenStartPos = gg_rct_FootmenStart.getCenter()
+    var footmenTechTopPos = gg_rct_FootmenTopTechBuilding.getCenter()
+    var footmenTechBotPos = gg_rct_FootmenBotTechBuilding.getCenter()
+    var footmenBackTowerPos = gg_rct_FootmenBackTower.getCenter()
+    var footmenHeartPos = gg_rct_FootmenHeart.getCenter()
+    var footmenMiddleTowerPos = gg_rct_FootmenMiddleTower.getCenter()
+    var footmenFrontTowerPos = gg_rct_FootmenFrontTower.getCenter()
+    var footmenShopNorthPos = gg_rct_FootmenShopNorth.getCenter()
+    var footmenShopSouthPos = gg_rct_FootmenShopSouth.getCenter()
+    var footmenTavernPos = gg_rct_FootmenTavern.getCenter()
+    var footmenFirstLineTower = gg_rct_FootmenFirstLineTower.getCenter()
+
+    function spawnBuildings()
+
+        for i = 4 downto 0
+
+            print(footmenBackTowerPos.toString())
+
+            spawnKeep(i)
+            spawnBackTower(i)
+            spawnTech(i)
+
+        spawnShop()
+        spawnTavern()
+        spawnMiddleTower()
+        spawnFrontTower()
+        spawnHeart()
+
+    function spawnKeep(int i)
+        var pos = footmenStartPos
+        pos.y -= KEEP_OFFSET * i
+        createUnit(Player(0), 'hkee', pos, (270).asAngleDegrees())
+        createUnit(Player(0), 'ostr', pos.getGruntSidePos(), (270).asAngleDegrees())
+    
+    function spawnTech(int i)
+        var topPos = footmenTechTopPos
+        var botPos = footmenTechBotPos
+        topPos.y -= KEEP_OFFSET * i
+        botPos.y -= KEEP_OFFSET * i
+        for j = 0 to 2 
+            createUnit(Player(0), 'hhou', topPos, (270).asAngleDegrees())
+            createUnit(Player(0), 'hhou', botPos, (270).asAngleDegrees())
+            createUnit(Player(0), 'hhou', topPos.getGruntSidePos(), (270).asAngleDegrees())
+            createUnit(Player(0), 'hhou', botPos.getGruntSidePos(), (270).asAngleDegrees())
+            print(topPos.toString())
+            topPos.x -= TECH_OFFSET
+            botPos.x -= TECH_OFFSET
+
+    function spawnBackTower(int i)
+        var backTowerPos = footmenBackTowerPos
+        backTowerPos.y -= BACK_TOWER_OFFSET * i
+        createUnit(Player(0), 'owtw', backTowerPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'owtw', backTowerPos.getGruntSidePos(), (270).asAngleDegrees())
+        
+    function spawnMiddleTower()
+        var middleTowerPos = footmenMiddleTowerPos
+        createUnit(Player(0), 'owtw', middleTowerPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'owtw', middleTowerPos.getGruntSidePos(), (270).asAngleDegrees())
+        middleTowerPos.y -= BACK_TOWER_OFFSET * 4
+        createUnit(Player(0), 'owtw', middleTowerPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'owtw', middleTowerPos.getGruntSidePos(), (270).asAngleDegrees())
+
+    function spawnFrontTower()
+        var frontTowerPos = footmenFrontTowerPos
+        var firstLineTowerPos = footmenFirstLineTower
+
+        createUnit(Player(0), 'owtw', firstLineTowerPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'owtw', firstLineTowerPos.getGruntSidePos(), (270).asAngleDegrees())
+
+        createUnit(Player(0), 'owtw', frontTowerPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'owtw', frontTowerPos.getGruntSidePos(), (270).asAngleDegrees())
+        frontTowerPos.y -= 864 + 672
+        createUnit(Player(0), 'owtw', frontTowerPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'owtw', frontTowerPos.getGruntSidePos(), (270).asAngleDegrees())    
+    
+    function spawnHeart()
+        var heartPos = footmenHeartPos
+        createUnit(Player(0), 'owtw', heartPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'owtw', heartPos.getGruntSidePos(), (270).asAngleDegrees())
+        
+    function spawnShop()
+        var shopNorthPos = footmenShopNorthPos
+        var shopSouthPos = footmenShopSouthPos
+        for i = 4 downto 0
+            createUnit(Player(0), 'hhou', shopNorthPos, (270).asAngleDegrees())
+            createUnit(Player(0), 'hhou', shopSouthPos, (270).asAngleDegrees())
+            createUnit(Player(0), 'hhou', shopNorthPos.getGruntSidePos(), (270).asAngleDegrees())
+            createUnit(Player(0), 'hhou', shopSouthPos.getGruntSidePos(), (270).asAngleDegrees())
+            shopNorthPos.x += 200
+            shopSouthPos.x += 200
+
+    function spawnTavern()
+        var tavernPos = footmenTavernPos
+
+        for i = 4 downto 0
+            createUnit(Player(0), 'hhou', tavernPos, (270).asAngleDegrees())
+            tavernPos.x += 100
+
+init
+    new BuildingSpawner().spawnBuildings()

@@ -1,0 +1,21 @@
+package Utility
+
+public class Pair<A, B>
+    A x
+    B y
+
+    construct(A a, B b)
+        this.x = a
+        this.y = b
+
+public function pair<A, B>(A a, B b) returns Pair<A, B>
+    return new Pair(a, b)
+
+public function Pair<real, real>.toVec2() returns vec2
+    return vec2(this.x, this.y)
+
+public function vec2.toPair() returns Pair<real, real>
+    return pair(this.x, this.y)
+
+public function vec2.getGruntSidePos() returns vec2
+    return vec2(this.x * -1, this.y)
