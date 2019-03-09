@@ -1,7 +1,6 @@
 package Init
 import LinkedList
 import Utility
-import HashMap
 
 constant let KEEP_OFFSET = 1024
 constant let BACK_TOWER_OFFSET = 1120 - 608
@@ -34,6 +33,7 @@ public class BuildingSpawner
     var footmenFirstLineTowerPos = gg_rct_FootmenFirstLineTower.getCenter()
     var footmenNorthShipYardPos = gg_rct_FootmenNorthShipyard.getCenter()
     var footmenSouthShipYardPos = gg_rct_FootmenSouthShipyard.getCenter()
+    var footmenArmyControlTower = gg_rct_FootmenControlTower.getCenter()
 
     function spawnBuildings()
 
@@ -44,6 +44,7 @@ public class BuildingSpawner
             spawnKeep(i)
             spawnBackTower(i)
             spawnTech(i)
+            spawnArmyControlTower(i)
 
         spawnShop()
         spawnTavern()
@@ -71,6 +72,12 @@ public class BuildingSpawner
             print(topPos.toString())
             topPos.x -= TECH_OFFSET
             botPos.x -= TECH_OFFSET
+
+    function spawnArmyControlTower(int i)
+        var armyControlTowerPos = footmenArmyControlTower
+        armyControlTowerPos.y -= KEEP_OFFSET * i
+        createUnit(Player(0), 'hhou', armyControlTowerPos, (270).asAngleDegrees())
+        createUnit(Player(0), 'hhou', armyControlTowerPos.getGruntSidePos(), (270).asAngleDegrees())
 
     function spawnBackTower(int i)
         var backTowerPos = footmenBackTowerPos
@@ -129,8 +136,8 @@ public class BuildingSpawner
         createUnit(Player(0), 'hhou', footmenNorthShipYardPos, (270).asAngleDegrees())
         createUnit(Player(0), 'hhou', footmenSouthShipYardPos, (270).asAngleDegrees()) 
         createUnit(Player(0), 'hhou', footmenNorthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())
-        createUnit(Player(0), 'hhou', footmenSouthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())         
-
+        createUnit(Player(0), 'hhou', footmenSouthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())       
+        
         
 init
     new BuildingSpawner().spawnBuildings()
