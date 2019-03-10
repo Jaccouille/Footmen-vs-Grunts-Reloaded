@@ -1,0 +1,57 @@
+package ControlTower
+
+import UnitObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import UnitIds
+import AbilityIds
+import LinkedList
+import Units
+import Abilities
+
+public constant let CONTROL_TOWER = UNIT_ID_GEN.next()
+
+@compile function createControlTower()
+    new BuildingDefinition(CONTROL_TOWER, UnitIds.humanarcanetower)
+    ..setModelFile(Units.stasisTotem)
+    ..setNormalAbilities("")
+    ..setAttack1AttackType(AttackType.Chaos)
+    ..setAttack1DamageBase(999)
+    ..setAttack1ProjectileArc(0)
+    ..setAttack1ProjectileSpeed(0)
+    ..setAttack1Range(0)
+    ..setAnimationCastPoint(0.500)
+    ..setName("Control Tower")
+    ..setUpgradesUsed("")
+    ..setRequirements("")
+    ..setProjectileLaunchY(-50)
+    ..setProjectileLaunchZ(400)
+    ..setRequiredAnimationNames("")
+    ..setScalingValue(2.50)
+    ..setAcquisitionRange(1800)
+    ..setAttack1AreaofEffectFullDamage(200)
+    ..setAttack1AreaofEffectMediumDamage(300)
+    ..setAttack1AreaofEffectSmallDamage(400)
+    ..setAttack1AreaofEffectTargets("Air,Enemy,Ground")
+    ..setAttack1CooldownTime(0.30)
+    ..setAttack1DamageFactorMedium(.40)
+    ..setAttack1DamageFactorSmall(.10)
+    ..setAttack1DamageSidesperDie(1)
+    ..setAttack1ProjectileArt(Abilities.chimaeraLightningMissile)
+    ..setAttack1Range(1800)
+    ..setAttack1TargetsAllowed("Ground, Structure, Debris, Air, Item, Ward")
+    ..setAttack1WeaponType(WeaponType.MissileSplash)
+    ..setGoldBountyAwardedBase(1000)
+    ..setGoldBountyAwardedNumberofDice(10)
+    ..setGoldBountyAwardedSidesperDie(20)
+    ..setHitPointsMaximumBase(25000)
+    ..setHitPointsRegenerationRate(50)
+    ..setHitPointsRegenerationType("Always")
+    ..setSightRadiusDay(6000)
+    ..setSightRadiusNight(6000)
+
+    
+
+    ..setAttack1TargetsAllowed("value")
+
+

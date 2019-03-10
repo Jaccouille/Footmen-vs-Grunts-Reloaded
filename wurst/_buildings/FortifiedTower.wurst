@@ -1,0 +1,59 @@
+package FortifiedTower
+
+import UnitObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import UnitIds
+import AbilityIds
+import LinkedList
+import Units
+import Abilities
+
+public constant let TOWER = UNIT_ID_GEN.next()
+
+@compiletime function createFortifiedTowerNoDamage()
+    new BuildingDefinition(TOWER, UnitIds.scouttower)
+    ..setRepairLumberCost(0)
+    ..setLumberCost(0)
+    ..setBuildTime(20)
+    ..setRepairGoldCost(250)
+    ..setGoldCost(0)
+    ..setPointValue(5)
+    ..setUpgradesTo("")
+    ..setUpgradesUsed("")
+    ..setTooltipBasic("Rebuild Control Tower ")
+    ..setName("Fortified Control Tower")
+    ..setArmorType(ArmorType.Fortified)
+    ..setGoldBountyAwardedBase(128)
+    ..setCollisionSize(76.0)
+    ..setScalingValue(2.1)
+    ..setSelectionScale(5.0)
+    ..setSightRadiusDay(1200)
+    ..setSightRadiusNight(1200)
+    ..setNormalAbilities("")
+    ..setProjectileLaunchZ(260.0)
+    ..setProjectileImpactZ(200.0)
+    ..setAttack1DamageBase(75)
+    ..setAttack1DamageNumberofDice(1)
+    ..setAttack1DamageSidesperDie(10)
+    ..setAttack1WeaponType(WeaponType.Missile)
+    ..setAttack1RangeMotionBuffer(250.0)
+    ..setAttack1Range(900)
+    ..setAttack1ProjectileSpeed(1200)
+    ..setAttack1ProjectileArt("Abilities\\Weapons\\Arrow\\ArrowMissile.mdl")
+    ..setAttack1AnimationDamagePoint(0.3)
+    ..setAttack1AnimationBackswingPoint(0.3)
+    ..setRepairTime(300)
+    ..setPlacementRequires("")
+    ..setDefenseBase(15)
+    ..setAttack1CooldownTime(1.0)
+    ..setGroundTexture("HMED")
+    ..setRace(Race.Creeps)
+    ..setDeathTimeseconds(1.0)
+    ..setHitPointsMaximumBase(7500)
+    ..setAttack1TargetsAllowed("ground,structure,debris,air,item,ward")
+    ..setButtonPositionY(0)
+    ..setTooltipExtended("Can be upgraded into an Anti-Air Tower, a Frost Tower, a Energy Tower, a Flame Tower and a Destruction Tower.")
+    ..setPathingMap("PathTextures\\8x8SimpleSolid.tga")
+    ..setResearchesAvailable("")
+    

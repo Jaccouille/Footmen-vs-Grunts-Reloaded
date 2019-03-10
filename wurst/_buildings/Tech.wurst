@@ -1,0 +1,68 @@
+package Tech
+
+import UnitObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import UnitIds
+import AbilityIds
+import LinkedList
+
+public constant let HUMAN_TRAINING_CENTER = compiletime(UNIT_ID_GEN.next())
+public constant let HUMAN_UPGRADES_CENTER = compiletime(UNIT_ID_GEN.next())
+
+public constant let NIGHTELF_TRAINING_CENTER = compiletime(UNIT_ID_GEN.next())
+public constant let NIGHTELF_UPGRADES_CENTER = compiletime(UNIT_ID_GEN.next())
+
+public constant let ORC_TRAINING_CENTER = compiletime(UNIT_ID_GEN.next())
+public constant let ORC_UPGRADES_CENTER = compiletime(UNIT_ID_GEN.next())
+
+public constant let UNDEAD_TRAINING_CENTER = compiletime(UNIT_ID_GEN.next())
+public constant let UNDEAD_UPGRADES_CENTER = compiletime(UNIT_ID_GEN.next())
+
+public constant let NAGA_TRAINING_CENTER = compiletime(UNIT_ID_GEN.next())
+public constant let NAGA_UPGRADES_CENTER = compiletime(UNIT_ID_GEN.next())
+
+constant let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
+
+public class TechBuilding
+    int id = 0
+    int baseId = 0
+    string name = "Tech"
+    string abilities = AbilityIds.invulnerable.toString()
+    string unitsTrained = ""
+    string researchAvailable = ""
+
+    construct(int id, int baseId, string name, string abilities, string unitsTrained, string researchAvailable)
+        this.id = id
+        this.baseId = baseId
+        this.name = name
+        this.abilities += abilities
+        this.unitsTrained = unitsTrained
+        this.researchAvailable = researchAvailable
+
+    function buildUnit()
+        new BuildingDefinition(id, baseId)
+        ..setName(name)
+        ..setNormalAbilities(abilities)
+        ..setPlacementRequires("")
+        ..setUpgradesUsed("")
+        ..setResearchesAvailable(researchAvailable)
+        ..setUnitsTrained(unitsTrained)
+
+function getBuildings() returns LinkedList<TechBuilding>
+    return asList(
+        new TechBuilding(HUMAN_TRAINING_CENTER, UnitIds.arcanesanctum, "Human Training Center", "", "", ""),
+        new TechBuilding(HUMAN_UPGRADES_CENTER, UnitIds.blacksmith, "Human Training Center", "", "", ""),
+        
+        new TechBuilding(NIGHTELF_TRAINING_CENTER, UnitIds.ancientoflore, "Night Elf Training Center", "", "", ""),
+        new TechBuilding(NIGHTELF_UPGRADES_CENTER, UnitIds.huntershall, "Night Elf Training Center", "", "", ""),
+
+        new TechBuilding(ORC_TRAINING_CENTER, UnitIds.beastiary, "Orc Training Center", "", "", ""),
+        new TechBuilding(ORC_UPGRADES_CENTER, UnitIds.warmill, "Orc Training Center", "", "", ""),
+
+        new TechBuilding(UNDEAD_TRAINING_CENTER, UnitIds.templeofthedamned, "Undead Training Center", "", "", ""),
+        new TechBuilding(UNDEAD_UPGRADES_CENTER, UnitIds.graveyard, "Undead Training Center", "", "", ""),
+        
+        new TechBuilding(NAGA_TRAINING_CENTER, UnitIds.spawninggrounds, "Naga Training Center", "", "", ""),
+        new TechBuilding(NAGA_UPGRADES_CENTER, UnitIds.altarofthedepths, "Naga Training Center", "", "", "")
+    )
