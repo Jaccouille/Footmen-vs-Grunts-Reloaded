@@ -1,25 +1,15 @@
 package Init
-import LinkedList
 import Utility
+import Keep
 
 constant let KEEP_OFFSET = 1024
 constant let BACK_TOWER_OFFSET = 1120 - 608
 constant let MIDDLE_TOWER_OFFSET = 5280 - 4512
 constant let TECH_OFFSET = 400
+constant let TAVERN_OFFSET = 100
+constant let SHOP_OFFSET = 200
 
 public class BuildingSpawner
-
-    let buildingsRegion = asList(
-        gg_rct_FootmenStart.getCenter().toPair(),
-        gg_rct_FootmenHeart.getCenter().toPair(),
-        gg_rct_FootmenBackTower.getCenter().toPair(),
-        gg_rct_FootmenFrontTower.getCenter().toPair(),
-        gg_rct_FootmenMiddleTower.getCenter().toPair(),
-        gg_rct_FootmenTavern.getCenter().toPair(),
-        gg_rct_FootmenShopNorth.getCenter().toPair(),
-        gg_rct_FootmenShopSouth.getCenter().toPair()
-    ) 
-
     var footmenStartPos = gg_rct_FootmenStart.getCenter()
     var footmenTechTopPos = gg_rct_FootmenTopTechBuilding.getCenter()
     var footmenTechBotPos = gg_rct_FootmenBotTechBuilding.getCenter()
@@ -38,9 +28,6 @@ public class BuildingSpawner
     function spawnBuildings()
 
         for i = 4 downto 0
-
-            print(footmenBackTowerPos.toString())
-
             spawnKeep(i)
             spawnBackTower(i)
             spawnTech(i)
@@ -56,8 +43,8 @@ public class BuildingSpawner
     function spawnKeep(int i)
         var pos = footmenStartPos
         pos.y -= KEEP_OFFSET * i
-        createUnit(Player(0), 'hkee', pos, (270).asAngleDegrees())
-        createUnit(Player(0), 'ostr', pos.getGruntSidePos(), (270).asAngleDegrees())
+        createUnit(Player(0), FOOTMEN_KEEP, pos, (270).asAngleDegrees())
+        createUnit(Player(0), GRUNTS_KEEP, pos.getGruntSidePos(), (270).asAngleDegrees())
     
     function spawnTech(int i)
         var topPos = footmenTechTopPos
@@ -122,22 +109,21 @@ public class BuildingSpawner
             createUnit(Player(0), 'hhou', shopSouthPos, (270).asAngleDegrees())
             createUnit(Player(0), 'hhou', shopNorthPos.getGruntSidePos(), (270).asAngleDegrees())
             createUnit(Player(0), 'hhou', shopSouthPos.getGruntSidePos(), (270).asAngleDegrees())
-            shopNorthPos.x += 200
-            shopSouthPos.x += 200
+            shopNorthPos.x += SHOP_OFFSET
+            shopSouthPos.x += SHOP_OFFSET
 
     function spawnTavern()
         var tavernPos = footmenTavernPos
 
         for i = 4 downto 0
             createUnit(Player(0), 'hhou', tavernPos, (270).asAngleDegrees())
-            tavernPos.x += 100
+            tavernPos.x += TAVERN_OFFSET
 
     function spawnShipYard()
         createUnit(Player(0), 'hhou', footmenNorthShipYardPos, (270).asAngleDegrees())
         createUnit(Player(0), 'hhou', footmenSouthShipYardPos, (270).asAngleDegrees()) 
         createUnit(Player(0), 'hhou', footmenNorthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())
-        createUnit(Player(0), 'hhou', footmenSouthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())       
-        
+        createUnit(Player(0), 'hhou', footmenSouthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())   
         
 init
     new BuildingSpawner().spawnBuildings()
