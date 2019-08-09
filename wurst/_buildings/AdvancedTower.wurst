@@ -18,6 +18,8 @@ public constant let ANTI_AIR_TOWER = UNIT_ID_GEN.next()
 public constant let DESTRUCTION_TOWER = UNIT_ID_GEN.next()
 public constant let DEATH_TOWER = UNIT_ID_GEN.next()
 
+constant let UPGRADE_SECOND = commaList(DEATH_TOWER)
+
 @compiletime function createFrostTower()
     new BuildingDefinition(FROST_TOWER, UnitIds.flametowerupgrade)
     ..setUpgradesUsed("")
