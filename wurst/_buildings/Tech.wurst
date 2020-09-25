@@ -47,7 +47,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setUnitsTrained("")
 
 @compiletime function createOrcTrainingCenter()
-    createTechBuilding(UNIT_ORC_TRAINING_CENTER, UnitIds.beastiary)
+    createTechBuilding(UNIT_ORC_TRAINING_CENTER, UnitIds.spiritlodge)
         ..setName("Orc Training Center")
         ..setResearchesAvailable("")
         ..setUnitsTrained("")

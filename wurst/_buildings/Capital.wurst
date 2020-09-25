@@ -1,53 +1,34 @@
 package Capital
 
 import UnitObjEditing
-import ObjectIdGenerator
-import ObjectIds
 import UnitIds
-import AbilityIds
-import LinkedList
-import Units
-import Abilities
 import Buildings
 import LocalObjectIDs
 
-@compiletime function createFootmenHeart()
-    new BuildingDefinition(UNIT_ALLIANCE_CAPITAL, UnitIds.arcaneobservatory)
+function createCapital(int newId) returns BuildingDefinition
+    return new BuildingDefinition(newId, UnitIds.arcaneobservatory)
         ..setGoldCost(0)
         ..setHitPointsMaximumBase(40000)
         ..setDefenseBase(20)
-        ..setLumberCost(0)
         ..setRepairGoldCost(2500)
         ..setRepairLumberCost(0)
         ..setPlacementRequires("")
         ..setNormalAbilities("")
         ..setUnitClassification("TownHall,Mechanical")
-        ..setItemsMade("")
-        ..setSightRadiusDay(10000)
-        ..setSightRadiusNight(10000)
-        ..setGroundTexture("HCAS")
-        ..setUpgradesUsed("")
-        ..setName("Footman Heart")
+        ..setSightRadiusDay(1800) // max value
+        ..setSightRadiusNight(1800)
         ..setAIPlacementType("townhall")
         ..setDeathTimeseconds(1.0)
 
-@compiletime function createGruntsHeart()
-    new BuildingDefinition(UNIT_HORDE_CAPITAL, UnitIds.arcaneobservatory)
-        ..setGoldCost(0)
-        ..setHitPointsMaximumBase(40000)
-        ..setDefenseBase(20)
-        ..setLumberCost(0)
-        ..setRepairGoldCost(2500)
-        ..setRepairLumberCost(0)
-        ..setPlacementRequires("")
-        ..setNormalAbilities("")
-        ..setUnitClassification("TownHall,Mechanical")
-        ..setModelFile(Buildings.sacrificialAltar1)
-        ..setItemsMade("")
-        ..setSightRadiusDay(10000)
-        ..setSightRadiusNight(10000)
-        ..setGroundTexture("ULAR")
+@compiletime function createAllianceHeart()
+    createCapital(UNIT_ALLIANCE_CAPITAL)
+        ..setGroundTexture("HCAS")
         ..setUpgradesUsed("")
-        ..setName("Grunt Heart")
-        ..setAIPlacementType("townhall")
-        ..setDeathTimeseconds(1.0)
+        ..setName("Alliance Capital")
+
+@compiletime function createHordeHeart()
+    createCapital(UNIT_HORDE_CAPITAL)
+        ..setModelFile(Buildings.sacrificialAltar1)
+        ..setGroundTexture("ULAR")
+        ..setName("Horde Capital")
+        ..setScalingValue(1.9)

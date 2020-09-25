@@ -26,14 +26,15 @@ let indicators = new IterableMap<int, int>()
     ..put('nnsa', UNIT_NAGA_TRAINING_CENTER)
     ..put('nnsg', UNIT_NAGA_UPGRADE_CENTER)
 
-    ..put('ofrt', UNIT_HORDE_CAPITAL)
+    ..put('nshr', UNIT_HORDE_CAPITAL)
+    ..put('ofrt', UNIT_HORDE_CASTLE)
     ..put('osld', UNIT_ORC_TRAINING_CENTER)
     ..put('ofor', UNIT_ORC_UPGRADE_CENTER)
     ..put('utod', UNIT_UNDEAD_TRAINING_CENTER)
     ..put('ugrv', UNIT_UNDEAD_UPGRADE_CENTER)
 
     ..put('h01L', UNIT_BASIC_TOWER)
-    ..put('h002', UNIT_CONTROL_TOWER)
+    ..put('h000', UNIT_CONTROL_TOWER)
 
 
 

@@ -41,7 +41,7 @@ import LocalObjectIDs
     ..setPlacementRequires("")
     ..setDefenseBase(15)
     ..setAttack1CooldownTime(1.0)
-    ..setGroundTexture("HMED")
+    ..setGroundTexture("")
     ..setRace(Race.Creeps)
     ..setDeathTimeseconds(1.0)
     ..setHitPointsMaximumBase(7500)
