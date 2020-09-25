@@ -1,0 +1,20 @@
+package Creation
+
+// Standard lib imports:
+import ClosureForGroups
+
+// Third-party imports:
+import ObjectIDManager
+import Toolkit
+
+
+init
+    registerToolkitCommand("unit") (triggerer, arguments) ->
+        // TODO: Base position on cursor position.
+        forUnitsSelected(triggerer) (unit target) ->
+            createUnit(
+                triggerer,
+                arguments.get(1).asObjectID(),
+                target.getPos(),
+                angle(0)
+            )
