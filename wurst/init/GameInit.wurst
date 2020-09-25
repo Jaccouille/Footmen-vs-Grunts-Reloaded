@@ -1,0 +1,17 @@
+package GameInit
+
+import Preloader
+import ObjectIdGenerator
+
+
+init
+    preload()
+
+function preload()
+    let abils = new IdGenerator('AM00')
+    while preloadAbility(abils.next())
+    destroy abils
+
+    let units = new IdGenerator('x000')
+    while preloadUnit(units.next())
+    destroy units
