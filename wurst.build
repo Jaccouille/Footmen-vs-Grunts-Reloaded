@@ -4,3 +4,86 @@ buildMapData:
   name: DefaultName
   fileName: DefaultFileName
   author: DefaultAuthor
+  # scenarioData:
+  #   description: Never seen before # The map's description
+  #   suggestedPlayers: 5v5 # Hint text displayed in lobby
+  players:
+  - id: 0
+    race: HUMAN
+    controller: USER
+    fixedStartLoc: true
+  - id: 1
+    race: HUMAN
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 2
+    race: HUMAN
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 3
+    race: HUMAN
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 4
+    race: HUMAN
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 5
+    race: ORC
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 6
+    race: ORC
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 7
+    race: ORC
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 8
+    race: ORC
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 9
+    race: ORC
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 10
+    name: The Aliiance
+    race: HUMAN
+    controller: COMPUTER
+    fixedStartLoc: true
+  - id: 11
+    name: The Horde
+    race: ORC
+    controller: COMPUTER
+    fixedStartLoc: true
+  forces:
+  - name: The Alliance
+    playerIds:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 10
+    flags:
+      allied: true
+      alliedVictory: true
+      sharedVision: true
+      sharedControl: false
+      sharedControlAdvanced: false
+  - name: The Horde
+    playerIds:
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 11
+    flags:
+      allied: true
+      alliedVictory: true
+      sharedVision: true
+      sharedControl: false
+      sharedControlAdvanced: false
