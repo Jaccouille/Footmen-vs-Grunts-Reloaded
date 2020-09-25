@@ -34,6 +34,8 @@ let indicators = new IterableMap<int, int>()
     ..put('ugrv', UNIT_UNDEAD_UPGRADE_CENTER)
 
     ..put('h01L', UNIT_BASIC_TOWER)
+    ..put('hgtw', UNIT_ALLIANCE_BASIC_TOWER)
+    ..put('owtw', UNIT_HORDE_BASIC_TOWER)
     ..put('h000', UNIT_CONTROL_TOWER)
 
 

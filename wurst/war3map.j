@@ -71,7 +71,7 @@ function CreateBuildingsForPlayer0 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsa', - 8064.0, 1664.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, 1536.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 4096.0, 1536.0, 270.000, 'h01L')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', - 4864.0, 1280.0, 270.000, 'h01L')
+    set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, 1280.0, 270.000, 'hgtw')
 endfunction
 
 //===========================================================================
@@ -102,7 +102,7 @@ function CreateBuildingsForPlayer1 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsa', - 8064.0, 896.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, 768.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 3328.0, 1152.0, 270.000, 'h01L')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', - 4864.0, 640.0, 270.000, 'h01L')
+    set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, 640.0, 270.000, 'hgtw')
 endfunction
 
 //===========================================================================
@@ -122,7 +122,7 @@ function CreateBuildingsForPlayer2 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsa', - 8064.0, 128.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, 0.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 2944.0, 0.0, 270.000, 'h01L')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', - 4864.0, 0.0, 270.000, 'h01L')
+    set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, 0.0, 270.000, 'hgtw')
 endfunction
 
 //===========================================================================
@@ -142,7 +142,7 @@ function CreateBuildingsForPlayer3 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsa', - 8064.0, - 640.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, - 768.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 3328.0, - 1152.0, 270.000, 'h01L')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', - 4864.0, - 640.0, 270.000, 'h01L')
+    set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, - 640.0, 270.000, 'hgtw')
 endfunction
 
 //===========================================================================
@@ -162,7 +162,7 @@ function CreateBuildingsForPlayer4 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsa', - 8064.0, - 1408.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, - 1536.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 4096.0, - 1536.0, 270.000, 'h01L')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', - 4864.0, - 1280.0, 270.000, 'h01L')
+    set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, - 1280.0, 270.000, 'hgtw')
 endfunction
 
 //===========================================================================
@@ -181,8 +181,8 @@ function CreateBuildingsForPlayer5 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsg', 8064.0, 1408.0, 270.000, 'nnsg')
     set u=BlzCreateUnitWithSkin(p, 'nnsa', 8064.0, 1664.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', 8320.0, 1536.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'owtw', 4864.0, 1280.0, 270.000, 'owtw')
     set u=BlzCreateUnitWithSkin(p, 'h01L', 4096.0, 1536.0, 270.000, 'h01L')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', 4864.0, 1280.0, 270.000, 'h01L')
 endfunction
 
 //===========================================================================
@@ -201,8 +201,8 @@ function CreateBuildingsForPlayer6 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsg', 8064.0, 640.0, 270.000, 'nnsg')
     set u=BlzCreateUnitWithSkin(p, 'nnsa', 8064.0, 896.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', 8320.0, 768.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'owtw', 4864.0, 640.0, 270.000, 'owtw')
     set u=BlzCreateUnitWithSkin(p, 'h01L', 3328.0, 1152.0, 270.000, 'h01L')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', 4864.0, 640.0, 270.000, 'h01L')
 endfunction
 
 //===========================================================================
@@ -221,7 +221,7 @@ function CreateBuildingsForPlayer7 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsg', 8064.0, - 128.0, 270.000, 'nnsg')
     set u=BlzCreateUnitWithSkin(p, 'nnsa', 8064.0, 128.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', 8320.0, 0.0, 270.000, 'h000')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', 4864.0, 0.0, 270.000, 'h01L')
+    set u=BlzCreateUnitWithSkin(p, 'owtw', 4864.0, - 64.0, 270.000, 'owtw')
     set u=BlzCreateUnitWithSkin(p, 'h01L', 2944.0, 0.0, 270.000, 'h01L')
 endfunction
 
@@ -241,7 +241,7 @@ function CreateBuildingsForPlayer8 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsg', 8064.0, - 896.0, 270.000, 'nnsg')
     set u=BlzCreateUnitWithSkin(p, 'nnsa', 8064.0, - 640.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', 8320.0, - 768.0, 270.000, 'h000')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', 4864.0, - 640.0, 270.000, 'h01L')
+    set u=BlzCreateUnitWithSkin(p, 'owtw', 4864.0, - 640.0, 270.000, 'owtw')
     set u=BlzCreateUnitWithSkin(p, 'h01L', 3328.0, - 1152.0, 270.000, 'h01L')
 endfunction
 
@@ -261,7 +261,7 @@ function CreateBuildingsForPlayer9 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'nnsg', 8064.0, - 1664.0, 270.000, 'nnsg')
     set u=BlzCreateUnitWithSkin(p, 'nnsa', 8064.0, - 1408.0, 270.000, 'nnsa')
     set u=BlzCreateUnitWithSkin(p, 'h000', 8320.0, - 1536.0, 270.000, 'h000')
-    set u=BlzCreateUnitWithSkin(p, 'h01L', 4864.0, - 1280.0, 270.000, 'h01L')
+    set u=BlzCreateUnitWithSkin(p, 'owtw', 4864.0, - 1280.0, 270.000, 'owtw')
     set u=BlzCreateUnitWithSkin(p, 'h01L', 4096.0, - 1536.0, 270.000, 'h01L')
 endfunction
 
