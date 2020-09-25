@@ -1,0 +1,53 @@
+package Capital
+
+import UnitObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import UnitIds
+import AbilityIds
+import LinkedList
+import Units
+import Abilities
+import Buildings
+import LocalObjectIDs
+
+@compiletime function createFootmenHeart()
+    new BuildingDefinition(UNIT_ALLIANCE_CAPITAL, UnitIds.arcaneobservatory)
+        ..setGoldCost(0)
+        ..setHitPointsMaximumBase(40000)
+        ..setDefenseBase(20)
+        ..setLumberCost(0)
+        ..setRepairGoldCost(2500)
+        ..setRepairLumberCost(0)
+        ..setPlacementRequires("")
+        ..setNormalAbilities("")
+        ..setUnitClassification("TownHall,Mechanical")
+        ..setItemsMade("")
+        ..setSightRadiusDay(10000)
+        ..setSightRadiusNight(10000)
+        ..setGroundTexture("HCAS")
+        ..setUpgradesUsed("")
+        ..setName("Footman Heart")
+        ..setAIPlacementType("townhall")
+        ..setDeathTimeseconds(1.0)
+
+@compiletime function createGruntsHeart()
+    new BuildingDefinition(UNIT_HORDE_CAPITAL, UnitIds.arcaneobservatory)
+        ..setGoldCost(0)
+        ..setHitPointsMaximumBase(40000)
+        ..setDefenseBase(20)
+        ..setLumberCost(0)
+        ..setRepairGoldCost(2500)
+        ..setRepairLumberCost(0)
+        ..setPlacementRequires("")
+        ..setNormalAbilities("")
+        ..setUnitClassification("TownHall,Mechanical")
+        ..setModelFile(Buildings.sacrificialAltar1)
+        ..setItemsMade("")
+        ..setSightRadiusDay(10000)
+        ..setSightRadiusNight(10000)
+        ..setGroundTexture("ULAR")
+        ..setUpgradesUsed("")
+        ..setName("Grunt Heart")
+        ..setAIPlacementType("townhall")
+        ..setDeathTimeseconds(1.0)

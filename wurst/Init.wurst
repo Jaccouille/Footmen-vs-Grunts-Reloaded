@@ -1,6 +1,5 @@
 package Init
 import Utility
-import Keep
 
 constant let KEEP_OFFSET = 1024
 constant let BACK_TOWER_OFFSET = 1120 - 608
@@ -43,15 +42,13 @@ public class BuildingSpawner
     function spawnKeep(int i)
         var pos = footmenStartPos
         pos.y -= KEEP_OFFSET * i
-        createUnit(Player(0), FOOTMEN_KEEP, pos, (270).asAngleDegrees())
-        createUnit(Player(0), GRUNTS_KEEP, pos.getGruntSidePos(), (270).asAngleDegrees())
-    
+
     function spawnTech(int i)
         var topPos = footmenTechTopPos
         var botPos = footmenTechBotPos
         topPos.y -= KEEP_OFFSET * i
         botPos.y -= KEEP_OFFSET * i
-        for j = 0 to 2 
+        for j = 0 to 2
             createUnit(Player(0), 'hhou', topPos, (270).asAngleDegrees())
             createUnit(Player(0), 'hhou', botPos, (270).asAngleDegrees())
             createUnit(Player(0), 'hhou', topPos.getGruntSidePos(), (270).asAngleDegrees())
@@ -72,7 +69,7 @@ public class BuildingSpawner
 
         createUnit(Player(0), 'owtw', backTowerPos, (270).asAngleDegrees())
         createUnit(Player(0), 'owtw', backTowerPos.getGruntSidePos(), (270).asAngleDegrees())
-        
+
     function spawnMiddleTower()
         var middleTowerPos = footmenMiddleTowerPos
         createUnit(Player(0), 'owtw', middleTowerPos, (270).asAngleDegrees())
@@ -94,13 +91,13 @@ public class BuildingSpawner
         createUnit(Player(0), 'owtw', frontTowerPos.getGruntSidePos(), (270).asAngleDegrees())
         frontTowerPos.y -= 864 + 672
         createUnit(Player(0), 'owtw', frontTowerPos, (270).asAngleDegrees())
-        createUnit(Player(0), 'owtw', frontTowerPos.getGruntSidePos(), (270).asAngleDegrees())    
-    
+        createUnit(Player(0), 'owtw', frontTowerPos.getGruntSidePos(), (270).asAngleDegrees())
+
     function spawnHeart()
         var heartPos = footmenHeartPos
         createUnit(Player(0), 'owtw', heartPos, (270).asAngleDegrees())
         createUnit(Player(0), 'owtw', heartPos.getGruntSidePos(), (270).asAngleDegrees())
-        
+
     function spawnShop()
         var shopNorthPos = footmenShopNorthPos
         var shopSouthPos = footmenShopSouthPos
@@ -121,9 +118,9 @@ public class BuildingSpawner
 
     function spawnShipYard()
         createUnit(Player(0), 'hhou', footmenNorthShipYardPos, (270).asAngleDegrees())
-        createUnit(Player(0), 'hhou', footmenSouthShipYardPos, (270).asAngleDegrees()) 
+        createUnit(Player(0), 'hhou', footmenSouthShipYardPos, (270).asAngleDegrees())
         createUnit(Player(0), 'hhou', footmenNorthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())
-        createUnit(Player(0), 'hhou', footmenSouthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())   
-        
+        createUnit(Player(0), 'hhou', footmenSouthShipYardPos.getGruntSidePos(), (270).asAngleDegrees())
+
 init
-    new BuildingSpawner().spawnBuildings()
+    //new BuildingSpawner().spawnBuildings()

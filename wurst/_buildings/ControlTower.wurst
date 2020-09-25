@@ -1,18 +1,14 @@
 package ControlTower
 
 import UnitObjEditing
-import ObjectIdGenerator
-import ObjectIds
 import UnitIds
-import AbilityIds
-import LinkedList
 import Units
 import Abilities
+import LocalObjectIDs
 
-public constant let CONTROL_TOWER = UNIT_ID_GEN.next()
 
-@compile function createControlTower()
-    new BuildingDefinition(CONTROL_TOWER, UnitIds.humanarcanetower)
+@compiletime function createControlTower()
+    new BuildingDefinition(UNIT_CONTROL_TOWER, UnitIds.humanarcanetower)
     ..setModelFile(Units.stasisTotem)
     ..setNormalAbilities("")
     ..setAttack1AttackType(AttackType.Chaos)
@@ -49,9 +45,4 @@ public constant let CONTROL_TOWER = UNIT_ID_GEN.next()
     ..setHitPointsRegenerationType("Always")
     ..setSightRadiusDay(6000)
     ..setSightRadiusNight(6000)
-
-    
-
     ..setAttack1TargetsAllowed("value")
-
-

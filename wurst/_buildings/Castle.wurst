@@ -1,19 +1,17 @@
-package Keep
+package Castle
 
 import UnitObjEditing
-import ObjectIdGenerator
 import ObjectIds
 import UnitIds
 import AbilityIds
+import LocalObjectIDs
 
-public constant let FOOTMEN_KEEP = compiletime(UNIT_ID_GEN.next())
-public constant let GRUNTS_KEEP = compiletime(UNIT_ID_GEN.next())
-constant let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
+let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
 
 @compiletime function createFootmenKeep()
-    new BuildingDefinition(FOOTMEN_KEEP, UnitIds.castle)
+    new BuildingDefinition(UNIT_ALLIANCE_CASTLE, UnitIds.castle)
     ..setGroundTexture("HMED")
-    ..setName("FootmenKeep")
+    ..setName("Alliance Castle")
     ..setNormalAbilities(KEEP_ABILITIES)
     ..setPlacementRequires("")
     ..setFoodProduced(0)
@@ -21,9 +19,9 @@ constant let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
     ..setUpgradesUsed("")
 
 @compiletime function createGruntsKeep()
-    new BuildingDefinition(GRUNTS_KEEP, UnitIds.fortress)
+    new BuildingDefinition(UNIT_HORDE_CASTLE, UnitIds.fortress)
     ..setGroundTexture("OLAR")
-    ..setName("GruntsKeep")
+    ..setName("Horde Castle")
     ..setNormalAbilities(KEEP_ABILITIES)
     ..setPlacementRequires("")
     ..setFoodProduced(0)

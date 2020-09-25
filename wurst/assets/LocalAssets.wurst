@@ -1,0 +1,62 @@
+package LocalAssets
+
+
+// Standard library imports:
+import ObjectIdGenerator
+
+public class LocalIcons
+
+public class LocalUnits
+    // A nonexistent model used to hide units.
+    static constant dummy                          = "Models\\Dummy.mdl"
+
+public class LocalBuildings
+
+public class LocalAbilities
+
+public class LocalItems
+
+public class LocalAbilityIds
+
+public class LocalUnitIds
+
+// TODO: Move this to standard library.
+
+public class BuffIds
+    static constant thornsAura   = 'BEah'
+    static constant roar         = 'Broa'
+    static constant cripple      = 'Bcri'
+    static constant howlOfTerror = 'BNht'
+    static constant slow         = 'Bslo'
+    static constant bloodLust    = 'Bblo'
+    static constant flameStrike  = 'BHfs'
+    static constant spiritLink   = 'Bspl'
+
+public class DestructibleIds
+
+public class ItemIds
+
+public class PathingTextures
+    static constant simpleSolid8x8 = "PathTextures\\8x8SimpleSolid.tga"
+    static constant simpleSolid4x4 = "PathTextures\\4x4SimpleSolid.tga"
+    static constant simpleSolid2x2 = "PathTextures\\2x2Default.tga"
+
+public class UnitShadow
+    static constant none        = ""
+    static constant shadow      = "Shadow"
+    static constant shadowFlyer = "ShadowFlyer"
+
+public class UnitClasses
+    static constant ancient    = "ancient"
+    static constant giant      = "giant"
+    static constant mechanical = "mechanical"
+    static constant neutral    = "neutral"
+    static constant suicidal   = "sapper"
+    static constant summoned   = "summoned"
+    static constant tauren     = "tauren"
+    static constant townHall   = "townhall"
+    static constant tree       = "tree"
+    static constant undead     = "undead"
+    static constant walkable   = "standon"
+    static constant ward       = "ward"
+    static constant worker     = "peon"

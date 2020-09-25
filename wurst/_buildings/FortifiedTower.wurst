@@ -1,18 +1,12 @@
 package FortifiedTower
 
 import UnitObjEditing
-import ObjectIdGenerator
-import ObjectIds
 import UnitIds
-import AbilityIds
-import LinkedList
-import Units
-import Abilities
+import LocalObjectIDs
 
-public constant let TOWER = UNIT_ID_GEN.next()
 
 @compiletime function createFortifiedTowerNoDamage()
-    new BuildingDefinition(TOWER, UnitIds.scouttower)
+    new BuildingDefinition(UNIT_BASIC_TOWER, UnitIds.scouttower)
     ..setRepairLumberCost(0)
     ..setLumberCost(0)
     ..setBuildTime(20)
@@ -56,4 +50,3 @@ public constant let TOWER = UNIT_ID_GEN.next()
     ..setTooltipExtended("Can be upgraded into an Anti-Air Tower, a Frost Tower, a Energy Tower, a Flame Tower and a Destruction Tower.")
     ..setPathingMap("PathTextures\\8x8SimpleSolid.tga")
     ..setResearchesAvailable("")
-    
