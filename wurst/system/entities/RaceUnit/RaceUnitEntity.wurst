@@ -1,0 +1,27 @@
+package RaceUnitEntity
+
+import UnitEntity
+import PlayerExtension
+import LinkedList
+
+let typeIDs = asList(
+    'hfoo',
+    'ogru'
+)
+
+public class RaceUnitEntity extends UnitEntity
+    construct(unit whichUnit)
+        super(whichUnit)
+
+    override function postCreate()
+        super.postCreate()
+        print(getUnit().getName())
+        getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit().getTypeId(), 1)
+
+    override function postDeath()
+        super.postDeath()
+        getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit().getTypeId(), -1)
+
+init
+    typeIDs.forEach() (int typeID) ->
+        RaceUnitEntity.register(typeID, target -> new RaceUnitEntity(target))

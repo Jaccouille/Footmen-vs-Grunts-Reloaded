@@ -1,0 +1,8 @@
+package Footman
+
+import LocalObjectIDs
+import RaceUnitEntity
+
+// public class Footman extends RaceUnitEntity
+//     construct(unit whichUnit)
+//         super(whichUnit)
