@@ -1,0 +1,86 @@
+package PlayerData
+
+import HashMap
+import ClosureTimers
+import ClosureEvents
+
+import Indicators
+
+public class PlayerData
+    static let playerDataMap = new HashMap<player, PlayerData>
+    static function initialize()
+        for i = 0 to 10
+            // if players[i].isIngame()
+            new PlayerData(players[i])
+
+        replaceIndicator()
+
+
+    static function getPlayerData(player _player) returns PlayerData
+        if playerDataMap.has(_player)
+            return playerDataMap.get(_player)
+        return null
+
+
+    player _player
+    let playerBuilding = new HashMap<int, unit>
+
+
+    construct(player _player)
+        this._player = _player
+        playerDataMap.put(_player, this)
+
+    function addBuilding(unit building)
+        // Make sure the hashMap is empty
+        // For some god only knows reason, player 5 already has building
+        // but trying to get them result in wc3 crashing
+        if playerBuilding.has(building.getTypeId())
+            playerBuilding.remove(building.getTypeId())
+
+        playerBuilding.put(building.getTypeId(), building)
+        EventListener.add(building, EVENT_PLAYER_UNIT_DEATH) ->
+            playerBuilding.remove(building.getTypeId())
+            unregisterEventsForUnit(building)
+
+
+// It's easier to place units on editor and then replace them with our
+// Wurst defined units
+function replaceIndicator()
+    // Delay to ensure that all indicators are registered prior to execution.
+    nullTimer() ->
+        // Replace indicators one type at a time.
+        indicators.forEach() (integer originID, integer targetID) ->
+            // Find all matching indicators for the current type.
+            ENUM_GROUP..clear().enumUnitsOfType(originID, null)
+
+            // Replace each indicator with the corresponding unit.
+            for origin in ENUM_GROUP
+                // Extract the relevant information from the indicator.
+                let owner = origin.getOwner()
+                let pos   = origin.getPos()
+                let angle = origin.getFacingAngle()
+
+                // Remove the indicator once it is no longer needed.
+                origin.remove()
+
+                // Create the actual unit.
+                let target = createUnit(owner, targetID, pos, angle)
+                // TODO: add condition before accesing map
+                if target.getOwner().getId() < 10
+                    let pData = PlayerData.playerDataMap.get(target.getOwner())
+                    pData.addBuilding(target)
+
+                // Look up the callbacks for this indicator.
+                let list = indicatorCallbacks.get(targetID)
+
+                // Execute each callback, as necessary.
+                if list != null
+                    list.forEach() (Callback cb) ->
+                        cb.run(target)
+
+
+init
+    EventListener.add(EVENT_PLAYER_LEAVE) ->
+        let _player = EventData.getTriggerPlayer()
+        destroy PlayerData.playerDataMap.get(_player)
+        PlayerData.playerDataMap.remove(_player)

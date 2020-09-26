@@ -1,5 +1,7 @@
 ---
 projectName: FootmenVsGruntsReloaded
+dependencies:
+- https://github.com/theQuazz/wurst-lodash
 buildMapData:
   name: DefaultName
   fileName: DefaultFileName
@@ -7,6 +9,7 @@ buildMapData:
   # scenarioData:
   #   description: Never seen before # The map's description
   #   suggestedPlayers: 5v5 # Hint text displayed in lobby
+
   players:
   - id: 0
     race: HUMAN

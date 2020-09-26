@@ -15,8 +15,8 @@ public class RaceUnitEntity extends UnitEntity
 
     override function postCreate()
         super.postCreate()
-        print(getUnit().getName())
-        getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit().getTypeId(), 1)
+        if getUnit().getOwner().getUnitSpawner() != null
+            getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit().getTypeId(), 1)
 
     override function postDeath()
         super.postDeath()

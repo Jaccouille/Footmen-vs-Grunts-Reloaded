@@ -1,0 +1,104 @@
+package UnitSpawner
+
+import Orders
+import ClosureEvents
+import HashMap
+import ClosureTimers
+
+import PlayerExtension
+import LocalObjectIDs
+
+tuple unitCounter(int current, int max)
+
+class UnitSpawnData
+    int unitId
+    int abilId
+    real period
+    unitCounter spawnCounter = unitCounter(0, 0)
+
+    construct(int unitId, int abilId, real period, int unitLimit)
+        this.unitId = unitId
+        //this.abilId = abilId
+        this.period = period
+        this.spawnCounter.max = unitLimit
+
+
+public class UnitSpawner
+    static let playerToSpawnerMap = new HashMap<player, UnitSpawner>
+
+    static function initialize()
+        for i = 0 to 9
+            // if players[i].isIngame()
+            let pData = players[i].getPlayerData()
+            var initialSpawn = vec2(0, 0)
+            UnitSpawnData firstSpawn = null
+
+            if i < 5
+                if pData.playerBuilding.has(UNIT_ALLIANCE_CASTLE)
+                    initialSpawn = pData.playerBuilding.get(UNIT_ALLIANCE_CASTLE).getPos()
+                firstSpawn = new UnitSpawnData('hfoo', 'x000', 1, 5)
+                //print(initialSpawn.toString())
+            if i >= 5
+                initialSpawn = pData.playerBuilding.get(UNIT_HORDE_CASTLE).getPos()
+                firstSpawn = new UnitSpawnData('ogru', 'x000', 1, 5)
+
+            let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
+            new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
+               ..addUnit(firstSpawn)
+
+    static function getUnitSpawner(player _player) returns UnitSpawner
+        return playerToSpawnerMap.get(_player)
+
+    var spawningPos = vec2(0, 0)
+    var order = 0
+    var orderPos = vec2(0, 0)
+    player _player
+    let unitToSpawn = new HashMap<UnitSpawnData, CallbackPeriodic>
+    let unitToSpawnDataMap = new HashMap<int, UnitSpawnData>
+
+    construct(player _player, vec2 spawningPos, int order, vec2 orderPos)
+        this._player = _player
+        this.spawningPos = spawningPos
+        this.order = order
+        this.orderPos = orderPos
+        playerToSpawnerMap.put(_player, this)
+
+    function addUnit(UnitSpawnData spawnData)
+        CallbackPeriodic spawnTimer = null
+        unitToSpawn.put(spawnData, spawnTimer)
+        unitToSpawnDataMap.put(spawnData.unitId, spawnData)
+        updateUnitCap(spawnData.spawnCounter.max)
+
+        spawnTimer = doPeriodically(spawnData.period) cb ->
+            if spawnData.spawnCounter.current < spawnData.spawnCounter.max
+                createUnit(this._player, spawnData.unitId, spawningPos, 270..asAngleDegrees())
+                    ..issuePointOrderById(order, orderPos)
+
+    function removeUnit(UnitSpawnData spawnData)
+        updateUnitCap(-spawnData.spawnCounter.max)
+        unitToSpawn.remove(spawnData)
+
+    function updateSpawningPos(vec2 pos)
+        this.spawningPos = pos
+
+    function updateOrder(int orderId)
+        this.order = orderId
+
+    function updateOrderPos(vec2 pos)
+        this.orderPos = pos
+
+    function updateUnitCounter(int unitTypeID, int value)
+        unitToSpawnDataMap.get(unitTypeID).spawnCounter.current += value
+        let currentUnitCount = _player.getState(PLAYER_STATE_RESOURCE_FOOD_USED)
+        _player.setState(PLAYER_STATE_RESOURCE_FOOD_USED, currentUnitCount + value)
+
+    function updateUnitCap(int value)
+        let currentCap = _player.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
+        _player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, currentCap + value)
+
+function initSpawner()
+
+init
+    EventListener.add(EVENT_PLAYER_UNIT_TRAIN_FINISH) ->
+        let owner = EventData.getTriggerPlayer()
+        let u = EventData.getTriggerUnit()

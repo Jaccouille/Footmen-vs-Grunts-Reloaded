@@ -73,11 +73,6 @@ public abstract class UnitEntity
     function getPos() returns vec2
         return theUnit.getPos()
 
-    function removeUnit()
-        if theUnit != null and removeUnit
-            theUnit.remove()
-            theUnit = null
-
     function onRevive()
         postRevive()
 
@@ -91,7 +86,6 @@ public abstract class UnitEntity
 
     ondestroy
         instances.remove(theUnit)
-        removeUnit()
 
 init
     EventListener.add(EVENT_PLAYER_UNIT_DEATH) ->
