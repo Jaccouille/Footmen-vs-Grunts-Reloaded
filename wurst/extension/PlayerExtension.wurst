@@ -1,0 +1,11 @@
+package PlayerExtension
+
+
+import PlayerData
+import initlater UnitSpawner
+
+public function player.getPlayerData() returns PlayerData
+    return PlayerData.getPlayerData(this)
+
+public function player.getUnitSpawner() returns UnitSpawner
+    return UnitSpawner.getUnitSpawner(this)

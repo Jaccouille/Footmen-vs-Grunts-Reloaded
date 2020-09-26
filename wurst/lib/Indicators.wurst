@@ -12,42 +12,35 @@ public interface Callback
     function run(unit target)
 
 // A mapping of IDs from indicator units to actual units.
-// Indicator IDs should not be referenced anywhere else.
-let indicators = new IterableMap<int, int>()
+public let indicators = new IterableMap<int, int>()
     ..put('haro', UNIT_ALLIANCE_CAPITAL)
     ..put('hcas', UNIT_ALLIANCE_CASTLE)
-
     ..put('hars', UNIT_HUMAN_TRAINING_CENTER)
     ..put('hbla', UNIT_HUMAN_UPGRADE_CENTER)
-
     ..put('edos', UNIT_NELF_TRAINING_CENTER)
     ..put('edob', UNIT_NELF_UPGRADE_CENTER)
-
     ..put('nnsa', UNIT_NAGA_TRAINING_CENTER)
     ..put('nnsg', UNIT_NAGA_UPGRADE_CENTER)
-
     ..put('nshr', UNIT_HORDE_CAPITAL)
     ..put('ofrt', UNIT_HORDE_CASTLE)
     ..put('osld', UNIT_ORC_TRAINING_CENTER)
     ..put('ofor', UNIT_ORC_UPGRADE_CENTER)
     ..put('utod', UNIT_UNDEAD_TRAINING_CENTER)
     ..put('ugrv', UNIT_UNDEAD_UPGRADE_CENTER)
-
     ..put('h01L', UNIT_BASIC_TOWER)
     ..put('hgtw', UNIT_ALLIANCE_BASIC_TOWER)
     ..put('owtw', UNIT_HORDE_BASIC_TOWER)
     ..put('h000', UNIT_CONTROL_TOWER)
 
 
-
-let callbacks = new IterableMap<int, LinkedList<Callback>>()
+public let indicatorCallbacks = new IterableMap<int, LinkedList<Callback>>()
 
 public function registerIndicator(int originID, int targetID)
     indicators.put(originID, targetID)
 
 public function registerCallback(int targetID, Callback cb)
     // Look up the list of callbacks for the given type.
-    var list = callbacks.get(targetID)
+    var list = indicatorCallbacks.get(targetID)
 
     // Build a default element, as necessary.
     if list == null
@@ -55,36 +48,7 @@ public function registerCallback(int targetID, Callback cb)
         list = new LinkedList<Callback>()
 
         // Register the list for later user.
-        callbacks.put(targetID, list)
+        indicatorCallbacks.put(targetID, list)
 
     // Register the callback.
     list.add(cb)
-
-init
-    // Delay to ensure that all indicators are registered prior to execution.
-    nullTimer() ->
-        // Replace indicators one type at a time.
-        indicators.forEach() (integer originID, integer targetID) ->
-            // Find all matching indicators for the current type.
-            ENUM_GROUP..clear().enumUnitsOfType(originID, null)
-
-            // Replace each indicator with the corresponding unit.
-            for origin in ENUM_GROUP
-                // Extract the relevant information from the indicator.
-                let owner = origin.getOwner()
-                let pos   = origin.getPos()
-                let angle = origin.getFacingAngle()
-
-                // Remove the indicator once it is no longer needed.
-                origin.remove()
-
-                // Create the actual unit.
-                let target = createUnit(owner, targetID, pos, angle)
-
-                // Look up the callbacks for this indicator.
-                let list = callbacks.get(targetID)
-
-                // Execute each callback, as necessary.
-                if list != null
-                    list.forEach() (Callback cb) ->
-                        cb.run(target)
