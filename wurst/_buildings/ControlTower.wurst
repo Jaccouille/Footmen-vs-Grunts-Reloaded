@@ -12,7 +12,8 @@ let ARMY_ORDER_ABILITIES = commaList(
     ABILITY_ARMY_STOP,
     ABILITY_ARMY_HOLD,
     ABILITY_ARMY_ATTACK,
-    ABILITY_UNIT_STANDBY
+    ABILITY_UNIT_STANDBY,
+    ABILITY_TOGGLE_SPAWN
 )
 
 @compiletime function createControlTower()

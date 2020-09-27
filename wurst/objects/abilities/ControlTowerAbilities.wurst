@@ -64,6 +64,27 @@ function AbilityDefinition.setNameEnhance(string hotkey, string name)
         ..presetButtonPosNormal(2, 1)
         ..setTargetsAllowed(1, TargetsAllowed.playerunits)
 
+@compiletime function createToggleSpawn()
+    new ChannelAbilityPreset(ABILITY_TOGGLE_SPAWN, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNSell)
+        ..presetTargetTypes(Targettype.UNIT)
+        ..presetOption(Option.VISIBLE, true)
+        ..setNameEnhance("F", "Unit Toggle Spawn")
+        ..setCastingTime(1, 0)
+        ..presetButtonPosNormal(3, 1)
+        ..setTargetsAllowed(1, TargetsAllowed.playerunits)
+
+@compiletime function createToggleAutoSend()
+    new ChannelAbilityPreset(ABILITY_AUTO_SEND, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNSelectUnit)
+        ..presetTargetTypes(Targettype.NONE)
+        ..presetOption(Option.VISIBLE, true)
+        ..setNameEnhance("Z", "Toggle Auto Send")
+        ..setCastingTime(1, 0)
+        ..presetButtonPosNormal(0, 2)
+
 
 function onPoint(unit caster, int orderId, vec2 targetPos)
     let owner = caster.getOwner()
@@ -80,6 +101,10 @@ function onTarget(unit caster, unit target)
 
     owner.getUnitSpawner().updateOrderGroup(target.getTypeId())
 
+function toggleSpawn(unit caster, unit target)
+    let owner = caster.getOwner()
+    owner.getUnitSpawner().toggleSpawn(target.getTypeId())
+
 
 init
     EventListener.onPointCast(ABILITY_ARMY_MOVE, (unit caster, vec2 target) -> onPoint(caster, OrderIds.move, target))
@@ -87,3 +112,4 @@ init
     EventListener.onCast(ABILITY_ARMY_STOP, (unit caster) -> onCast(caster, OrderIds.stop))
     EventListener.onCast(ABILITY_ARMY_HOLD, (unit caster) -> onCast(caster, OrderIds.holdposition))
     EventListener.onTargetCast(ABILITY_UNIT_STANDBY, (unit caster, unit target) -> onTarget(caster, target))
+    EventListener.onTargetCast(ABILITY_TOGGLE_SPAWN, (unit caster, unit target) -> toggleSpawn(caster, target))

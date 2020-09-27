@@ -7,11 +7,13 @@ import ObjectIdGenerator
 // Third-party imports:
 import ObjectIDManager
 
-public let ABILITY_ARMY_ATTACK = compiletime(ABIL_ID_GEN.next())..registerObjectID("UNIT_ARMY_ATTACK" )
-public let ABILITY_ARMY_HOLD   = compiletime(ABIL_ID_GEN.next())..registerObjectID("UNIT_ARMY_HOLD"   )
-public let ABILITY_ARMY_MOVE   = compiletime(ABIL_ID_GEN.next())..registerObjectID("UNIT_ARMY_MOVE"   )
-public let ABILITY_ARMY_STOP   = compiletime(ABIL_ID_GEN.next())..registerObjectID("UNIT_ARMY_STOP"   )
-public let ABILITY_UNIT_STANDBY= compiletime(ABIL_ID_GEN.next())..registerObjectID("UNIT_UNIT_STANDBY"   )
+public let ABILITY_ARMY_ATTACK  = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_ATTACK"  )
+public let ABILITY_ARMY_HOLD    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_HOLD"    )
+public let ABILITY_ARMY_MOVE    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_MOVE"    )
+public let ABILITY_ARMY_STOP    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_STOP"    )
+public let ABILITY_UNIT_STANDBY = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_UNIT_STANDBY" )
+public let ABILITY_TOGGLE_SPAWN = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_TOGGLE_SPAWN" )
+public let ABILITY_AUTO_SEND    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_AUTO_SEND"    )
 
 public let UNIT_ALLIANCE_CAPITAL       = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_ALLIANCE_CAPITAL"       )
 public let UNIT_ALLIANCE_CASTLE        = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_ALLIANCE_CASTLE"        )
