@@ -1,0 +1,89 @@
+package ControlTowerAbilities
+
+import ChannelAbilityPreset
+import ClosureEvents
+import OrderIds
+import Assets
+
+import PlayerExtension
+import LocalObjectIDs
+import TooltipsUtils
+import PlayerData
+
+function AbilityDefinition.setNameEnhance(string hotkey, string name)
+    this.setName(name)
+    this.setHotkeyNormal(hotkey)
+    this.presetTooltipNormal(lvl -> makeToolTipNorm(hotkey, name))
+
+@compiletime function createMoveOrder()
+    new ChannelAbilityPreset(ABILITY_ARMY_MOVE, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNMove)
+        ..presetTargetTypes(Targettype.POINT)
+        ..presetOption(Option.VISIBLE, true)
+        ..setNameEnhance("W", "Army Move Order")
+        ..setCastingTime(1, 0)
+        ..presetButtonPosNormal(1, 0)
+
+@compiletime function createStopOrder()
+    new ChannelAbilityPreset(ABILITY_ARMY_STOP, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNStop)
+        ..presetTargetTypes(Targettype.NONE)
+        ..setNameEnhance("S", "Army Stop Order")
+        ..setCastingTime(1, 0)
+        ..presetButtonPosNormal(1, 1)
+
+@compiletime function createHoldOrder()
+    new ChannelAbilityPreset(ABILITY_ARMY_HOLD, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNHoldPosition)
+        ..presetTargetTypes(Targettype.NONE)
+        ..setNameEnhance("E", "Army Hold Order")
+        ..setCastingTime(1, 0)
+        ..presetButtonPosNormal(2, 0)
+
+@compiletime function createAttackOrder()
+    new ChannelAbilityPreset(ABILITY_ARMY_ATTACK, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNAttack)
+        ..presetTargetTypes(Targettype.POINT)
+        ..presetOption(Option.VISIBLE, true)
+        ..setNameEnhance("Q", "Army Attack Order")
+        ..setCastingTime(1, 0)
+        ..presetButtonPosNormal(0, 0)
+
+@compiletime function createStandByOrder()
+    new ChannelAbilityPreset(ABILITY_UNIT_STANDBY, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNCancel)
+        ..presetTargetTypes(Targettype.UNIT)
+        ..presetOption(Option.VISIBLE, true)
+        ..setNameEnhance("D", "Unit Standby Order")
+        ..setCastingTime(1, 0)
+        ..presetButtonPosNormal(2, 1)
+        ..setTargetsAllowed(1, TargetsAllowed.playerunits)
+
+
+function onPoint(unit caster, int orderId, vec2 targetPos)
+    let owner = caster.getOwner()
+
+    owner.getUnitSpawner().updateOrder(orderId, targetPos)
+
+function onCast(unit caster, int orderId)
+    let owner = caster.getOwner()
+
+    owner.getUnitSpawner().updateOrder(orderId)
+
+function onTarget(unit caster, unit target)
+    let owner = caster.getOwner()
+
+    owner.getUnitSpawner().updateOrderGroup(target.getTypeId())
+
+
+init
+    EventListener.onPointCast(ABILITY_ARMY_MOVE, (unit caster, vec2 target) -> onPoint(caster, OrderIds.move, target))
+    EventListener.onPointCast(ABILITY_ARMY_ATTACK, (unit caster, vec2 target) -> onPoint(caster, OrderIds.attack, target))
+    EventListener.onCast(ABILITY_ARMY_STOP, (unit caster) -> onCast(caster, OrderIds.stop))
+    EventListener.onCast(ABILITY_ARMY_HOLD, (unit caster) -> onCast(caster, OrderIds.holdposition))
+    EventListener.onTargetCast(ABILITY_UNIT_STANDBY, (unit caster, unit target) -> onTarget(caster, target))

@@ -4,6 +4,8 @@ import Orders
 import ClosureEvents
 import HashMap
 import ClosureTimers
+import ClosureForGroups
+import LinkedList
 
 import PlayerExtension
 import LocalObjectIDs
@@ -55,6 +57,8 @@ public class UnitSpawner
     player _player
     let unitToSpawn = new HashMap<UnitSpawnData, CallbackPeriodic>
     let unitToSpawnDataMap = new HashMap<int, UnitSpawnData>
+    let armyOrderGroup = CreateGroup()
+    let disabledOrderUnit = new LinkedList<int>
 
     construct(player _player, vec2 spawningPos, int order, vec2 orderPos)
         this._player = _player
@@ -71,8 +75,13 @@ public class UnitSpawner
 
         spawnTimer = doPeriodically(spawnData.period) cb ->
             if spawnData.spawnCounter.current < spawnData.spawnCounter.max
-                createUnit(this._player, spawnData.unitId, spawningPos, 270..asAngleDegrees())
-                    ..issuePointOrderById(order, orderPos)
+                let u = createUnit(this._player, spawnData.unitId, spawningPos, 270..asAngleDegrees())
+                if not disabledOrderUnit.has(u.getTypeId())
+                    armyOrderGroup.addUnit(u)
+                    if order == OrderIds.move or order == OrderIds.attack
+                        u.issuePointOrderById(order, orderPos)
+                    else
+                        u.issueImmediateOrderById(order)
 
     function removeUnit(UnitSpawnData spawnData)
         updateUnitCap(-spawnData.spawnCounter.max)
@@ -83,9 +92,12 @@ public class UnitSpawner
 
     function updateOrder(int orderId)
         this.order = orderId
+        armyOrderGroup.immediateOrderById(orderId)
 
-    function updateOrderPos(vec2 pos)
+    function updateOrder(int orderId, vec2 pos)
+        this.order = orderId
         this.orderPos = pos
+        armyOrderGroup.pointOrderById(order, pos)
 
     function updateUnitCounter(int unitTypeID, int value)
         unitToSpawnDataMap.get(unitTypeID).spawnCounter.current += value
@@ -96,7 +108,20 @@ public class UnitSpawner
         let currentCap = _player.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
         _player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, currentCap + value)
 
-function initSpawner()
+    function updateOrderGroup(int unitId)
+        forUnitsOfPlayer(_player) (unit u) ->
+            if u.getTypeId() == unitId
+                if disabledOrderUnit.has(unitId)
+                    armyOrderGroup.addUnit(u)
+                else
+                    armyOrderGroup.removeUnit(u)
+        if disabledOrderUnit.has(unitId)
+            disabledOrderUnit.remove(unitId)
+            printTimedToPlayer("Spawn ON", 4, _player)
+        else
+            disabledOrderUnit.add(unitId)
+            printTimedToPlayer("Spawn OFF", 4, _player)
+
 
 init
     EventListener.add(EVENT_PLAYER_UNIT_TRAIN_FINISH) ->
