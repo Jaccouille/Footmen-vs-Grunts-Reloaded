@@ -15,6 +15,9 @@ public let ABILITY_UNIT_STANDBY = compiletime(ABIL_ID_GEN.next())..registerObjec
 public let ABILITY_TOGGLE_SPAWN = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_TOGGLE_SPAWN" )
 public let ABILITY_AUTO_SEND    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_AUTO_SEND"    )
 
+public let ABILITY_FOOTMAN_TOGGLE    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_FOOTMAN_TOGGLE"    )
+public let ABILITY_RIFLEMAN_TOGGLE    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_RIFLEMAN_TOGGLE"    )
+
 public let UNIT_ALLIANCE_CAPITAL       = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_ALLIANCE_CAPITAL"       )
 public let UNIT_ALLIANCE_CASTLE        = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_ALLIANCE_CASTLE"        )
 public let UNIT_HUMAN_TRAINING_CENTER  = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_HUMAN_TRAINING_CENTER"  )
@@ -33,3 +36,6 @@ public let UNIT_BASIC_TOWER            = compiletime(UNIT_ID_GEN.next())..regist
 public let UNIT_ALLIANCE_BASIC_TOWER   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_ALLIANCE_BASIC_TOWER"   )
 public let UNIT_HORDE_BASIC_TOWER      = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_HORDE_BASIC_TOWER"      )
 public let UNIT_CONTROL_TOWER          = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_CONTROL_TOWER"          )
+
+public let UNIT_RIFLEMAN          = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_RIFLEMAN"          )
+public let UNIT_PRIEST          = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_PRIEST"          )

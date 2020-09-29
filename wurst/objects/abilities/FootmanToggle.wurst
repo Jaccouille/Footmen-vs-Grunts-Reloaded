@@ -1,0 +1,21 @@
+package FootmanToggle
+
+import ChannelAbilityPreset
+import Assets
+
+import LocalObjectIDs
+import TooltipsUtils
+
+function AbilityDefinition.setNameEnhance(string hotkey, string name)
+    this.setName(name)
+    this.setHotkeyNormal(hotkey)
+    this.presetTooltipNormal(lvl -> makeToolTipNorm(hotkey, name))
+
+@compiletime function createFootmanToggle()
+    new ChannelAbilityPreset(ABILITY_FOOTMAN_TOGGLE, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNFootman)
+        ..presetTargetTypes(Targettype.NONE)
+        ..setNameEnhance("Q", "Toggle Footmen Spawn")
+        ..setCastingTime(1, 0)
+        ..presetButtonPosNormal(0, 0)

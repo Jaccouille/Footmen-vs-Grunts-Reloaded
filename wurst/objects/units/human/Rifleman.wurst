@@ -1,0 +1,98 @@
+package Rifleman
+
+import ChannelAbilityPreset
+import Assets
+import ClosureEvents
+import OrderIds
+
+import LocalObjectIDs
+import PlayerExtension
+import UnitSpawner
+import TooltipsUtils
+
+let ABILITY_PRIEST_TOGGLE = compiletime(ABIL_ID_GEN.next())
+
+function AbilityDefinition.setNameEnhance(string hotkey, string name)
+    this.setName(name)
+    this.setHotkeyNormal(hotkey)
+    this.presetTooltipNormal(lvl -> makeToolTipNorm(hotkey, name))
+
+function createToggleAbility(int newId, int lvls) returns ChannelAbilityPreset
+    return new ChannelAbilityPreset(newId, lvls, true)
+        ..setDummyAbility()
+        ..presetTargetTypes(Targettype.NONE)
+        ..setCastingTime(1, 0)
+
+function createSpawnedUnit(int newId, int origId) returns UnitDefinition
+    return new UnitDefinition(newId, origId)
+        ..setDeathTimeseconds(1.0)
+        ..setBuildTime(1)
+        ..setFoodCost(0)
+        ..setLumberBountyAwardedBase(1)
+        ..setLumberCost(0)
+        ..setRequirements("")
+
+
+@compiletime function createRifleman()
+    createSpawnedUnit(UNIT_RIFLEMAN, UnitIds.rifleman)
+        ..setAttack1DamageBase(15)
+        ..setAttack1DamageNumberofDice(1)
+        ..setAttack1DamageUpgradeAmount(1)
+        ..setDefenseBase(0)
+        ..setCollisionSize(16.0)
+        ..setGoldBountyAwardedSidesperDie(2)
+        ..setGoldCost(0)
+        ..setHitPointsMaximumBase(550)
+        ..setLevel(2)
+        ..setPriority(3)
+        ..setTooltipBasic("Call Rifleman")
+        ..setTooltipExtended("Pew pew pew")
+
+    createToggleAbility(ABILITY_RIFLEMAN_TOGGLE, 1)
+        ..setIconNormal(Icons.bTNRifleman)
+        ..setNameEnhance("Q", "Toggle Rifleman Spawn")
+        ..presetButtonPosNormal(0, 0)
+
+@compiletime function createPriest()
+    createSpawnedUnit(UNIT_PRIEST, UnitIds.priest)
+        ..setAttack1DamageBase(15)
+        ..setAttack1DamageNumberofDice(1)
+        ..setAttack1DamageUpgradeAmount(1)
+        ..setDefenseBase(1)
+        ..setCollisionSize(16.0)
+        ..setGoldBountyAwardedSidesperDie(2)
+        ..setGoldCost(0)
+        ..setHitPointsMaximumBase(550)
+        ..setLevel(2)
+        ..setPriority(3)
+        ..setTooltipBasic("Call Priest")
+        ..setTooltipExtended("Pew pew pew")
+        ..setButtonPositionX(0)
+        ..setButtonPositionY(0)
+
+    createToggleAbility(ABILITY_PRIEST_TOGGLE, 1)
+        ..setIconNormal(Icons.bTNPriest)
+        ..setNameEnhance("E", "Toggle Priest Spawn")
+        ..presetButtonPosNormal(0, 0)
+
+function onCasterToggle(unit caster)
+    let owner = caster.getOwner()
+    let abilId = EventData.getSpellAbilityId()
+
+    owner.getUnitSpawner().toggleSpawn(abilId)
+
+
+init
+    new UnitSpawnData(UNIT_RIFLEMAN, ABILITY_RIFLEMAN_TOGGLE, 10, 12)
+    let priest = new UnitSpawnData(UNIT_PRIEST, ABILITY_PRIEST_TOGGLE, 2, 12)
+        ..addSpawnOrder("Autocasting Heal", OrderIds.healon)
+        ..addSpawnOrder("Autocasting InnerFire", OrderIds.innerfireon)
+    EventListener.onCast(ABILITY_PRIEST_TOGGLE, (unit caster) -> onCasterToggle(caster))
+
+    EventListener.add(EVENT_PLAYER_UNIT_TRAIN_FINISH) ->
+        let u = EventData.getTriggerUnit()
+        print(u.getName())
+        u.addAbility(ABILITY_PRIEST_TOGGLE)
+        let d = EventData.getTrainedUnit()
+        d.remove()
+        u.getOwner().getUnitSpawner().addUnitSpawner(priest)

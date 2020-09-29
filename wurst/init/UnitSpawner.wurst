@@ -7,23 +7,43 @@ import ClosureTimers
 import ClosureForGroups
 import LinkedList
 
+import Lodash
+
 import PlayerExtension
 import LocalObjectIDs
 
 tuple unitCounter(int current, int max)
 
-class UnitSpawnData
+public class UnitSpawnData
+
     int unitId
     int abilId
     real period
     unitCounter spawnCounter = unitCounter(0, 0)
-    boolean doSpawn = true
+    let toggleOption = new LinkedList<Pair<string, int>>
 
     construct(int unitId, int abilId, real period, int unitLimit)
         this.unitId = unitId
-        //this.abilId = abilId
+        this.abilId = abilId
         this.period = period
         this.spawnCounter.max = unitLimit
+        toggleOption.push(new Pair("ON", 1))
+        toggleOption.push(new Pair("OFF", 0))
+
+    function addSpawnOrder(string toDisplay, int orderId)
+        let idx = toggleOption.size() - 1
+        toggleOption.addAt(new Pair(toDisplay, orderId), idx)
+
+    function onToggle() returns string
+        let option = toggleOption.dequeue()
+        toggleOption.push(option)
+        return toggleOption.getFirst().a
+
+    function getCurrentOrder() returns int
+        return toggleOption.getFirst().b
+
+    function canSpawn() returns boolean
+        return (spawnCounter.current < spawnCounter.max and toggleOption.getFirst().a != "OFF")
 
 
 public class UnitSpawner
@@ -47,7 +67,7 @@ public class UnitSpawner
 
             let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
             new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
-               ..addUnit(firstSpawn)
+               ..addUnitSpawner(firstSpawn)
 
     static function getUnitSpawner(player _player) returns UnitSpawner
         return playerToSpawnerMap.get(_player)
@@ -57,8 +77,9 @@ public class UnitSpawner
     var orderPos = vec2(0, 0)
     player _player
     let unitToSpawnDataMap = new HashMap<int, UnitSpawnData>
+    let abilToSpawnDataMap = new HashMap<int, UnitSpawnData>
     let armyOrderGroup = CreateGroup()
-    let disabledOrderUnit = new LinkedList<int>
+    let disabledOrderUnitId = new LinkedList<int>
     var autoSend = true
 
     construct(player _player, vec2 spawningPos, int order, vec2 orderPos)
@@ -68,26 +89,41 @@ public class UnitSpawner
         this.orderPos = orderPos
         playerToSpawnerMap.put(_player, this)
 
-    function addUnit(UnitSpawnData spawnData)
+    function spawnUnit(UnitSpawnData spawnData)
+        if not spawnData.canSpawn()
+            return
+        let u = createUnit(this._player, spawnData.unitId, spawningPos, 270..asAngleDegrees())
+        // issue special on spawn order (autocasting, ravenform...)
+        if spawnData.getCurrentOrder() > 1
+            u.issueImmediateOrderById(spawnData.getCurrentOrder())
+
+        // If unit can take movement order on spawn
+        if not disabledOrderUnitId.has(u.getTypeId())
+            armyOrderGroup.addUnit(u)
+            if autoSend
+                if order == OrderIds.move or order == OrderIds.attack
+                    u.issuePointOrderById(order, orderPos)
+                else
+                    u.issueImmediateOrderById(order)
+
+
+    // TODO: call update total counter
+    function addUnitSpawner(UnitSpawnData spawnData)
+        // TODO: check if those 2 hashmap store the same reference
+        abilToSpawnDataMap.put(spawnData.abilId, spawnData)
         unitToSpawnDataMap.put(spawnData.unitId, spawnData)
-        spawnData.doSpawn = true
         updateUnitCap(spawnData.spawnCounter.max)
 
+        spawnUnit(spawnData)
         // TODO: add listener on ability cast
         doPeriodically(spawnData.period) cb ->
-            if spawnData.spawnCounter.current < spawnData.spawnCounter.max
-                let u = createUnit(this._player, spawnData.unitId, spawningPos, 270..asAngleDegrees())
-                if not disabledOrderUnit.has(u.getTypeId())
-                    armyOrderGroup.addUnit(u)
-                    if autoSend
-                        if order == OrderIds.move or order == OrderIds.attack
-                            u.issuePointOrderById(order, orderPos)
-                        else
-                            u.issueImmediateOrderById(order)
+            // if _player == players[0]
+            //     print(unitToSpawnDataMap.get('hfoo').spawnCounter.current)
+            //     print(spawnData.spawnCounter.current)
+            spawnUnit(spawnData)
 
     function removeUnit(UnitSpawnData spawnData)
         updateUnitCap(-spawnData.spawnCounter.max)
-        spawnData.doSpawn = false
 
     function updateSpawningPos(vec2 pos)
         this.spawningPos = pos
@@ -111,15 +147,15 @@ public class UnitSpawner
         _player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, currentCap + value)
 
     function updateOrderGroup(int unitId)
-        if disabledOrderUnit.has(unitId)
-            disabledOrderUnit.remove(unitId)
+        if disabledOrderUnitId.has(unitId)
+            disabledOrderUnitId.remove(unitId)
             printTimedToPlayer("Spawn ON", 4, _player)
         else
-            disabledOrderUnit.add(unitId)
+            disabledOrderUnitId.add(unitId)
             printTimedToPlayer("Spawn OFF", 4, _player)
         forUnitsOfPlayer(_player) (unit u) ->
             if u.getTypeId() == unitId
-                if disabledOrderUnit.has(unitId)
+                if disabledOrderUnitId.has(unitId)
                     armyOrderGroup.removeUnit(u)
                 else
                     armyOrderGroup.addUnit(u)
@@ -130,15 +166,20 @@ public class UnitSpawner
         else
             autoSend = true
 
-    function toggleSpawn(int unitId)
-        if unitToSpawnDataMap.has(unitId)
-            let spawnData = unitToSpawnDataMap.get(unitId)
-            if spawnData.doSpawn
+    function toggleSpawn(int abilId)
+        if abilToSpawnDataMap.has(abilId)
+            let spawnData = abilToSpawnDataMap.get(abilId)
+            let modeStr = spawnData.onToggle()
+            print(modeStr)
+            if modeStr == "OFF"
                 removeUnit(spawnData)
-            else
-                addUnit(spawnData)
+            else if modeStr == "ON"
+                updateUnitCap(spawnData.spawnCounter.max)
         else
             print("This isn't a spawnable unit")
+
+    function getSpawnData(int abilId) returns UnitSpawnData
+        return abilToSpawnDataMap.get(abilId)
 
 init
     EventListener.add(EVENT_PLAYER_UNIT_TRAIN_FINISH) ->

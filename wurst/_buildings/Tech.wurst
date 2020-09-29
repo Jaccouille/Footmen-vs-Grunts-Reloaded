@@ -23,8 +23,8 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
     createTechBuilding(UNIT_HUMAN_TRAINING_CENTER, UnitIds.arcanesanctum)
         ..setName("Human Training Center")
         ..setResearchesAvailable("")
-        ..setUnitsTrained("")
         ..setSightRadiusDay(99999)
+        ..setUnitsTrained(commaList(UNIT_RIFLEMAN, UNIT_PRIEST))
 
 @compiletime function createHumanUpgradesCenter()
     createTechBuilding(UNIT_HUMAN_UPGRADE_CENTER, UnitIds.blacksmith)

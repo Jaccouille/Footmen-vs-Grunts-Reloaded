@@ -4,9 +4,12 @@ import UnitEntity
 import PlayerExtension
 import LinkedList
 
+import LocalObjectIDs
+
 let typeIDs = asList(
     'hfoo',
-    'ogru'
+    'ogru',
+    UNIT_PRIEST
 )
 
 public class RaceUnitEntity extends UnitEntity
