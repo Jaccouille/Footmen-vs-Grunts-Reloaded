@@ -1,0 +1,24 @@
+package SpawnDataConstant
+
+import HashMap
+import LocalObjectIDs
+
+class SpawnDataConstant
+    real spawnPeriod
+    int unitCap
+
+    construct(real spawnPeriod, int unitCap)
+        this.spawnPeriod = spawnPeriod
+        this.unitCap = unitCap
+
+public let spawnDataConstant = new HashMap<int, SpawnDataConstant>()
+    ..put(UNIT_RIFLEMAN       , new SpawnDataConstant(10, 12))
+    ..put(UNIT_PRIEST         , new SpawnDataConstant(2, 12))
+    ..put(UNIT_KNIGHT         , new SpawnDataConstant(5, 12))
+    ..put(UNIT_MORTAR         , new SpawnDataConstant(5, 12))
+    ..put(UNIT_FLYING_MACHINE , new SpawnDataConstant(5, 12))
+    ..put(UNIT_GRYPHON_RIDER  , new SpawnDataConstant(5, 12))
+    ..put(UNIT_SORCERESS      , new SpawnDataConstant(5, 12))
+    ..put(UNIT_SPELL_BREAKER  , new SpawnDataConstant(5, 12))
+    ..put(UNIT_SIEGE_ENGINE   , new SpawnDataConstant(5, 12))
+    ..put(UNIT_WAR_GOLEM      , new SpawnDataConstant(5, 12))

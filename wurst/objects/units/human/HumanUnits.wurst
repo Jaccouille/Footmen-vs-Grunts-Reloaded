@@ -230,11 +230,11 @@ import LocalAssets
         ..setPriority(11)
         ..setTooltipBasic("Call Siege Engine")
         ..setTooltipExtended("Pew pew pew")
-        ..setHotkeyEnhance("F")
+        ..setHotkeyEnhance("D")
 
     createToggleAbility(ABILITY_TOGGLE_SIEGE_ENGINE, 1)
         ..setIconNormal(Icons.bTNSeigeEngine)
-        ..setNameEnhance("F", "Toggle Siege Engine Spawn")
+        ..setNameEnhance("D", "Toggle Siege Engine Spawn")
 
 @compiletime function createWargolem()
     createSpawnedUnit(UNIT_WAR_GOLEM, UnitIds.wargolem)
@@ -260,8 +260,8 @@ import LocalAssets
         ..setRace(Race.Human)
         ..setTooltipBasic("Call War Golem")
         ..setTooltipExtended("Pew pew pew")
-        ..setHotkeyEnhance("D")
+        ..setHotkeyEnhance("F")
 
     createToggleAbility(ABILITY_TOGGLE_WAR_GOLEM, 1)
         ..setIconNormal(Icons.bTNArmorGolem)
-        ..setNameEnhance("D", "Toggle War Golem Spawn")
+        ..setNameEnhance("F", "Toggle War Golem Spawn")
