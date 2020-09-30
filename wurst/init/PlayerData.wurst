@@ -70,13 +70,17 @@ function replaceIndicator()
                     let pData = PlayerData.playerDataMap.get(target.getOwner())
                     pData.addBuilding(target)
 
+                // TODO : for some reason this following code
+                // crashes due to HotkeyMapping definition in CommonUtils.wurst
+                // Find out why
                 // Look up the callbacks for this indicator.
-                let list = indicatorCallbacks.get(targetID)
+                // if indicatorCallbacks.has(targetID)
+                //     let list = indicatorCallbacks.get(targetID)
 
-                // Execute each callback, as necessary.
-                if list != null
-                    list.forEach() (Callback cb) ->
-                        cb.run(target)
+                //     // Execute each callback, as necessary.
+                //     if list != null
+                //         list.forEach() (Callback cb) ->
+                //             cb.run(target)
 
 
 init

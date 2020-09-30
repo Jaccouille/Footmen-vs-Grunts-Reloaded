@@ -1,6 +1,10 @@
 package UnitObjEditingUtils
 
 import UnitObjEditing
+import ErrorHandling
+import HashMap
+
+import CommonUtils
 
 
 public function createSpawnedUnit(int newId, int origId) returns UnitDefinition
@@ -16,3 +20,11 @@ public function UnitDefinition.setRepairCommon(int repairTime)
     this.setRepairTime(repairTime)
     this.setRepairGoldCost(0)
     this.setRepairLumberCost(0)
+
+public function UnitDefinition.setHotkeyEnhance(string hotkey)
+    if not hotKeyMapping.has(hotkey)
+        error("Hotkey button position mapping has no \"{0}\" element".format(hotkey))
+        return
+    this.setHotkey(hotkey)
+    this.setButtonPositionX(hotKeyMapping.get(hotkey).x)
+    this.setButtonPositionY(hotKeyMapping.get(hotkey).y)

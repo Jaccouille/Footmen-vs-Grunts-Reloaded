@@ -1,12 +1,15 @@
 package AbilityObjEditingUtils
 
 import ChannelAbilityPreset
+import ErrorHandling
+import HashMap
 
 import TooltipsUtils
+import CommonUtils
 
 public function AbilityDefinition.setNameEnhance(string hotkey, string name)
     this.setName(name)
-    this.setHotkeyNormal(hotkey)
+    this.setHotkeyNormalEnhance(hotkey)
     this.presetTooltipNormal(lvl -> makeToolTipNorm(hotkey, name))
 
 public function createToggleAbility(int newId, int lvls) returns ChannelAbilityPreset
@@ -14,3 +17,10 @@ public function createToggleAbility(int newId, int lvls) returns ChannelAbilityP
         ..setDummyAbility()
         ..presetTargetTypes(Targettype.NONE)
         ..setCastingTime(1, 0)
+
+public function AbilityDefinition.setHotkeyNormalEnhance(string hotkey)
+    if not hotKeyMapping.has(hotkey)
+        error("Hotkey button position mapping has no \"{0}\" element".format(hotkey))
+        return
+    this.setHotkeyNormal(hotkey)
+    this.presetButtonPosNormal(hotKeyMapping.get(hotkey).x, hotKeyMapping.get(hotkey).y)
