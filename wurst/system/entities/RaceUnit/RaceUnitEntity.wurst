@@ -18,7 +18,17 @@ let typeIDs = asList(
     UNIT_SORCERESS,
     UNIT_SPELL_BREAKER,
     UNIT_SIEGE_ENGINE,
-    UNIT_WAR_GOLEM
+    UNIT_WAR_GOLEM,
+    UNIT_HEADHUNTER,
+    UNIT_WARLOCK,
+    UNIT_SHAMAN,
+    UNIT_WITCH_DOCTOR,
+    UNIT_RAIDER,
+    UNIT_TAUREN,
+    UNIT_DEMOLISHER,
+    UNIT_WIND_RIDER,
+    UNIT_KODO_BEAST,
+    UNIT_OGRE
 )
 
 public class RaceUnitEntity extends UnitEntity

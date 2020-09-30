@@ -22,6 +22,19 @@ let HUMAN_UNITS = commaList(
     UNIT_WAR_GOLEM
 )
 
+let ORC_UNITS = commaList(
+    UNIT_HEADHUNTER,
+    UNIT_WARLOCK,
+    UNIT_SHAMAN,
+    UNIT_WITCH_DOCTOR,
+    UNIT_RAIDER,
+    UNIT_TAUREN,
+    UNIT_DEMOLISHER,
+    UNIT_WIND_RIDER,
+    UNIT_KODO_BEAST,
+    UNIT_OGRE
+)
+
 function createTechBuilding(int newId, int origId) returns BuildingDefinition
     return new BuildingDefinition(newId, origId)
         ..setPlacementRequires("")
@@ -47,11 +60,16 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setScalingValue(0.9)
 
 @compiletime function createNightelfTrainingCenter()
-    createTechBuilding(UNIT_NELF_TRAINING_CENTER, UnitIds.ancientoflore)
+    createTechBuilding(UNIT_NELF_TRAINING_CENTER, UnitIds.chimaeraroost)
         ..setName("Night Elf Training Center")
         ..setResearchesAvailable("")
         ..setUnitsTrained("")
         ..setAttacksEnabled(AttacksEnabled.None.toObjectInt())
+        ..setModelFile(Buildings.ancientofLore)
+        ..setIconGameInterface(Icons.bTNAncientOfLore)
+        ..setScalingValue(1.1)
+        ..setUnitSoundSet(Soundsets.ancientOfLore)
+        ..setPriority(3)
 
 @compiletime function createNightelfUpgradesCenter()
     createTechBuilding(UNIT_NELF_UPGRADE_CENTER, UnitIds.huntershall)
@@ -63,7 +81,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
     createTechBuilding(UNIT_ORC_TRAINING_CENTER, UnitIds.spiritlodge)
         ..setName("Orc Training Center")
         ..setResearchesAvailable("")
-        ..setUnitsTrained("")
+        ..setUnitsTrained(ORC_UNITS)
         ..setScalingValue(1.2)
 
 @compiletime function createOrcUpgradesCenter()
