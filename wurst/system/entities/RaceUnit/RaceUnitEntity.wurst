@@ -6,10 +6,19 @@ import LinkedList
 
 import LocalObjectIDs
 
+// TODO: Update
 let typeIDs = asList(
     'hfoo',
     'ogru',
-    UNIT_PRIEST
+    UNIT_PRIEST,
+    UNIT_KNIGHT,
+    UNIT_MORTAR,
+    UNIT_FLYING_MACHINE,
+    UNIT_GRYPHON_RIDER,
+    UNIT_SORCERESS,
+    UNIT_SPELL_BREAKER,
+    UNIT_SIEGE_ENGINE,
+    UNIT_WAR_GOLEM
 )
 
 public class RaceUnitEntity extends UnitEntity

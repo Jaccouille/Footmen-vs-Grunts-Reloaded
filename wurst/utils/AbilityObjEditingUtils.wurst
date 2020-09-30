@@ -1,0 +1,16 @@
+package AbilityObjEditingUtils
+
+import ChannelAbilityPreset
+
+import TooltipsUtils
+
+public function AbilityDefinition.setNameEnhance(string hotkey, string name)
+    this.setName(name)
+    this.setHotkeyNormal(hotkey)
+    this.presetTooltipNormal(lvl -> makeToolTipNorm(hotkey, name))
+
+public function createToggleAbility(int newId, int lvls) returns ChannelAbilityPreset
+    return new ChannelAbilityPreset(newId, lvls, true)
+        ..setDummyAbility()
+        ..presetTargetTypes(Targettype.NONE)
+        ..setCastingTime(1, 0)

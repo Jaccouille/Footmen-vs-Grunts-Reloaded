@@ -9,6 +9,19 @@ import LocalAssets
 import LocalObjectIDs
 let TECH_ABILITIES = commaList(AbilityIds.invulnerable)
 
+let HUMAN_UNITS = commaList(
+    UNIT_RIFLEMAN,
+    UNIT_PRIEST,
+    UNIT_KNIGHT,
+    UNIT_MORTAR,
+    UNIT_FLYING_MACHINE,
+    UNIT_GRYPHON_RIDER,
+    UNIT_SORCERESS,
+    UNIT_SPELL_BREAKER,
+    UNIT_SIEGE_ENGINE,
+    UNIT_WAR_GOLEM
+)
+
 function createTechBuilding(int newId, int origId) returns BuildingDefinition
     return new BuildingDefinition(newId, origId)
         ..setPlacementRequires("")
@@ -24,7 +37,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setName("Human Training Center")
         ..setResearchesAvailable("")
         ..setSightRadiusDay(99999)
-        ..setUnitsTrained(commaList(UNIT_RIFLEMAN, UNIT_PRIEST))
+        ..setUnitsTrained(HUMAN_UNITS)
 
 @compiletime function createHumanUpgradesCenter()
     createTechBuilding(UNIT_HUMAN_UPGRADE_CENTER, UnitIds.blacksmith)

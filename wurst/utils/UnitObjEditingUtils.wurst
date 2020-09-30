@@ -1,0 +1,18 @@
+package UnitObjEditingUtils
+
+import UnitObjEditing
+
+
+public function createSpawnedUnit(int newId, int origId) returns UnitDefinition
+    return new UnitDefinition(newId, origId)
+        ..setDeathTimeseconds(1.0)
+        ..setBuildTime(1)
+        ..setFoodCost(0)
+        ..setLumberBountyAwardedBase(1)
+        ..setLumberCost(0)
+        ..setRequirements("")
+
+public function UnitDefinition.setRepairCommon(int repairTime)
+    this.setRepairTime(repairTime)
+    this.setRepairGoldCost(0)
+    this.setRepairLumberCost(0)
