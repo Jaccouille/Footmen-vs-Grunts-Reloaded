@@ -7,55 +7,23 @@ import ClosureTimers
 import ClosureForGroups
 import LinkedList
 
-import Lodash
-
 import PlayerExtension
 import LocalObjectIDs
 
-tuple unitCounter(int current, int max)
-
-public class UnitSpawnData
-
-    int unitId
-    int abilId
-    real period
-    unitCounter spawnCounter = unitCounter(0, 0)
-    let toggleOption = new LinkedList<Pair<string, int>>
-
-    construct(int unitId, int abilId, real period, int unitLimit)
-        this.unitId = unitId
-        this.abilId = abilId
-        this.period = period
-        this.spawnCounter.max = unitLimit
-        toggleOption.push(new Pair("ON", 1))
-        toggleOption.push(new Pair("OFF", 0))
-
-    function addSpawnOrder(string toDisplay, int orderId)
-        let idx = toggleOption.size() - 1
-        toggleOption.addAt(new Pair(toDisplay, orderId), idx)
-
-    function onToggle() returns string
-        let option = toggleOption.dequeue()
-        toggleOption.push(option)
-        return toggleOption.getFirst().a
-
-    function getCurrentOrder() returns int
-        return toggleOption.getFirst().b
-
-    function canSpawn() returns boolean
-        return (spawnCounter.current < spawnCounter.max and toggleOption.getFirst().a != "OFF")
-
+import initlater UnitSpawnData
 
 public class UnitSpawner
     static let playerToSpawnerMap = new HashMap<player, UnitSpawner>
 
     static function initialize()
         for i = 0 to 9
+            // TODO: check player isingame
             // if players[i].isIngame()
             let pData = players[i].getPlayerData()
             var initialSpawn = vec2(0, 0)
             UnitSpawnData firstSpawn = null
 
+            // TODO: Init first spawn outside of this class
             if i < 5
                 if pData.playerBuilding.has(UNIT_ALLIANCE_CASTLE)
                     initialSpawn = pData.playerBuilding.get(UNIT_ALLIANCE_CASTLE).getPos()
@@ -121,6 +89,9 @@ public class UnitSpawner
             //     print(unitToSpawnDataMap.get('hfoo').spawnCounter.current)
             //     print(spawnData.spawnCounter.current)
             spawnUnit(spawnData)
+        EventListener.onCast(spawnData.abilId) (unit caster) ->
+            if caster.getOwner() == _player
+                this.toggleSpawn(spawnData.abilId)
 
     function removeUnit(UnitSpawnData spawnData)
         updateUnitCap(-spawnData.spawnCounter.max)
@@ -180,8 +151,3 @@ public class UnitSpawner
 
     function getSpawnData(int abilId) returns UnitSpawnData
         return abilToSpawnDataMap.get(abilId)
-
-init
-    EventListener.add(EVENT_PLAYER_UNIT_TRAIN_FINISH) ->
-        let owner = EventData.getTriggerPlayer()
-        let u = EventData.getTriggerUnit()

@@ -5,6 +5,7 @@ import ClosureTimers
 import ObjectIdGenerator
 import PlayerData
 import UnitSpawner
+import SpawnDataInit
 
 
 function preload()
@@ -21,3 +22,4 @@ init
     PlayerData.initialize()
     nullTimer() ->
         UnitSpawner.initialize()
+        initSpawnData()

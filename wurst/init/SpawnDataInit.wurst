@@ -1,0 +1,20 @@
+package SpawnDataInit
+
+import OrderIds
+
+import LocalObjectIDs
+import UnitSpawnData
+
+public function initSpawnData()
+    new UnitSpawnData(UNIT_RIFLEMAN, ABILITY_TOGGLE_RIFLEMAN, 10, 12)
+    new UnitSpawnData(UNIT_PRIEST, ABILITY_TOGGLE_PRIEST, 2, 12)
+        ..addSpawnOrder("Autocasting Heal", OrderIds.healon)
+        ..addSpawnOrder("Autocasting InnerFire", OrderIds.innerfireon)
+    new UnitSpawnData(UNIT_KNIGHT        , ABILITY_TOGGLE_KNIGHT        , 5 , 12)
+    new UnitSpawnData(UNIT_MORTAR        , ABILITY_TOGGLE_MORTAR        , 5 , 12)
+    new UnitSpawnData(UNIT_FLYING_MACHINE, ABILITY_TOGGLE_FLYING_MACHINE, 5 , 12)
+    new UnitSpawnData(UNIT_GRYPHON_RIDER , ABILITY_TOGGLE_GRYPHON_RIDER , 5 , 12)
+    new UnitSpawnData(UNIT_SORCERESS     , ABILITY_TOGGLE_SORCERESS     , 5 , 12)
+    new UnitSpawnData(UNIT_SPELL_BREAKER , ABILITY_TOGGLE_SPELL_BREAKER , 5 , 12)
+    new UnitSpawnData(UNIT_SIEGE_ENGINE  , ABILITY_TOGGLE_SIEGE_ENGINE  , 5 , 12)
+    new UnitSpawnData(UNIT_WAR_GOLEM     , ABILITY_TOGGLE_WAR_GOLEM     , 5 , 12)

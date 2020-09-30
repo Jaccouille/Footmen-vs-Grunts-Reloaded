@@ -1,0 +1,70 @@
+package UnitSpawnData
+
+import ClosureEvents
+import UnitSpawner
+import LinkedList
+
+import Lodash
+
+import PlayerExtension
+
+tuple unitCounter(int current, int max)
+
+public class UnitSpawnData
+
+    int unitId
+    int abilId
+    real period
+    unitCounter spawnCounter = unitCounter(0, 0)
+    let toggleOption = new LinkedList<Pair<string, int>>
+
+    construct(int unitId, int abilId, real period, int unitLimit)
+        this.unitId = unitId
+        this.abilId = abilId
+        this.period = period
+        this.spawnCounter.max = unitLimit
+        toggleOption.push(new Pair("ON", 1))
+        toggleOption.push(new Pair("OFF", 0))
+        enableTrainingListener()
+
+    construct(int unitId, int abilId, real period, unitCounter spawnCounter)
+        this.unitId = unitId
+        this.abilId = abilId
+        this.period = period
+        this.spawnCounter = spawnCounter
+        toggleOption.push(new Pair("ON", 1))
+        toggleOption.push(new Pair("OFF", 0))
+
+    function copy() returns UnitSpawnData
+        let copy = new UnitSpawnData(unitId, abilId, period, spawnCounter)
+        toggleOption.forEach() (Pair<string, integer> t) ->
+            if t.a != "ON" and t.a != "OFF"
+                copy.addSpawnOrder(t.a, t.b)
+        return copy
+
+    function enableTrainingListener()
+        EventListener.add(EVENT_PLAYER_UNIT_TRAIN_FINISH) ->
+            let trainer = EventData.getTriggerUnit()
+            let trained = EventData.getTrainedUnit()
+            let owner = trainer.getOwner()
+
+            if unitId == trained.getTypeId()
+                SetPlayerTechMaxAllowed(owner, trained.getTypeId(), 0)
+                trained.remove()
+                trainer.addAbility(abilId)
+                owner.getUnitSpawner().addUnitSpawner(this.copy())
+
+    function addSpawnOrder(string toDisplay, int orderId)
+        let idx = toggleOption.size() - 1
+        toggleOption.addAt(new Pair(toDisplay, orderId), idx)
+
+    function onToggle() returns string
+        let option = toggleOption.dequeue()
+        toggleOption.push(option)
+        return toggleOption.getFirst().a
+
+    function getCurrentOrder() returns int
+        return toggleOption.getFirst().b
+
+    function canSpawn() returns boolean
+        return (spawnCounter.current < spawnCounter.max and toggleOption.getFirst().a != "OFF")
