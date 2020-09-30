@@ -13,6 +13,7 @@ public let ABILITY_ARMY_MOVE    = compiletime(ABIL_ID_GEN.next())..registerObjec
 public let ABILITY_ARMY_STOP    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_STOP"    )
 public let ABILITY_UNIT_STANDBY = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_UNIT_STANDBY" )
 public let ABILITY_TOGGLE_SPAWN = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_TOGGLE_SPAWN" )
+public let ABILITY_SET_SPAWN    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_SET_SPAWN" )
 public let ABILITY_AUTO_SEND    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_AUTO_SEND"    )
 
 public let ABILITY_TOGGLE_FOOTMAN        = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_TOGGLE_FOOTMAN"        )

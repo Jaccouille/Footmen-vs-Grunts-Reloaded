@@ -9,11 +9,8 @@ import PlayerExtension
 import LocalObjectIDs
 import TooltipsUtils
 import PlayerData
+import AbilityObjEditingUtils
 
-function AbilityDefinition.setNameEnhance(string hotkey, string name)
-    this.setName(name)
-    this.setHotkeyNormal(hotkey)
-    this.presetTooltipNormal(lvl -> makeToolTipNorm(hotkey, name))
 
 @compiletime function createMoveOrder()
     new ChannelAbilityPreset(ABILITY_ARMY_MOVE, 1, true)
@@ -23,7 +20,6 @@ function AbilityDefinition.setNameEnhance(string hotkey, string name)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("W", "Army Move Order")
         ..setCastingTime(1, 0)
-        ..presetButtonPosNormal(1, 0)
 
 @compiletime function createStopOrder()
     new ChannelAbilityPreset(ABILITY_ARMY_STOP, 1, true)
@@ -32,7 +28,6 @@ function AbilityDefinition.setNameEnhance(string hotkey, string name)
         ..presetTargetTypes(Targettype.NONE)
         ..setNameEnhance("S", "Army Stop Order")
         ..setCastingTime(1, 0)
-        ..presetButtonPosNormal(1, 1)
 
 @compiletime function createHoldOrder()
     new ChannelAbilityPreset(ABILITY_ARMY_HOLD, 1, true)
@@ -41,7 +36,6 @@ function AbilityDefinition.setNameEnhance(string hotkey, string name)
         ..presetTargetTypes(Targettype.NONE)
         ..setNameEnhance("E", "Army Hold Order")
         ..setCastingTime(1, 0)
-        ..presetButtonPosNormal(2, 0)
 
 @compiletime function createAttackOrder()
     new ChannelAbilityPreset(ABILITY_ARMY_ATTACK, 1, true)
@@ -51,7 +45,6 @@ function AbilityDefinition.setNameEnhance(string hotkey, string name)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("Q", "Army Attack Order")
         ..setCastingTime(1, 0)
-        ..presetButtonPosNormal(0, 0)
 
 @compiletime function createStandByOrder()
     new ChannelAbilityPreset(ABILITY_UNIT_STANDBY, 1, true)
@@ -61,7 +54,6 @@ function AbilityDefinition.setNameEnhance(string hotkey, string name)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("D", "Unit Standby Order")
         ..setCastingTime(1, 0)
-        ..presetButtonPosNormal(2, 1)
         ..setTargetsAllowed(1, TargetsAllowed.playerunits)
 
 @compiletime function createToggleSpawn()
@@ -72,8 +64,24 @@ function AbilityDefinition.setNameEnhance(string hotkey, string name)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("F", "Unit Toggle Spawn")
         ..setCastingTime(1, 0)
-        ..presetButtonPosNormal(3, 1)
         ..setTargetsAllowed(1, TargetsAllowed.playerunits)
+
+@compiletime function createSetSpawn()
+    new ChannelAbilityPreset(ABILITY_SET_SPAWN, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNMassTeleport)
+        ..presetTargetTypes(Targettype.UNIT)
+        ..presetOption(Option.VISIBLE, true)
+        ..presetOption(Option.PHYSICALSPELL, true)
+        ..presetOption(Option.UNIVERSALSPELL, true)
+        ..setNameEnhance("V", "Unit Set Spawn")
+        ..setCastingTime(1, 0)
+        ..setTargetsAllowed(1, commaList(
+            TargetsAllowed.vulnerable,
+            TargetsAllowed.invulnerable,
+            TargetsAllowed.structure,
+            TargetsAllowed.friend
+            ))
 
 @compiletime function createToggleAutoSend()
     new ChannelAbilityPreset(ABILITY_AUTO_SEND, 1, true)
@@ -83,7 +91,6 @@ function AbilityDefinition.setNameEnhance(string hotkey, string name)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("Z", "Toggle Auto Send")
         ..setCastingTime(1, 0)
-        ..presetButtonPosNormal(0, 2)
 
 
 function onPoint(unit caster, int orderId, vec2 targetPos)
@@ -105,6 +112,10 @@ function toggleSpawn(unit caster, unit target)
     let owner = caster.getOwner()
     owner.getUnitSpawner().toggleSpawn(target.getTypeId())
 
+function setSpawn(unit caster, unit target)
+    let owner = caster.getOwner()
+    owner.getUnitSpawner().spawningPos = target.getPos()
+
 
 init
     EventListener.onPointCast(ABILITY_ARMY_MOVE, (unit caster, vec2 target) -> onPoint(caster, OrderIds.move, target))
@@ -113,3 +124,4 @@ init
     EventListener.onCast(ABILITY_ARMY_HOLD, (unit caster) -> onCast(caster, OrderIds.holdposition))
     EventListener.onTargetCast(ABILITY_UNIT_STANDBY, (unit caster, unit target) -> onTarget(caster, target))
     EventListener.onTargetCast(ABILITY_TOGGLE_SPAWN, (unit caster, unit target) -> toggleSpawn(caster, target))
+    EventListener.onTargetCast(ABILITY_SET_SPAWN, (unit caster, unit target) -> setSpawn(caster, target))
