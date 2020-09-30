@@ -4,8 +4,6 @@ import UnitObjEditing
 import ObjectIdGenerator
 import ObjectIds
 import UnitIds
-import AbilityIds
-import LinkedList
 import Units
 import Buildings
 import Abilities
@@ -261,7 +259,7 @@ constant let UPGRADE_SECOND = commaList(DEATH_TOWER)
     ..setAttack1AreaofEffectFullDamage(100)
     ..setAttack1AreaofEffectMediumDamage(150)
     ..setAttack1AreaofEffectSmallDamage(200)
-    ..setAttack1AreaofEffectTargets("air,enemy,ground")    
+    ..setAttack1AreaofEffectTargets("air,enemy,ground")
     ..setDefenseBase(20)
     ..setAcquisitionRange(1500)
     ..setArmorType(ArmorType.Fortified)

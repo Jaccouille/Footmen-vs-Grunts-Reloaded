@@ -1,7 +1,6 @@
 package Indicators
 
 // Standard-library imports:
-import ClosureTimers
 import HashMap
 import LinkedList
 

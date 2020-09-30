@@ -1,9 +1,6 @@
 package LocalAssets
 
 
-// Standard library imports:
-import ObjectIdGenerator
-
 public class LocalIcons
 
 public class LocalUnits

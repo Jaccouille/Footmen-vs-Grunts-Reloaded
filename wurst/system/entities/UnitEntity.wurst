@@ -58,8 +58,6 @@ public abstract class UnitEntity
 
     private unit theUnit
 
-    private bool removeUnit = true
-
     construct(unit whichUnit)
         theUnit = whichUnit
         postCreate()
