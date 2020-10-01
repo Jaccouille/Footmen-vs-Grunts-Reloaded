@@ -93,13 +93,13 @@ import AbilityObjEditingUtils
         ..setHitPointsMaximumBase(600)
         ..setLevel(8)
         ..setPriority(7)
-        ..setTooltipBasic("Call Glaive_thrower")
+        ..setTooltipBasic("Call Glaive Thrower")
         ..setTooltipExtended("Pew pew pew")
         ..setHotkeyEnhance("R")
 
     createToggleAbility(ABILITY_TOGGLE_GLAIVE_THROWER, 1)
         ..setIconNormal(Icons.bTNGlaiveThrower)
-        ..setNameEnhance("R", "Toggle Glaive_thrower Spawn")
+        ..setNameEnhance("R", "Toggle Glaive Thrower Spawn")
 
 @compiletime function createDruidTalon()
     createSpawnedUnit(UNIT_DRUID_TALON, UnitIds.druidofthetalon)

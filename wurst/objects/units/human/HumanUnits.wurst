@@ -72,19 +72,10 @@ import LocalAssets
 
 @compiletime function createMortarTeam()
     createSpawnedUnit(UNIT_MORTAR, UnitIds.mortarteam)
-        ..setAttack1AreaofEffectTargets(commaList(
-            TargetsAllowed.debris,
-            TargetsAllowed.enemies,
-            TargetsAllowed.ground,
-            TargetsAllowed.structure,
-            TargetsAllowed.wall
-        ))
         ..setAttack1DamageBase(70)
-        ..setAttack1DamageFactorMedium(0.25)
         ..setAttack1DamageUpgradeAmount(4)
         ..setAttack2DamageBase(50)
         ..setAttack2DamageSidesperDie(11)
-        ..setAttack2DamageUpgradeAmount(1)
         ..setDefenseBase(4)
         ..setSpeedBase(220)
         ..setCollisionSize(22.0)
@@ -93,8 +84,6 @@ import LocalAssets
         ..setGoldCost(0)
         ..setHitPointsMaximumBase(600)
         ..setLevel(8)
-        ..setRepairCommon(30)
-        ..setUnitClassification(UnitClasses.mechanical)
         ..setPriority(7)
         ..setTooltipBasic("Call Mortar Team")
         ..setTooltipExtended("Pew pew pew")
@@ -236,7 +225,7 @@ import LocalAssets
         ..setIconNormal(Icons.bTNSeigeEngine)
         ..setNameEnhance("D", "Toggle Siege Engine Spawn")
 
-@compiletime function createWargolem()
+@compiletime function createWarGolem()
     createSpawnedUnit(UNIT_WAR_GOLEM, UnitIds.wargolem)
         ..setScalingValue(1.15)
         ..setAttack1AttackType(AttackType.Chaos)
