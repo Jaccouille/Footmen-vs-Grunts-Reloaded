@@ -3,51 +3,17 @@ package Tech
 import UnitObjEditing
 import ObjectIds
 import Assets
+import LinkedList
 
 import LocalAssets
+import IDListConstant
 
 import LocalObjectIDs
 let TECH_ABILITIES = commaList(AbilityIds.invulnerable)
 
-let HUMAN_UNITS = commaList(
-    UNIT_RIFLEMAN,
-    UNIT_PRIEST,
-    UNIT_KNIGHT,
-    UNIT_MORTAR,
-    UNIT_FLYING_MACHINE,
-    UNIT_GRYPHON_RIDER,
-    UNIT_SORCERESS,
-    UNIT_SPELL_BREAKER,
-    UNIT_SIEGE_ENGINE,
-    UNIT_WAR_GOLEM
-)
-
-let ORC_UNITS = commaList(
-    UNIT_HEADHUNTER,
-    UNIT_WARLOCK,
-    UNIT_SHAMAN,
-    UNIT_WITCH_DOCTOR,
-    UNIT_RAIDER,
-    UNIT_TAUREN,
-    UNIT_DEMOLISHER,
-    UNIT_WIND_RIDER,
-    UNIT_KODO_BEAST,
-    UNIT_OGRE
-)
-
-let NIGHT_ELF_UNITS = commaList(
-    UNIT_ARCHER,
-    UNIT_HUNTRESS,
-    UNIT_HYPPO_RIDER,
-    UNIT_GLAIVE_THROWER,
-    UNIT_DRUID_TALON,
-    UNIT_DRUID_CLAW,
-    UNIT_DRYAD,
-    UNIT_CHIMAERA,
-    UNIT_MOUNTAIN_GIANT,
-    UNIT_ANCIENT_PROTECTOR,
-    UNIT_WARDEN
-)
+let HUMAN_TRAINABLE     = HUMAN_UNITS    .joinBy((int i) -> i.toRawCode(), ",")
+let ORC_TRAINABLE       = ORC_UNITS      .joinBy((int i) -> i.toRawCode(), ",")
+let NIGHT_ELF_TRAINABLE = NIGHT_ELF_UNITS.joinBy((int i) -> i.toRawCode(), ",")
 
 function createTechBuilding(int newId, int origId) returns BuildingDefinition
     return new BuildingDefinition(newId, origId)
@@ -64,7 +30,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setName("Human Training Center")
         ..setResearchesAvailable("")
         ..setSightRadiusDay(99999)
-        ..setUnitsTrained(HUMAN_UNITS)
+        ..setUnitsTrained(HUMAN_TRAINABLE)
 
 @compiletime function createHumanUpgradesCenter()
     createTechBuilding(UNIT_HUMAN_UPGRADE_CENTER, UnitIds.blacksmith)
@@ -77,7 +43,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
     createTechBuilding(UNIT_NELF_TRAINING_CENTER, UnitIds.chimaeraroost)
         ..setName("Night Elf Training Center")
         ..setResearchesAvailable("")
-        ..setUnitsTrained(NIGHT_ELF_UNITS)
+        ..setUnitsTrained(NIGHT_ELF_TRAINABLE)
         ..setAttacksEnabled(AttacksEnabled.None.toObjectInt())
         ..setModelFile(Buildings.ancientofLore)
         ..setIconGameInterface(Icons.bTNAncientOfLore)
@@ -95,7 +61,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
     createTechBuilding(UNIT_ORC_TRAINING_CENTER, UnitIds.spiritlodge)
         ..setName("Orc Training Center")
         ..setResearchesAvailable("")
-        ..setUnitsTrained(ORC_UNITS)
+        ..setUnitsTrained(ORC_TRAINABLE)
         ..setScalingValue(1.2)
 
 @compiletime function createOrcUpgradesCenter()

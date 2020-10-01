@@ -4,43 +4,17 @@ import UnitEntity
 import PlayerExtension
 import LinkedList
 
-import LocalObjectIDs
+import IDListConstant
 
 // TODO: Update
 let typeIDs = asList(
     'hfoo',
-    'ogru',
-    UNIT_PRIEST,
-    UNIT_KNIGHT,
-    UNIT_MORTAR,
-    UNIT_FLYING_MACHINE,
-    UNIT_GRYPHON_RIDER,
-    UNIT_SORCERESS,
-    UNIT_SPELL_BREAKER,
-    UNIT_SIEGE_ENGINE,
-    UNIT_WAR_GOLEM,
-    UNIT_HEADHUNTER,
-    UNIT_WARLOCK,
-    UNIT_SHAMAN,
-    UNIT_WITCH_DOCTOR,
-    UNIT_RAIDER,
-    UNIT_TAUREN,
-    UNIT_DEMOLISHER,
-    UNIT_WIND_RIDER,
-    UNIT_KODO_BEAST,
-    UNIT_OGRE,
-    UNIT_ARCHER,
-    UNIT_HUNTRESS,
-    UNIT_HYPPO_RIDER,
-    UNIT_GLAIVE_THROWER,
-    UNIT_DRUID_TALON,
-    UNIT_DRUID_CLAW,
-    UNIT_DRYAD,
-    UNIT_CHIMAERA,
-    UNIT_MOUNTAIN_GIANT,
-    UNIT_ANCIENT_PROTECTOR,
-    UNIT_WARDEN
+    'ogru'
 )
+..addAll(HUMAN_UNITS)
+..addAll(ORC_UNITS)
+..addAll(NIGHT_ELF_UNITS)
+
 
 public class RaceUnitEntity extends UnitEntity
     construct(unit whichUnit)
