@@ -14,6 +14,7 @@ let typeIDs = asList(
 ..addAll(HUMAN_UNITS)
 ..addAll(ORC_UNITS)
 ..addAll(NIGHT_ELF_UNITS)
+..addAll(UNDEAD_UNITS)
 
 
 public class RaceUnitEntity extends UnitEntity

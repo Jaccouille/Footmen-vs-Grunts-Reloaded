@@ -14,6 +14,7 @@ let TECH_ABILITIES = commaList(AbilityIds.invulnerable)
 let HUMAN_TRAINABLE     = HUMAN_UNITS    .joinBy((int i) -> i.toRawCode(), ",")
 let ORC_TRAINABLE       = ORC_UNITS      .joinBy((int i) -> i.toRawCode(), ",")
 let NIGHT_ELF_TRAINABLE = NIGHT_ELF_UNITS.joinBy((int i) -> i.toRawCode(), ",")
+let UNDEAD_TRAINABLE   = UNDEAD_UNITS.joinBy((int i) -> i.toRawCode(), ",")
 
 function createTechBuilding(int newId, int origId) returns BuildingDefinition
     return new BuildingDefinition(newId, origId)
@@ -75,7 +76,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
     createTechBuilding(UNIT_UNDEAD_TRAINING_CENTER, UnitIds.templeofthedamned)
         ..setName("Undead Training Center")
         ..setResearchesAvailable("")
-        ..setUnitsTrained("")
+        ..setUnitsTrained(UNDEAD_TRAINABLE)
         ..setScalingValue(1.1)
 
 @compiletime function createUndeadUpgradesCenter()

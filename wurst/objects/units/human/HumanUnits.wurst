@@ -6,7 +6,6 @@ import Assets
 import LocalObjectIDs
 import UnitObjEditingUtils
 import AbilityObjEditingUtils
-import LocalAssets
 
 
 @compiletime function createRifleman()
