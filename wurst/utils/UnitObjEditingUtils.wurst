@@ -3,8 +3,10 @@ package UnitObjEditingUtils
 import UnitObjEditing
 import ErrorHandling
 import HashMap
+import ObjectIds
 
 import CommonUtils
+import LocalAssets
 
 
 public function createSpawnedUnit(int newId, int origId) returns UnitDefinition
@@ -16,10 +18,58 @@ public function createSpawnedUnit(int newId, int origId) returns UnitDefinition
         ..setLumberCost(0)
         ..setRequirements("")
 
+public function createSiegeUnit(int newId, int origId) returns UnitDefinition
+    return createSpawnedUnit(newId, origId)
+        ..setAcquisitionRange(1150)
+        ..setAttack1AreaofEffectTargets(commaList(
+            TargetsAllowed.debris,
+            TargetsAllowed.enemies,
+            TargetsAllowed.ground,
+            TargetsAllowed.structure,
+            TargetsAllowed.wall
+        ))
+        ..setAttack1TargetsAllowed(commaList(
+            TargetsAllowed.ground,
+            TargetsAllowed.debris,
+            TargetsAllowed.tree,
+            TargetsAllowed.wall,
+            TargetsAllowed.item_t,
+            TargetsAllowed.ward
+        ))
+        ..setAttack1WeaponType(WeaponType.Artillery)
+        ..setAttack1DamageSpillRadius(0)
+        ..setAttack1AreaofEffectMediumDamage(150)
+        ..setAttack1AreaofEffectSmallDamage(250)
+        ..setAttack1DamageFactorMedium(0.250)
+        ..setAttack1DamageFactorSmall(0.100)
+        ..setAttack1DamageLossFactor(0)
+        ..setAttack1DamageSidesperDie(11)
+        ..setAttack2AreaofEffectFullDamage(0)
+        ..setAttack2AreaofEffectMediumDamage(0)
+        ..setAttack2AreaofEffectSmallDamage(0)
+        ..setAttack2CooldownTime(3.5)
+        ..setAttack2DamageFactorMedium(0)
+        ..setAttack2DamageFactorSmall(0)
+        ..setAttack2DamageLossFactor(0)
+        ..setAttack2DamageSpillRadius(0)
+        ..setAttack2DamageUpgradeAmount(1)
+        ..setAttack2TargetsAllowed(TargetsAllowed.structure)
+        ..setAttack2WeaponType(WeaponType.Missile)
+        ..setAttack2DamageSidesperDie(11)
+        ..setAttack2Range(1000)
+        ..setRepairCommon(30)
+        ..setHitPointsRegenerationRate(0.250)
+        ..setHitPointsRegenerationType("always")
+        ..setUnitClassification(UnitClasses.mechanical)
+
 public function UnitDefinition.setRepairCommon(int repairTime)
     this.setRepairTime(repairTime)
     this.setRepairGoldCost(0)
     this.setRepairLumberCost(0)
+
+public function UnitDefinition.setHitPointRegeBasic()
+    this.setHitPointsRegenerationRate(0.250)
+    this.setHitPointsRegenerationType("always")
 
 public function UnitDefinition.setHotkeyEnhance(string hotkey)
     if not hotKeyMapping.has(hotkey)
