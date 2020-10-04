@@ -5,6 +5,7 @@ import LinkedList
 import LocalObjectIDs
 
 public let HUMAN_UNITS = asList(
+    UNIT_FOOTMAN,
     UNIT_PRIEST,
     UNIT_KNIGHT,
     UNIT_MORTAR,
@@ -17,6 +18,7 @@ public let HUMAN_UNITS = asList(
 )
 
 public let ORC_UNITS = asList(
+    UNIT_GRUNT,
     UNIT_HEADHUNTER,
     UNIT_WARLOCK,
     UNIT_SHAMAN,

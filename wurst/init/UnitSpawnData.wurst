@@ -9,13 +9,13 @@ import Lodash
 import PlayerExtension
 import SpawnDataConstant
 
-tuple unitCounter(int current, int max)
+public tuple unitCounter(int current, int max)
 
 public class UnitSpawnData
 
     int unitId
     int abilId
-    real period
+    int period
     unitCounter spawnCounter = unitCounter(0, 0)
     let toggleOption = new LinkedList<Pair<string, int>>
 
@@ -25,15 +25,15 @@ public class UnitSpawnData
         standardInit(unitId, abilId, period, unitCap)
         enableTrainingListener()
 
-    construct(int unitId, int abilId, real period, int unitCap)
+    construct(int unitId, int abilId, int period, int unitCap)
         standardInit(unitId, abilId, period, unitCap)
         enableTrainingListener()
 
-    construct(int unitId, int abilId, real period, unitCounter spawnCounter)
+    construct(int unitId, int abilId, int period, unitCounter spawnCounter)
         standardInit(unitId, abilId, period, spawnCounter.max)
         this.spawnCounter = spawnCounter
 
-    function standardInit(int unitId, int abilId, real period, int unitCap)
+    function standardInit(int unitId, int abilId, int period, int unitCap)
         this.unitId = unitId
         this.abilId = abilId
         this.period = period

@@ -6,6 +6,7 @@ import LocalObjectIDs
 import UnitSpawnData
 
 public function initSpawnData()
+    new UnitSpawnData(UNIT_FOOTMAN        , ABILITY_TOGGLE_RIFLEMAN       )
     new UnitSpawnData(UNIT_RIFLEMAN       , ABILITY_TOGGLE_RIFLEMAN       )
     new UnitSpawnData(UNIT_PRIEST         , ABILITY_TOGGLE_PRIEST         )
         ..addSpawnOrder("Autocasting Heal", OrderIds.healon)
@@ -19,6 +20,7 @@ public function initSpawnData()
     new UnitSpawnData(UNIT_SIEGE_ENGINE   , ABILITY_TOGGLE_SIEGE_ENGINE   )
     new UnitSpawnData(UNIT_WAR_GOLEM      , ABILITY_TOGGLE_WAR_GOLEM      )
 
+    new UnitSpawnData(UNIT_GRUNT       , ABILITY_TOGGLE_HEADHUNTER  )
     new UnitSpawnData(UNIT_HEADHUNTER  , ABILITY_TOGGLE_HEADHUNTER  )
     new UnitSpawnData(UNIT_WARLOCK     , ABILITY_TOGGLE_WARLOCK     )
     new UnitSpawnData(UNIT_SHAMAN      , ABILITY_TOGGLE_SHAMAN      )

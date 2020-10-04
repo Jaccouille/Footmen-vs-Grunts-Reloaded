@@ -78,3 +78,7 @@ public function UnitDefinition.setHotkeyEnhance(string hotkey)
     this.setHotkey(hotkey)
     this.setButtonPositionX(hotKeyMapping.get(hotkey).x)
     this.setButtonPositionY(hotKeyMapping.get(hotkey).y)
+
+public function UnitDefinition.setGoldData(int data)
+    this.setGoldCost(data)
+    this.setPointValue(data)

@@ -4,14 +4,15 @@ import HashMap
 import LocalObjectIDs
 
 class SpawnDataConstant
-    real spawnPeriod
+    int spawnPeriod
     int unitCap
 
-    construct(real spawnPeriod, int unitCap)
+    construct(int spawnPeriod, int unitCap)
         this.spawnPeriod = spawnPeriod
         this.unitCap = unitCap
 
 public let spawnDataConstant = new HashMap<int, SpawnDataConstant>()
+    ..put(UNIT_FOOTMAN        , new SpawnDataConstant(2, 18))
     ..put(UNIT_RIFLEMAN       , new SpawnDataConstant(10, 12))
     ..put(UNIT_PRIEST         , new SpawnDataConstant(2, 12))
     ..put(UNIT_KNIGHT         , new SpawnDataConstant(5, 12))
@@ -35,6 +36,7 @@ public let spawnDataConstant = new HashMap<int, SpawnDataConstant>()
     ..put(UNIT_ANCIENT_PROTECTOR, new SpawnDataConstant(5, 12))
     ..put(UNIT_WARDEN           , new SpawnDataConstant(5, 12))
 
+    ..put(UNIT_GRUNT       , new SpawnDataConstant(2, 18))
     ..put(UNIT_HEADHUNTER  , new SpawnDataConstant(5, 12))
     ..put(UNIT_WARLOCK     , new SpawnDataConstant(5, 12))
     ..put(UNIT_SHAMAN      , new SpawnDataConstant(5, 12))

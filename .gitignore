@@ -4,3 +4,5 @@ wurst.dependencies
 
 # Generated
 wurst/war3map.j
+
+*.txt

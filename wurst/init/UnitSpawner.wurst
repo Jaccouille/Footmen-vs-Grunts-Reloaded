@@ -12,6 +12,7 @@ import LocalObjectIDs
 
 import initlater UnitSpawnData
 import ArmyHandler
+import SpawnDataConstant
 
 public class UnitSpawner
     static let playerToSpawnerMap = new HashMap<player, UnitSpawner>
@@ -28,11 +29,12 @@ public class UnitSpawner
             if i < 5
                 if pData.playerBuilding.has(UNIT_ALLIANCE_CASTLE)
                     initialSpawn = pData.playerBuilding.get(UNIT_ALLIANCE_CASTLE).getPos()
-                firstSpawn = new UnitSpawnData('hfoo', 'x000', 1, 18)
-                //print(initialSpawn.toString())
+                let spawnData = spawnDataConstant.get(UNIT_FOOTMAN)
+                firstSpawn = new UnitSpawnData(UNIT_FOOTMAN, ABILITY_TOGGLE_RIFLEMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
             if i >= 5
                 initialSpawn = pData.playerBuilding.get(UNIT_HORDE_CASTLE).getPos()
-                firstSpawn = new UnitSpawnData('ogru', 'x000', 1, 18)
+                let spawnData = spawnDataConstant.get(UNIT_GRUNT)
+                firstSpawn = new UnitSpawnData(UNIT_GRUNT, ABILITY_TOGGLE_HEADHUNTER, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
 
             let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
             new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
@@ -84,7 +86,7 @@ public class UnitSpawner
 
         spawnUnit(spawnData)
         // TODO: add listener on ability cast
-        doPeriodically(spawnData.period) cb ->
+        doPeriodically(spawnData.period.toReal()) cb ->
             // if _player == players[0]
             //     print(unitToSpawnDataMap.get('hfoo').spawnCounter.current)
             //     print(spawnData.spawnCounter.current)

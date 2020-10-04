@@ -7,10 +7,7 @@ import LinkedList
 import IDListConstant
 
 // TODO: Update
-let typeIDs = asList(
-    'hfoo',
-    'ogru'
-)
+let typeIDs = new LinkedList<int>
 ..addAll(HUMAN_UNITS)
 ..addAll(ORC_UNITS)
 ..addAll(NIGHT_ELF_UNITS)
