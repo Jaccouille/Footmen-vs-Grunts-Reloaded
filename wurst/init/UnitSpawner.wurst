@@ -11,6 +11,7 @@ import PlayerExtension
 import LocalObjectIDs
 
 import initlater UnitSpawnData
+import ArmyHandler
 
 public class UnitSpawner
     static let playerToSpawnerMap = new HashMap<player, UnitSpawner>
@@ -41,20 +42,16 @@ public class UnitSpawner
         return playerToSpawnerMap.get(_player)
 
     var spawningPos = vec2(0, 0)
-    var order = 0
-    var orderPos = vec2(0, 0)
     player _player
     let unitToSpawnDataMap = new HashMap<int, UnitSpawnData>
     let abilToSpawnDataMap = new HashMap<int, UnitSpawnData>
-    let armyOrderGroup = CreateGroup()
-    let disabledOrderUnitId = new LinkedList<int>
     var autoSend = true
+    ArmyHandler armyHandler = null
 
     construct(player _player, vec2 spawningPos, int order, vec2 orderPos)
         this._player = _player
         this.spawningPos = spawningPos
-        this.order = order
-        this.orderPos = orderPos
+        this.armyHandler = new ArmyHandler(_player, order, orderPos)
         playerToSpawnerMap.put(_player, this)
 
     function spawnUnit(UnitSpawnData spawnData)
@@ -66,11 +63,14 @@ public class UnitSpawner
             u.issueImmediateOrderById(spawnData.getCurrentOrder())
 
         // If unit can take movement order on spawn
-        if not disabledOrderUnitId.has(u.getTypeId())
-            armyOrderGroup.addUnit(u)
+        if not armyHandler.isSpawnOrderDisabled(u.getTypeId())
+            armyHandler.addUnit(u)
             if autoSend
+                let order = armyHandler.spawnOrder
                 if order == OrderIds.move or order == OrderIds.attack
-                    u.issuePointOrderById(order, orderPos)
+                    u.issuePointOrderById(order, armyHandler.spawnOrderPos)
+                else if order == OrderIds.smart
+                    u.issueTargetOrderById(order, armyHandler.spawnOrderTarget)
                 else
                     u.issueImmediateOrderById(order)
 
@@ -99,15 +99,6 @@ public class UnitSpawner
     function updateSpawningPos(vec2 pos)
         this.spawningPos = pos
 
-    function updateOrder(int orderId)
-        this.order = orderId
-        armyOrderGroup.immediateOrderById(orderId)
-
-    function updateOrder(int orderId, vec2 pos)
-        this.order = orderId
-        this.orderPos = pos
-        armyOrderGroup.pointOrderById(order, pos)
-
     function updateUnitCounter(int unitTypeID, int value)
         unitToSpawnDataMap.get(unitTypeID).spawnCounter.current += value
         let currentUnitCount = _player.getState(PLAYER_STATE_RESOURCE_FOOD_USED)
@@ -116,20 +107,6 @@ public class UnitSpawner
     function updateUnitCap(int value)
         let currentCap = _player.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
         _player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, currentCap + value)
-
-    function updateOrderGroup(int unitId)
-        if disabledOrderUnitId.has(unitId)
-            disabledOrderUnitId.remove(unitId)
-            printTimedToPlayer("Spawn ON", 4, _player)
-        else
-            disabledOrderUnitId.add(unitId)
-            printTimedToPlayer("Spawn OFF", 4, _player)
-        forUnitsOfPlayer(_player) (unit u) ->
-            if u.getTypeId() == unitId
-                if disabledOrderUnitId.has(unitId)
-                    armyOrderGroup.removeUnit(u)
-                else
-                    armyOrderGroup.addUnit(u)
 
     function toggleAutoSend()
         if autoSend

@@ -8,7 +8,6 @@ import Assets
 import PlayerExtension
 import LocalObjectIDs
 import TooltipsUtils
-import PlayerData
 import AbilityObjEditingUtils
 
 
@@ -37,13 +36,22 @@ import AbilityObjEditingUtils
         ..setNameEnhance("E", "Army Hold Order")
         ..setCastingTime(1, 0)
 
-@compiletime function createAttackOrder()
+@compiletime function createAttackPointOrder()
     new ChannelAbilityPreset(ABILITY_ARMY_ATTACK, 1, true)
         ..setDummyAbility()
         ..setIconNormal(Icons.bTNAttack)
         ..presetTargetTypes(Targettype.POINT)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("Q", "Army Attack Order")
+        ..setCastingTime(1, 0)
+
+@compiletime function createAttackTargetOrder()
+    new ChannelAbilityPreset(ABILITY_ARMY_FOCUS, 1, true)
+        ..setDummyAbility()
+        ..setIconNormal(Icons.bTNAttack)
+        ..presetTargetTypes(Targettype.UNIT)
+        ..presetOption(Option.VISIBLE, true)
+        ..setNameEnhance("A", "Army Focus Order")
         ..setCastingTime(1, 0)
 
 @compiletime function createStandByOrder()
@@ -96,32 +104,41 @@ import AbilityObjEditingUtils
 function onPoint(unit caster, int orderId, vec2 targetPos)
     let owner = caster.getOwner()
 
-    owner.getUnitSpawner().updateOrder(orderId, targetPos)
+    owner.getArmyHandler()
+        ..updateSpawnOrder(orderId, targetPos)
+        ..issueOrderById(orderId, targetPos)
 
 function onCast(unit caster, int orderId)
     let owner = caster.getOwner()
 
-    owner.getUnitSpawner().updateOrder(orderId)
+    owner.getArmyHandler().issueOrderById(orderId)
 
-function onTarget(unit caster, unit target)
+function onTargetCast(unit caster, unit target)
     let owner = caster.getOwner()
+    let abilId = EventData.getSpellAbilityId()
 
-    owner.getUnitSpawner().updateOrderGroup(target.getTypeId())
-
-function toggleSpawn(unit caster, unit target)
-    let owner = caster.getOwner()
-    owner.getUnitSpawner().toggleSpawn(target.getTypeId())
-
-function setSpawn(unit caster, unit target)
-    let owner = caster.getOwner()
-    owner.getUnitSpawner().spawningPos = target.getPos()
+    // TODO: refactor previous into this switch
+    switch abilId
+        case ABILITY_TOGGLE_SPAWN
+            owner.getUnitSpawner().toggleSpawn(target.getTypeId())
+        case ABILITY_SET_SPAWN
+            owner.getUnitSpawner().spawningPos = target.getPos()
+        case ABILITY_ARMY_FOCUS
+            owner.getArmyHandler()
+                ..updateSpawnOrder(OrderIds.smart, target)
+                ..issueOrderById(OrderIds.smart, target)
+        case ABILITY_UNIT_STANDBY
+            owner.getArmyHandler().updateOrderGroup(target.getTypeId())
 
 
 init
     EventListener.onPointCast(ABILITY_ARMY_MOVE, (unit caster, vec2 target) -> onPoint(caster, OrderIds.move, target))
     EventListener.onPointCast(ABILITY_ARMY_ATTACK, (unit caster, vec2 target) -> onPoint(caster, OrderIds.attack, target))
+
     EventListener.onCast(ABILITY_ARMY_STOP, (unit caster) -> onCast(caster, OrderIds.stop))
     EventListener.onCast(ABILITY_ARMY_HOLD, (unit caster) -> onCast(caster, OrderIds.holdposition))
-    EventListener.onTargetCast(ABILITY_UNIT_STANDBY, (unit caster, unit target) -> onTarget(caster, target))
-    EventListener.onTargetCast(ABILITY_TOGGLE_SPAWN, (unit caster, unit target) -> toggleSpawn(caster, target))
-    EventListener.onTargetCast(ABILITY_SET_SPAWN, (unit caster, unit target) -> setSpawn(caster, target))
+
+    EventListener.onTargetCast(ABILITY_UNIT_STANDBY, (unit caster, unit target) -> onTargetCast(caster, target))
+    EventListener.onTargetCast(ABILITY_TOGGLE_SPAWN, (unit caster, unit target) -> onTargetCast(caster, target))
+    EventListener.onTargetCast(ABILITY_SET_SPAWN, (unit caster, unit target) -> onTargetCast(caster, target))
+    EventListener.onTargetCast(ABILITY_ARMY_FOCUS, (unit caster, unit target) -> onTargetCast(caster, target))

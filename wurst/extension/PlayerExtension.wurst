@@ -3,9 +3,13 @@ package PlayerExtension
 
 import PlayerData
 import initlater UnitSpawner
+import initlater ArmyHandler
 
 public function player.getPlayerData() returns PlayerData
     return PlayerData.getPlayerData(this)
 
 public function player.getUnitSpawner() returns UnitSpawner
     return UnitSpawner.getUnitSpawner(this)
+
+public function player.getArmyHandler() returns ArmyHandler
+    return ArmyHandler.getArmyHandler(this)

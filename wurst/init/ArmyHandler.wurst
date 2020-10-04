@@ -1,0 +1,82 @@
+package ArmyHandler
+
+
+import Orders
+import ClosureEvents
+import HashMap
+import ClosureTimers
+import ClosureForGroups
+import LinkedList
+
+import PlayerExtension
+import LocalObjectIDs
+
+
+public class ArmyHandler
+    static let playerToArmyHandlerMap = new HashMap<player, ArmyHandler>
+
+    static function getArmyHandler(player _player) returns ArmyHandler
+        if playerToArmyHandlerMap.has(_player)
+            return playerToArmyHandlerMap.get(_player)
+        return null
+
+    player _player
+    var spawnOrder = 0
+    var spawnOrderPos = vec2(0, 0)
+    unit spawnOrderTarget = null
+    let army = new LinkedList<unit>
+    let disabledOrderUnitId = new LinkedList<int>
+
+    construct(player _player, int order, vec2 orderPos)
+        this._player = _player
+        this.spawnOrder = order
+        this.spawnOrderPos = orderPos
+        playerToArmyHandlerMap.put(_player, this)
+
+    function addUnit(unit u)
+        army.push(u)
+
+    function issueOrderById(int orderId)
+        army.forEach() (unit t) ->
+            t.issueImmediateOrderById(orderId)
+
+    function issueOrderById(int orderId, vec2 pos)
+        army.forEach() (unit t) ->
+            t.issuePointOrderById(orderId, pos)
+
+    function issueOrderById(int orderId, unit target)
+        army.forEach() (unit t) ->
+            t.issueTargetOrderById(orderId, target)
+
+    function updateOrderGroup(int unitId)
+        // TODO: add print message
+        updateDisabledGroup(unitId)
+        forUnitsOfPlayer(_player) (unit u) ->
+            if u.getTypeId() == unitId
+                if disabledOrderUnitId.has(unitId)
+                    army.remove(u)
+                else
+                    army.add(u)
+
+    function updateDisabledGroup(int unitId)
+        if disabledOrderUnitId.has(unitId)
+            disabledOrderUnitId.remove(unitId)
+        else
+            disabledOrderUnitId.add(unitId)
+
+    function getDisabledOrderUnits() returns LinkedList<int>
+        return this.disabledOrderUnitId
+
+    function isSpawnOrderDisabled(int unitId) returns boolean
+        return disabledOrderUnitId.has(unitId)
+
+    function updateSpawnOrder(int orderId)
+        this.spawnOrder = orderId
+
+    function updateSpawnOrder(int orderId, vec2 orderPos)
+        this.spawnOrder = orderId
+        this.spawnOrderPos = orderPos
+
+    function updateSpawnOrder(int orderId, unit target)
+        this.spawnOrder = orderId
+        this.spawnOrderTarget = target

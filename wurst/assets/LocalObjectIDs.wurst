@@ -8,6 +8,7 @@ import ObjectIdGenerator
 import ObjectIDManager
 
 public let ABILITY_ARMY_ATTACK  = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_ATTACK"  )
+public let ABILITY_ARMY_FOCUS   = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_FOCUS"  )
 public let ABILITY_ARMY_HOLD    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_HOLD"    )
 public let ABILITY_ARMY_MOVE    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_MOVE"    )
 public let ABILITY_ARMY_STOP    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_ARMY_STOP"    )
