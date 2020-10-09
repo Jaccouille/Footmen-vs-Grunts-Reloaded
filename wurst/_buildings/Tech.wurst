@@ -11,10 +11,11 @@ import IDListConstant
 import LocalObjectIDs
 let TECH_ABILITIES = commaList(AbilityIds.invulnerable)
 
-let HUMAN_TRAINABLE     = HUMAN_UNITS    .joinBy((int i) -> i.toRawCode(), ",")
-let ORC_TRAINABLE       = ORC_UNITS      .joinBy((int i) -> i.toRawCode(), ",")
-let NIGHT_ELF_TRAINABLE = NIGHT_ELF_UNITS.joinBy((int i) -> i.toRawCode(), ",")
-let UNDEAD_TRAINABLE   = UNDEAD_UNITS.joinBy((int i) -> i.toRawCode(), ",")
+let HUMAN_TRAINABLE     = HUMAN_TRAINING_LIST     .joinBy((int i) -> i.toRawCode(), ",")
+let ORC_TRAINABLE       = ORC_TRAINING_LIST       .joinBy((int i) -> i.toRawCode(), ",")
+let NIGHT_ELF_TRAINABLE = NIGHT_ELF_TRAINING_LIST .joinBy((int i) -> i.toRawCode(), ",")
+let UNDEAD_TRAINABLE    = UNDEAD_TRAINING_LIST    .joinBy((int i) -> i.toRawCode(), ",")
+
 
 function createTechBuilding(int newId, int origId) returns BuildingDefinition
     return new BuildingDefinition(newId, origId)
@@ -39,6 +40,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setResearchesAvailable("")
         ..setUnitsTrained("")
         ..setScalingValue(0.9)
+        ..setNormalAbilities(commaList(ABILITY_TOGGLE_FOOTMAN) + TECH_ABILITIES)
 
 @compiletime function createNightelfTrainingCenter()
     createTechBuilding(UNIT_NELF_TRAINING_CENTER, UnitIds.chimaeraroost)

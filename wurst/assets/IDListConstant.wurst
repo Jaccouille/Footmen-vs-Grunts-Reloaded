@@ -4,8 +4,7 @@ import LinkedList
 
 import LocalObjectIDs
 
-public let HUMAN_UNITS = asList(
-    UNIT_FOOTMAN,
+public let HUMAN_TRAINING_LIST = asList(
     UNIT_PRIEST,
     UNIT_KNIGHT,
     UNIT_MORTAR,
@@ -17,8 +16,10 @@ public let HUMAN_UNITS = asList(
     UNIT_WAR_GOLEM
 )
 
-public let ORC_UNITS = asList(
-    UNIT_GRUNT,
+public let HUMAN_UNITS = HUMAN_TRAINING_LIST..addtoStart(UNIT_FOOTMAN)
+
+
+public let ORC_TRAINING_LIST = asList(
     UNIT_HEADHUNTER,
     UNIT_WARLOCK,
     UNIT_SHAMAN,
@@ -30,8 +31,10 @@ public let ORC_UNITS = asList(
     UNIT_KODO_BEAST,
     UNIT_OGRE
 )
+public let ORC_UNITS = ORC_TRAINING_LIST..addtoStart(UNIT_GRUNT)
 
-public let NIGHT_ELF_UNITS = asList(
+public let NIGHT_ELF_TRAINING_LIST = asList(
+    UNIT_SENTRY,
     UNIT_ARCHER,
     UNIT_HUNTRESS,
     UNIT_HYPPO_RIDER,
@@ -44,8 +47,9 @@ public let NIGHT_ELF_UNITS = asList(
     UNIT_ANCIENT_PROTECTOR,
     UNIT_WARDEN
 )
+public let NIGHT_ELF_UNITS = NIGHT_ELF_TRAINING_LIST..addtoStart(UNIT_SENTRY)
 
-public let UNDEAD_UNITS = asList(
+public let UNDEAD_TRAINING_LIST = asList(
     UNIT_CRYPT_FIEND,
     UNIT_FROST_ARCHER,
     UNIT_SKELETAL_ORC,
@@ -58,3 +62,4 @@ public let UNDEAD_UNITS = asList(
     UNIT_ABOMINATION,
     UNIT_MAIDEN
 )
+public let UNDEAD_UNITS = UNDEAD_TRAINING_LIST..addtoStart(UNIT_GHOUL)

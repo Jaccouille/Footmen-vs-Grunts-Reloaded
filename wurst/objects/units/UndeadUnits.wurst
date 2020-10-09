@@ -9,6 +9,25 @@ import AbilityObjEditingUtils
 import LocalAssets
 
 
+@compiletime function createGhoul()
+    createSpawnedUnit(UNIT_GHOUL, UnitIds.ghoul)
+        ..setAttack1CooldownTime(1.5)
+        ..setAttack2DamageBase(15)
+        ..setAttack1DamageNumberofDice(1)
+        ..setAttack1DamageSidesperDie(4)
+        ..setAttack1Range(100)
+        ..setAttacksEnabled(1)
+        ..setDefenseBase(2)
+        ..setArmorType(ArmorType.Normal)
+        ..setCollisionSize(16.0)
+        ..setGoldData(900)
+        ..setHitPointsMaximumBase(800)
+        ..setHitPointRegeBasic()
+        ..setPriority(2)
+        ..setTooltipBasic("Call Ghoul")
+        ..setTooltipExtended("Pew pew pew")
+        ..setHotkeyEnhance("Q")
+
 @compiletime function createCryptFiend()
     createSpawnedUnit(UNIT_CRYPT_FIEND, UnitIds.cryptfiend)
         ..setScalingValue(0.800)

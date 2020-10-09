@@ -7,6 +7,27 @@ import LocalObjectIDs
 import UnitObjEditingUtils
 import AbilityObjEditingUtils
 
+@compiletime function createSentry()
+    createSpawnedUnit(UNIT_SENTRY, UnitIds.watcher)
+        ..setAttack1CooldownTime(1.5)
+        ..setAttack1DamageBase(15)
+        ..setAttack1DamageSidesperDie(3)
+        ..setDefenseBase(2)
+        ..setArmorType(ArmorType.Normal)
+        ..setCategorizationCampaign(false)
+        ..setFormationRank(0)
+        ..setCollisionSize(16.0)
+        ..setGoldData(900)
+        ..setHitPointsMaximumBase(700)
+        ..setManaInitialAmount(0)
+        ..setManaMaximum(0)
+        ..setManaRegeneration(0)
+        ..setHitPointRegeBasic()
+        ..setIconGameInterface(Icons.bTNNightElfRunner)
+        ..setTooltipBasic("Call Sentry")
+        ..setTooltipExtended("Pew pew pew")
+        ..setHotkeyEnhance("Q")
+
 @compiletime function createArcher()
     createSpawnedUnit(UNIT_ARCHER, UnitIds.archer)
         ..setAttack1CooldownTime(2)

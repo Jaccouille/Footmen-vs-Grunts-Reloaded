@@ -21,6 +21,10 @@ import AbilityObjEditingUtils
         ..setTooltipExtended("Pew pew pew")
         ..setHotkeyEnhance("Q")
 
+    createToggleAbility(ABILITY_TOGGLE_FOOTMAN, 1)
+        ..setIconNormal(Icons.bTNFootman)
+        ..setNameEnhance("Q", "Toggle Footman Spawn")
+
 @compiletime function createRifleman()
     createSpawnedUnit(UNIT_RIFLEMAN, UnitIds.rifleman)
         ..setAttack1DamageBase(15)

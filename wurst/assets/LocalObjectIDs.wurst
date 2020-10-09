@@ -97,6 +97,7 @@ public let UNIT_SPELL_BREAKER  = compiletime(UNIT_ID_GEN.next())..registerObject
 public let UNIT_SIEGE_ENGINE   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_SIEGE_ENGINE"   )
 public let UNIT_WAR_GOLEM      = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_WAR_GOLEM"      )
 
+public let UNIT_SENTRY            = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_SENTRY"            )
 public let UNIT_ARCHER            = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_ARCHER"            )
 public let UNIT_HUNTRESS          = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_HUNTRESS"          )
 public let UNIT_HYPPO_RIDER       = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_HYPPO_RIDER"       )
@@ -123,6 +124,7 @@ public let UNIT_WIND_RIDER   = compiletime(UNIT_ID_GEN.next())..registerObjectID
 public let UNIT_KODO_BEAST   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_KODO_BEAST"   )
 public let UNIT_OGRE         = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_OGRE"         )
 
+public let UNIT_GHOUL           = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_GHOUL"     )
 public let UNIT_CRYPT_FIEND     = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_CRYPT_FIEND"     )
 public let UNIT_FROST_ARCHER    = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_FROST_ARCHER"    )
 public let UNIT_SKELETAL_ORC    = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_SKELETAL_ORC"    )

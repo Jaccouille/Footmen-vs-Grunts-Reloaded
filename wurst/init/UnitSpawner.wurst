@@ -4,8 +4,6 @@ import Orders
 import ClosureEvents
 import HashMap
 import ClosureTimers
-import ClosureForGroups
-import LinkedList
 
 import PlayerExtension
 import LocalObjectIDs
@@ -13,6 +11,9 @@ import LocalObjectIDs
 import initlater UnitSpawnData
 import ArmyHandler
 import SpawnDataConstant
+import UnitExtension
+import StringExtensions
+import ColorUtils
 
 public class UnitSpawner
     static let playerToSpawnerMap = new HashMap<player, UnitSpawner>
@@ -23,18 +24,19 @@ public class UnitSpawner
             // if players[i].isIngame()
             let pData = players[i].getPlayerData()
             var initialSpawn = vec2(0, 0)
-            UnitSpawnData firstSpawn = null
+            SwapedUnitSpawnData firstSpawn = null
 
             // TODO: Init first spawn outside of this class
             if i < 5
                 if pData.playerBuilding.has(UNIT_ALLIANCE_CASTLE)
                     initialSpawn = pData.playerBuilding.get(UNIT_ALLIANCE_CASTLE).getPos()
                 let spawnData = spawnDataConstant.get(UNIT_FOOTMAN)
-                firstSpawn = new UnitSpawnData(UNIT_FOOTMAN, ABILITY_TOGGLE_RIFLEMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
+                firstSpawn = new SwapedUnitSpawnData(UNIT_FOOTMAN, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
+                firstSpawn.addAlterSpawn(new UnitSpawnData(UNIT_SENTRY, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap)))
             if i >= 5
                 initialSpawn = pData.playerBuilding.get(UNIT_HORDE_CASTLE).getPos()
                 let spawnData = spawnDataConstant.get(UNIT_GRUNT)
-                firstSpawn = new UnitSpawnData(UNIT_GRUNT, ABILITY_TOGGLE_HEADHUNTER, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
+                firstSpawn = new SwapedUnitSpawnData(UNIT_GRUNT, ABILITY_TOGGLE_HEADHUNTER, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
 
             let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
             new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
@@ -87,16 +89,10 @@ public class UnitSpawner
         spawnUnit(spawnData)
         // TODO: add listener on ability cast
         doPeriodically(spawnData.period.toReal()) cb ->
-            // if _player == players[0]
-            //     print(unitToSpawnDataMap.get('hfoo').spawnCounter.current)
-            //     print(spawnData.spawnCounter.current)
             spawnUnit(spawnData)
         EventListener.onCast(spawnData.abilId) (unit caster) ->
             if caster.getOwner() == _player
                 this.toggleSpawn(spawnData.abilId)
-
-    function removeUnit(UnitSpawnData spawnData)
-        updateUnitCap(-spawnData.spawnCounter.max)
 
     function updateSpawningPos(vec2 pos)
         this.spawningPos = pos
@@ -116,15 +112,26 @@ public class UnitSpawner
         else
             autoSend = true
 
+    // TODO: rework SwapedUnitSpawnData handling
     function toggleSpawn(int abilId)
         if abilToSpawnDataMap.has(abilId)
             let spawnData = abilToSpawnDataMap.get(abilId)
-            let modeStr = spawnData.onToggle()
-            print(modeStr)
-            if modeStr == "OFF"
-                removeUnit(spawnData)
-            else if modeStr == "ON"
-                updateUnitCap(spawnData.spawnCounter.max)
+            var modeStr = spawnData.onToggle()
+            let unitName = getUnitName(spawnData.unitId)
+
+            // TODO: change print to printtimedToPlayer
+            if spawnData instanceof SwapedUnitSpawnData
+                modeStr = (spawnData castTo SwapedUnitSpawnData).getSpawnString()
+                if not modeStr.contains("ON")
+                    updateUnitCap(-spawnData.spawnCounter.max)
+                print(modeStr)
+            else
+                if modeStr == "OFF"
+                    updateUnitCap(-spawnData.spawnCounter.max)
+                else if modeStr == "ON"
+                    updateUnitCap(spawnData.spawnCounter.max)
+                modeStr = spawnData.getCurrentOptionColored()
+                print("{0} Spawn: |r{1}".color(GENERAL_COLOR).format(unitName, modeStr))
         else
             print("This isn't a spawnable unit")
 

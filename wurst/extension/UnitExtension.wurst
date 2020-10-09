@@ -1,0 +1,8 @@
+package UnitExtension
+
+public function getUnitName(int unitId) returns string
+    let u = createUnit(players[PLAYER_NEUTRAL_PASSIVE], unitId, ZERO2, 270..asAngleDegrees())
+        ..hide()
+    let unitName = u.getName()
+    u.remove()
+    return unitName
