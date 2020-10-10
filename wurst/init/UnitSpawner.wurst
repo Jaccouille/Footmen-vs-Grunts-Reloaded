@@ -37,6 +37,7 @@ public class UnitSpawner
                 initialSpawn = pData.playerBuilding.get(UNIT_HORDE_CASTLE).getPos()
                 let spawnData = spawnDataConstant.get(UNIT_GRUNT)
                 firstSpawn = new SwapedUnitSpawnData(UNIT_GRUNT, ABILITY_TOGGLE_HEADHUNTER, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
+                firstSpawn.addAlterSpawn(new UnitSpawnData(UNIT_GHOUL, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap)))
 
             let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
             new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
