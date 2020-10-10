@@ -47,7 +47,7 @@ public class UnitSpawner
 
     var spawningPos = vec2(0, 0)
     player _player
-    let unitToSpawnDataMap = new HashMap<int, UnitSpawnData>
+    let unitToSpawnDataMap = new IterableMap<int, UnitSpawnData>
     let abilToSpawnDataMap = new HashMap<int, UnitSpawnData>
     var autoSend = true
     ArmyHandler armyHandler = null
@@ -137,3 +137,9 @@ public class UnitSpawner
 
     function getSpawnData(int abilId) returns UnitSpawnData
         return abilToSpawnDataMap.get(abilId)
+
+    function hasSpawnData(UnitSpawnData spawnData) returns boolean
+        for key in unitToSpawnDataMap
+            if unitToSpawnDataMap.get(key) == spawnData
+                return true
+        return false

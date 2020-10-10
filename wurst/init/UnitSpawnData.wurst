@@ -140,13 +140,23 @@ public class UnitSpawnData
                 trainer.addAbility(abilId)
                 owner.getUnitSpawner().addUnitSpawner(this.copy())
 
-    function addSpawnOrder(string toDisplay, int orderId)
+    function addSpawnOrder(string mode, int orderId)
         let idx = toggleOption.size() - 1
-        toggleOption.addAt(new Pair(toDisplay, orderId), idx)
+        toggleOption.addAt(new Pair(mode, orderId), idx)
+
+    // TODO: test spawn order with researched abilities
+    function addSpawnOrder(string mode, int orderId, int researchId)
+        EventListener.add(EVENT_PLAYER_UNIT_UPGRADE_FINISH) ->
+            if researchId == EventData.getResearchedType()
+                let owner = EventData.getResearchingUnit().getOwner()
+                if owner.getUnitSpawner().hasSpawnData(this)
+                    let idx = toggleOption.size() - 1
+                    toggleOption.addAt(new Pair(mode, orderId), idx)
+                    while toggleOption.getFirst().a != mode
+                        toggleOption.firstToLast()
 
     function onToggle() returns string
-        let option = toggleOption.dequeue()
-        toggleOption.push(option)
+        toggleOption.firstToLast()
         return toggleOption.getFirst().a
 
     function getCurrentOrder() returns int
