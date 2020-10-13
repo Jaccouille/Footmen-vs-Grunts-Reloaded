@@ -17,7 +17,7 @@ function real.formatForTooltip() returns string
     else
         return this.toInt().toString()
 
-public function makeToolTipNormHero(string hotkey, string tooltip, int level) returns string
+public function makeToolTipNormLevel(string hotkey, string tooltip, int level) returns string
     return asList(
         "[".color(GENERAL_COLOR),
         hotkey.color(SPECIAL_COLOR),

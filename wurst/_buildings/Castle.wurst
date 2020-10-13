@@ -1,10 +1,14 @@
 package Castle
 
 import UnitObjEditing
+import LinkedList
 import ObjectIds
 import UnitIds
 import AbilityIds
 import LocalObjectIDs
+import IDListConstant
+
+let HUMAN_RESEARCH = HUMAN_CAPITAL_UPGD.joinBy((int i) -> i.toRawCode(), ",")
 
 let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
 
@@ -17,6 +21,7 @@ let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
     ..setFoodProduced(0)
     ..setUnitsTrained("")
     ..setUpgradesUsed("")
+    ..setResearchesAvailable(HUMAN_RESEARCH)
 
 @compiletime function createGruntsKeep()
     new BuildingDefinition(UNIT_HORDE_CASTLE, UnitIds.fortress)

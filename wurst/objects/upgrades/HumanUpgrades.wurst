@@ -1,0 +1,115 @@
+package HumanUpgrades
+
+import UpgradeObjEditing
+import Icons
+
+import UpgradeObjEditingUtils
+import LocalObjectIDs
+
+
+function createCommonUpgrade(int newId) returns UpgradeDefinition
+    return new UpgradeDefinition(newId)
+        ..setTimeBase(2)
+        ..setTransferWithUnitOwnership(false)
+        ..presetRequirements(lvl -> "")
+        ..setLumberCostBase(0)
+        ..setLumberCostIncrement(0)
+
+function createDamageUpgrade(int newId) returns UpgradeDefinition
+    return createCommonUpgrade(newId)
+        ..setGoldCostBase(100)
+        ..setGoldCostIncrement(100)
+        ..addEffectAttackDiceBonus(1, 1)
+        ..addEffectApplyAttackUpgradeBonus()
+        ..setLevels(10)
+
+function createArmorUpgrade(int newId) returns UpgradeDefinition
+    return createCommonUpgrade(newId)
+        ..setGoldCostBase(100)
+        ..setGoldCostIncrement(75)
+        ..addEffectApplyDefenseUpgradeBonus()
+        ..setLevels(5)
+
+function createHealthAttackDamageUpgrade(int newId) returns UpgradeDefinition
+    return createCommonUpgrade(newId)
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(100)
+        ..setLevels(3)
+        ..addEffectHitPointBonusPercent(0.1, 0.1)
+        ..addEffectAttackSpeedBonus(0.05, 0.05)
+        ..addEffectAttackDamageBonus(4, 4)
+
+@compiletime function createHumanMeleeDamageUpgrade()
+    createDamageUpgrade(UPGD_HUMAN_MELEE_ATTACK)
+        ..presetIcon(lvl -> Icons.bTNSteelMelee)
+        ..setNameEnhance("Q", "Human Melee Damage Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Human melee units damage")
+
+@compiletime function createHumanMeleeArmorUpgrade()
+    createArmorUpgrade(UPGD_HUMAN_MELEE_ARMOR)
+        ..presetIcon(lvl -> Icons.bTNHumanArmorUpOne)
+        ..setNameEnhance("A", "Human Melee Armor Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Human melee units armor")
+
+@compiletime function createHumanRangedDamageUpgrade()
+    createDamageUpgrade(UPGD_HUMAN_RANGED_ATTACK)
+        ..presetIcon(lvl -> Icons.bTNHumanMissileUpOne)
+        ..setNameEnhance("W", "Human Ranged Damage Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Human ranged units damage")
+
+@compiletime function createHumanRangedArmorUpgrade()
+    createArmorUpgrade(UPGD_HUMAN_RANGED_ARMOR)
+        ..presetIcon(lvl -> Icons.bTNLeatherUpgradeOne)
+        ..setNameEnhance("S", "Human Ranged Armor Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Human ranged units armor")
+        ..setGoldCostIncrement(50)
+
+@compiletime function createHumanCloseCombatTrainingUpgrade()
+    createHealthAttackDamageUpgrade(UPGD_CLOSE_COMBAT_TRAINING)
+        ..presetIcon(lvl -> Icons.bTNCallToArms)
+        ..setNameEnhance("Z", "Close Combat Training")
+        ..presetTooltipExtended(lvl -> "Increase Health, Damage and Attack Speed")
+
+@compiletime function createDefendUpgrade()
+    createCommonUpgrade(UPGD_DEFEND)
+        ..setGoldCostBase(200)
+        ..setLevels(1)
+        ..setIcon(1, Icons.bTNDefend)
+        ..setNameEnhance("W", "Defend")
+        ..setTooltipExtended(1, "Allows Footmen to use the Defend ability, which increases their defensive capabilities against Piercing attacks.")
+
+@compiletime function createLongRifleUpgrade()
+    createCommonUpgrade(UPGD_LONG_RIFLE)
+        ..setGoldCostBase(350)
+        ..setLevels(1)
+        ..setIcon(1, Icons.bTNDwarvenLongRifle)
+        ..setNameEnhance("E", "Long Rifles")
+        ..setTooltipExtended(1, "Increases the attack range by 200 and the attack damage 6")
+        ..addEffectAttackRangeBonus(200, 200)
+        ..addEffectAttackDamageBonus(6, 0)
+
+@compiletime function createPriestUpgrade()
+    createCommonUpgrade(UPGD_PRIEST)
+        ..addEffectManaPointBonus(100, 100)
+        ..addEffectManaRegeneration(0.33, 0.33)
+        ..addEffectHitPointBonus(80, 80)
+        ..addEffectAbilityLevelBonus(0, 1, "Ainf")
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(200)
+        ..setLevels(4)
+        ..presetIcon(lvl -> Icons.bTNPriestAdept)
+        ..setNameEnhance("X", "Priest Training")
+        ..presetTooltipExtended(lvl -> "Increases Priests' mana capacity, mana regeneration rate, hit points")
+
+@compiletime function createSorceressUpgrade()
+    createCommonUpgrade(UPGD_SORCERESS)
+        ..addEffectManaPointBonus(100, 100)
+        ..addEffectManaRegeneration(0.33, 0.33)
+        ..addEffectHitPointBonus(40, 40)
+        ..addEffectAbilityLevelBonus(0, 1, "Aslo")
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(200)
+        ..setLevels(4)
+        ..presetIcon(lvl -> Icons.bTNSorceressAdept)
+        ..setNameEnhance("Z", "Sorceress Training")
+        ..presetTooltipExtended(lvl -> "Increases Sorceresss' mana capacity, mana regeneration rate, hit points")

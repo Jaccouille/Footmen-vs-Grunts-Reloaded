@@ -1,0 +1,19 @@
+package UpgradeObjEditingUtils
+
+import UpgradeObjEditing
+import CommonUtils
+import ErrorHandling
+import TooltipsUtils
+
+public function UpgradeDefinition.setNameEnhance(string hotkey, string name)
+    this.setHotkeyNormalEnhance(hotkey)
+    this.presetName(lvl -> name + " - " + lvl.toString())
+    this.presetTooltip(lvl -> makeToolTipNormLevel(hotkey, name, lvl))
+
+public function UpgradeDefinition.setHotkeyNormalEnhance(string hotkey)
+    if not hotKeyMapping.has(hotkey)
+        error("Hotkey button position mapping has no \"{0}\" element".format(hotkey))
+        return
+    this.presetHotkey(lvl -> hotkey)
+    this.setButtonPositionX(hotKeyMapping.get(hotkey).x)
+    this.setButtonPositionY(hotKeyMapping.get(hotkey).y)
