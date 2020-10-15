@@ -1,0 +1,78 @@
+package NightElfUpgrades
+
+import UpgradeObjEditing
+import Icons
+
+import UpgradeObjEditingUtils
+import LocalObjectIDs
+
+
+@compiletime function createNightElfMeleeDamageUpgrade()
+    createDamageUpgrade(UPGD_NELF_MELEE_ATTACK)
+        ..presetIcon(lvl -> Icons.bTNStrengthOfTheWild)
+        ..setNameEnhance("R", "Night Elf Melee Damage Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Night Elf melee units damage")
+
+@compiletime function createNightElfMeleeArmorUpgrade()
+    createArmorUpgrade(UPGD_NELF_MELEE_ARMOR)
+        ..presetIcon(lvl -> Icons.bTNReinforcedHides)
+        ..setNameEnhance("F", "Night Elf Melee Armor Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Night Elf melee units armor")
+
+@compiletime function createNightElfRangedDamageUpgrade()
+    createDamageUpgrade(UPGD_NELF_RANGED_ATTACK)
+        ..presetIcon(lvl -> Icons.bTNStrengthOfTheMoon)
+        ..setNameEnhance("E", "Night Elf Ranged Damage Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Night Elf ranged units damage")
+
+@compiletime function createNightElfRangedArmorUpgrade()
+    createArmorUpgrade(UPGD_NELF_RANGED_ARMOR)
+        ..presetIcon(lvl -> Icons.bTNMoonArmor)
+        ..setNameEnhance("D", "Night Elf Ranged Armor Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Night Elf ranged units armor")
+        ..setGoldCostIncrement(50)
+
+@compiletime function createImprovedBowUpgrade()
+    createCommonUpgrade(UPGD_IMPROVED_BOW)
+        ..presetIcon(lvl -> Icons.bTNImprovedBows)
+        ..setLevels(3)
+        ..setNameEnhance("C", "Improved Bow")
+        ..presetTooltipExtended(lvl -> "Increase Damage and Attack Range")
+        ..addEffectAttackRangeBonus(100, 75)
+        ..addEffectAttackDamageBonus(3, 3)
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(100)
+
+@compiletime function createMarksmanshipUpgrade()
+    createCommonUpgrade(UPGD_MARKSMANSHIP)
+        ..presetIcon(lvl -> Icons.bTNImprovedBows)
+        ..setLevels(1)
+        ..setNameEnhance("C", "Improved Bow")
+        ..presetTooltipExtended(lvl -> "Increase Damage")
+        ..addEffectAttackDamageBonus(6, 0)
+        ..setGoldCostBase(300)
+
+@compiletime function createDruidTalonUpgrade()
+    createCommonUpgrade(UPGD_DRUID_TALON)
+        ..addEffectManaPointBonus(100, 100)
+        ..addEffectManaRegeneration(0.33, 0.33)
+        ..addEffectHitPointBonus(100, 100)
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(200)
+        ..setLevels(3)
+        ..presetIcon(lvl -> Icons.bTNDOTAdeptTraining)
+        ..setNameEnhance("Z", "Druid of the Talon Training")
+        ..presetTooltipExtended(lvl -> "Increases Druid of the Talons' mana capacity, mana regeneration rate, hit points")
+
+@compiletime function createDruidClawUpgrade()
+    createCommonUpgrade(UPGD_DRUID_CLAW)
+        ..addEffectManaPointBonus(100, 100)
+        ..addEffectManaRegeneration(0.33, 0.33)
+        ..addEffectHitPointBonus(150, 150)
+        ..addEffectAbilityLevelBonus(0, 1, "Aroa")
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(400)
+        ..setLevels(3)
+        ..presetIcon(lvl -> Icons.bTNDOCAdeptTraining)
+        ..setNameEnhance("X", "Druid of the Claw Training")
+        ..presetTooltipExtended(lvl -> "Increases Druid of the Claws' mana capacity, mana regeneration rate, hit points")

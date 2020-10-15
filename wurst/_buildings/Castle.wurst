@@ -8,7 +8,9 @@ import AbilityIds
 import LocalObjectIDs
 import IDListConstant
 
-let HUMAN_RESEARCH = HUMAN_CAPITAL_UPGD.joinBy((int i) -> i.toRawCode(), ",")
+let ALLIANCE_RESEARCH = HUMAN_CASTLE_UPGD
+                            ..addAll(NIGHT_ELF_CASTLE_UPGD)
+                            .joinBy((int i) -> i.toRawCode(), ",")
 
 let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
 
@@ -21,7 +23,7 @@ let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
     ..setFoodProduced(0)
     ..setUnitsTrained("")
     ..setUpgradesUsed("")
-    ..setResearchesAvailable(HUMAN_RESEARCH)
+    ..setResearchesAvailable(ALLIANCE_RESEARCH)
 
 @compiletime function createGruntsKeep()
     new BuildingDefinition(UNIT_HORDE_CASTLE, UnitIds.fortress)

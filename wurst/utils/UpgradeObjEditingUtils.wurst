@@ -7,8 +7,12 @@ import TooltipsUtils
 
 public function UpgradeDefinition.setNameEnhance(string hotkey, string name)
     this.setHotkeyNormalEnhance(hotkey)
-    this.presetName(lvl -> name + " - " + lvl.toString())
-    this.presetTooltip(lvl -> makeToolTipNormLevel(hotkey, name, lvl))
+    if this.getLevels() > 1
+        this.presetName(lvl -> name + " - " + lvl.toString())
+        this.presetTooltip(lvl -> makeToolTipNormLevel(hotkey, name, lvl))
+    else
+        this.setName(1, name)
+        this.setTooltip(1, makeToolTipNorm(hotkey, name))
 
 public function UpgradeDefinition.setHotkeyNormalEnhance(string hotkey)
     if not hotKeyMapping.has(hotkey)
@@ -17,3 +21,36 @@ public function UpgradeDefinition.setHotkeyNormalEnhance(string hotkey)
     this.presetHotkey(lvl -> hotkey)
     this.setButtonPositionX(hotKeyMapping.get(hotkey).x)
     this.setButtonPositionY(hotKeyMapping.get(hotkey).y)
+
+
+public function createCommonUpgrade(int newId) returns UpgradeDefinition
+    return new UpgradeDefinition(newId)
+        ..setTimeBase(2)
+        ..setTransferWithUnitOwnership(false)
+        ..presetRequirements(lvl -> "")
+        ..setLumberCostBase(0)
+        ..setLumberCostIncrement(0)
+
+public function createDamageUpgrade(int newId) returns UpgradeDefinition
+    return createCommonUpgrade(newId)
+        ..setGoldCostBase(100)
+        ..setGoldCostIncrement(100)
+        ..addEffectAttackDiceBonus(1, 1)
+        ..addEffectApplyAttackUpgradeBonus()
+        ..setLevels(10)
+
+public function createArmorUpgrade(int newId) returns UpgradeDefinition
+    return createCommonUpgrade(newId)
+        ..setGoldCostBase(100)
+        ..setGoldCostIncrement(75)
+        ..addEffectApplyDefenseUpgradeBonus()
+        ..setLevels(5)
+
+public function createHealthAttackDamageUpgrade(int newId) returns UpgradeDefinition
+    return createCommonUpgrade(newId)
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(100)
+        ..setLevels(3)
+        ..addEffectHitPointBonusPercent(0.1, 0.1)
+        ..addEffectAttackSpeedBonus(0.05, 0.05)
+        ..addEffectAttackDamageBonus(4, 4)

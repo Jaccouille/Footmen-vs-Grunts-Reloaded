@@ -7,38 +7,6 @@ import UpgradeObjEditingUtils
 import LocalObjectIDs
 
 
-function createCommonUpgrade(int newId) returns UpgradeDefinition
-    return new UpgradeDefinition(newId)
-        ..setTimeBase(2)
-        ..setTransferWithUnitOwnership(false)
-        ..presetRequirements(lvl -> "")
-        ..setLumberCostBase(0)
-        ..setLumberCostIncrement(0)
-
-function createDamageUpgrade(int newId) returns UpgradeDefinition
-    return createCommonUpgrade(newId)
-        ..setGoldCostBase(100)
-        ..setGoldCostIncrement(100)
-        ..addEffectAttackDiceBonus(1, 1)
-        ..addEffectApplyAttackUpgradeBonus()
-        ..setLevels(10)
-
-function createArmorUpgrade(int newId) returns UpgradeDefinition
-    return createCommonUpgrade(newId)
-        ..setGoldCostBase(100)
-        ..setGoldCostIncrement(75)
-        ..addEffectApplyDefenseUpgradeBonus()
-        ..setLevels(5)
-
-function createHealthAttackDamageUpgrade(int newId) returns UpgradeDefinition
-    return createCommonUpgrade(newId)
-        ..setGoldCostBase(400)
-        ..setGoldCostIncrement(100)
-        ..setLevels(3)
-        ..addEffectHitPointBonusPercent(0.1, 0.1)
-        ..addEffectAttackSpeedBonus(0.05, 0.05)
-        ..addEffectAttackDamageBonus(4, 4)
-
 @compiletime function createHumanMeleeDamageUpgrade()
     createDamageUpgrade(UPGD_HUMAN_MELEE_ATTACK)
         ..presetIcon(lvl -> Icons.bTNSteelMelee)

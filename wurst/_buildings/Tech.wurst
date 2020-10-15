@@ -17,6 +17,9 @@ let NIGHT_ELF_TRAINABLE = NIGHT_ELF_TRAINING_LIST .joinBy((int i) -> i.toRawCode
 let UNDEAD_TRAINABLE    = UNDEAD_TRAINING_LIST    .joinBy((int i) -> i.toRawCode(), ",")
 
 let HUMAN_UPGD = HUMAN_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
+let NIGHT_ELF_UPGD = NIGHT_ELF_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
+let ORC_UPGD = HUMAN_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
+let UNDEAD_UPGD = UNDEAD_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
 
 
 function createTechBuilding(int newId, int origId) returns BuildingDefinition
@@ -59,7 +62,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
 @compiletime function createNightelfUpgradesCenter()
     createTechBuilding(UNIT_NELF_UPGRADE_CENTER, UnitIds.huntershall)
         ..setName("Night Elf Upgrade Center")
-        ..setResearchesAvailable("")
+        ..setResearchesAvailable(NIGHT_ELF_UPGD)
         ..setUnitsTrained("")
 
 @compiletime function createOrcTrainingCenter()
@@ -72,7 +75,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
 @compiletime function createOrcUpgradesCenter()
     createTechBuilding(UNIT_ORC_UPGRADE_CENTER, UnitIds.warmill)
         ..setName("Orc Upgrade Center")
-        ..setResearchesAvailable("")
+        ..setResearchesAvailable(ORC_UPGD)
         ..setUnitsTrained("")
         ..setScalingValue(0.85)
 
@@ -86,7 +89,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
 @compiletime function createUndeadUpgradesCenter()
     createTechBuilding(UNIT_UNDEAD_UPGRADE_CENTER, UnitIds.graveyard)
         ..setName("Undead Upgrade Center")
-        ..setResearchesAvailable("")
+        ..setResearchesAvailable(UNDEAD_UPGD)
         ..setUnitsTrained("")
         ..setScalingValue(0.85)
 
