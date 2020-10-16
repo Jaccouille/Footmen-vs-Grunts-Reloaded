@@ -18,7 +18,7 @@ let UNDEAD_TRAINABLE    = UNDEAD_TRAINING_LIST    .joinBy((int i) -> i.toRawCode
 
 let HUMAN_UPGD = HUMAN_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
 let NIGHT_ELF_UPGD = NIGHT_ELF_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
-let ORC_UPGD = HUMAN_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
+let ORC_UPGD = ORC_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
 let UNDEAD_UPGD = UNDEAD_UPGRADES.joinBy((int i) -> i.toRawCode(), ",")
 
 

@@ -12,6 +12,11 @@ let ALLIANCE_RESEARCH = HUMAN_CASTLE_UPGD
                             ..addAll(NIGHT_ELF_CASTLE_UPGD)
                             .joinBy((int i) -> i.toRawCode(), ",")
 
+let HORDE_RESEARCH = ORC_CASTLE_UPGD
+                        ..addAll(UNDEAD_CASTLE_UPGD)
+                        .joinBy((int i) -> i.toRawCode(), ",")
+
+
 let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
 
 @compiletime function createFootmenKeep()
@@ -34,3 +39,4 @@ let KEEP_ABILITIES = commaList(AbilityIds.invulnerable)
     ..setFoodProduced(0)
     ..setUnitsTrained("")
     ..setUpgradesUsed("")
+    ..setResearchesAvailable(HORDE_RESEARCH)

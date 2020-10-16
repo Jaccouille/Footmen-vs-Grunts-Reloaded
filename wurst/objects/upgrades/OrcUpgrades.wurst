@@ -1,0 +1,87 @@
+package OrcUpgrades
+
+import UpgradeObjEditing
+import Icons
+import ObjectIds
+
+import UpgradeObjEditingUtils
+import LocalObjectIDs
+
+
+@compiletime function createOrcMeleeDamageUpgrade()
+    createDamageUpgrade(UPGD_ORC_MELEE_ATTACK)
+        ..presetIcon(lvl -> Icons.bTNOrcMeleeUpOne)
+        ..setNameEnhance("Q", "Orc Melee Damage Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Orc melee units damage")
+
+@compiletime function createOrcRangedDamageUpgrade()
+    createDamageUpgrade(UPGD_ORC_RANGED_ATTACK)
+        ..presetIcon(lvl -> Icons.bTNSteelRanged)
+        ..setNameEnhance("W", "Orc Ranged Damage Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Orc ranged units damage")
+
+@compiletime function createOrcArmorUpgrade()
+    createArmorUpgrade(UPGD_ORC_ARMOR)
+        ..presetIcon(lvl -> Icons.bTNSteelArmor)
+        ..setNameEnhance("A", "Orc Melee Armor Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Orc melee units armor")
+
+@compiletime function createOrcBerserkerStrengthUpgrade()
+    createHealthAttackDamageUpgrade(UPGD_BERSERKER_STRENGTH)
+        ..presetIcon(lvl -> Icons.bTNBerserk)
+        ..setNameEnhance("Z", "Berserker Strength")
+        ..presetTooltipExtended(lvl -> "Increase Health, Damage and Attack Speed")
+
+@compiletime function createTrollRegenerationUpgrade()
+    createCommonUpgrade(UPGD_TROLL_REGENERATION)
+        ..presetIcon(lvl -> Icons.bTNRegenerate)
+        ..setLevels(4)
+        ..setNameEnhance("E", "Troll Regeneration")
+        ..addEffectHitPointRegeneration(1, 1)
+        ..addEffectHitPointBonus(50, 50)
+        ..setGoldCostBase(150)
+        ..setGoldCostIncrement(50)
+        ..presetTooltipExtended(lvl -> "Further increases the hit point and regeneration rate of troll units")
+
+@compiletime function createTrollBerserkerUpgrade()
+    createCommonUpgrade(UPGD_BERSERKER_TROLL)
+        ..addEffectUnitAvailabilityChange(false, UNIT_HEADHUNTER.toRawCode())
+        ..addEffectUnitAvailabilityChange(true, UNIT_GRUNT.toRawCode())
+        ..setGoldCostBase(350)
+        ..setIcon(1, Icons.bTNBerserkForTrolls)
+        ..setNameEnhance("W", "Troll Berserker")
+        ..setTooltipExtended(1, "Transforms Headhunters into Troll Berserkers")
+
+@compiletime function createPulverizeUpgrade()
+    createCommonUpgrade(UPGD_PULVERIZE)
+        ..setGoldCostBase(400)
+        ..addEffectAbilityLevelBonus(1, 1, "Awar")
+        ..setIcon(1, Icons.bTNSmash)
+        ..setNameEnhance("S", "	Pulverize")
+        ..setTooltipExtended(1, "Upgrades the totem carried by Tauren, increasing the damage of their Pulverize ability")
+
+@compiletime function createShamanUpgrade()
+    createCommonUpgrade(UPGD_SHAMAN)
+        ..addEffectManaPointBonus(100, 100)
+        ..addEffectManaRegeneration(0.33, 0.33)
+        ..addEffectHitPointBonus(80, 80)
+        ..addEffectAbilityLevelBonus(0, 1, "Ablo")
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(200)
+        ..setLevels(4)
+        ..presetIcon(lvl -> Icons.bTNShamanAdept)
+        ..setNameEnhance("X", "Shaman Training")
+        ..presetTooltipExtended(lvl -> "Increases Shamans' mana capacity, mana regeneration rate, hit points")
+
+@compiletime function createWitchDoctorUpgrade()
+    createCommonUpgrade(UPGD_WITCH_DOCTOR)
+        ..addEffectManaPointBonus(100, 100)
+        ..addEffectManaRegeneration(0.33, 0.33)
+        ..addEffectHitPointBonus(40, 40)
+        ..addEffectAttackDiceBonus(1, 1)
+        ..setGoldCostBase(400)
+        ..setGoldCostIncrement(200)
+        ..setLevels(3)
+        ..presetIcon(lvl -> Icons.bTNWitchDoctorAdept)
+        ..setNameEnhance("Z", "Witch Doctor Training")
+        ..presetTooltipExtended(lvl -> "Increases Witch Doctors' mana capacity, mana regeneration rate, hit points")
