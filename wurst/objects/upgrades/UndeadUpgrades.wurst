@@ -1,0 +1,77 @@
+package UndeadUpgrades
+
+import UpgradeObjEditing
+import Icons
+import ObjectIds
+
+import UpgradeObjEditingUtils
+import LocalObjectIDs
+
+
+@compiletime function createUndeadMeleeDamageUpgrade()
+    createDamageUpgrade(UPGD_UNDEAD_MELEE_ATTACK)
+        ..presetIcon(lvl -> Icons.bTNUnholyStrength)
+        ..setNameEnhance("R", "Undead Melee Damage Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Undead melee units damage")
+
+@compiletime function createUndeadMeleeArmorUpgrade()
+    createArmorUpgrade(UPGD_UNDEAD_MELEE_ARMOR)
+        ..presetIcon(lvl -> Icons.bTNUnholyArmor)
+        ..setNameEnhance("F", "Undead Melee Armor Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Undead melee units armor")
+
+@compiletime function createUndeadRangedDamageUpgrade()
+    createDamageUpgrade(UPGD_UNDEAD_RANGED_ATTACK)
+        ..presetIcon(lvl -> Icons.bTNCreatureAttack)
+        ..setNameEnhance("E", "Undead Ranged Damage Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Undead ranged units damage")
+
+@compiletime function createUndeadRangedArmorUpgrade()
+    createArmorUpgrade(UPGD_UNDEAD_RANGED_ARMOR)
+        ..presetIcon(lvl -> Icons.bTNCreatureCarapace)
+        ..setNameEnhance("D", "Undead Ranged Armor Upgrade")
+        ..presetTooltipExtended(lvl -> "Increase Undead ranged units armor")
+
+@compiletime function createUndeadGhoulFrenzyUpgrade()
+    createCommonUpgrade(UPGD_GHOUL_FRENZY)
+        ..addEffectAttackSpeedBonus(0.1, 0.1)
+        ..addEffectMovementSpeedBonus(40, 20)
+        ..addEffectAttackDamageBonus(2, 2)
+        ..addEffectHitPointBonus(100, 50)
+        ..setGoldCostBase(300)
+        ..setGoldCostIncrement(100)
+        ..presetIcon(lvl -> Icons.bTNGhoulFrenzy)
+        ..setNameEnhance("C", "Ghoul Frenzy")
+        ..presetTooltipExtended(lvl -> "Increase Health, Damage and Attack Speed")
+
+@compiletime function createNecromancerUpgrade()
+    createCommonUpgrade(UPGD_NECROMANCER)
+        ..addEffectManaPointBonus(200, 200)
+        ..addEffectManaRegeneration(1, 1)
+        ..addEffectHitPointBonus(100, 150)
+        ..addEffectAttackDiceBonus(1, 1)
+        ..setGoldCostBase(300)
+        ..setGoldCostIncrement(100)
+        ..setLevels(3)
+        ..presetIcon(lvl -> Icons.bTNNecromancerAdept)
+        ..setNameEnhance("R", "Necromancer Training")
+        ..presetTooltipExtended(lvl -> "Increases Necromancers' mana capacity, mana regeneration rate, hit points")
+
+@compiletime function createWebUpgrade()
+    createCommonUpgrade(UPGD_WEB)
+        ..addEffectAttackRangeBonus(100, 0)
+        ..addEffectHitPointBonus(100, 0)
+        ..addEffectAttackSpeedBonus(0.15, 0)
+        ..setLevels(1)
+        ..setIcon(1, Icons.bTNWeb)
+        ..setGoldCostBase(250)
+        ..setNameEnhance("W", "Web")
+        ..setTooltipExtended(1, "Enables Crypt Fiends to use the Web ability and increases their attack range by 100")
+
+@compiletime function createDestroyerFormUpgrade()
+    createCommonUpgrade(UPGD_DESTROYER_FORM)
+        ..setLevels(1)
+        ..setIcon(1, Icons.bTNDestroyer)
+        ..setGoldCostBase(1100)
+        ..setNameEnhance("Z", "Destroyer Form")
+        ..setTooltipExtended(1, "My dream is to fly")
