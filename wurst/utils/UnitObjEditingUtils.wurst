@@ -7,7 +7,14 @@ import ObjectIds
 
 import CommonUtils
 import LocalAssets
+import SpawnDataConstant
+import StringExtensions
+import ColorUtils
+import TooltipsUtils
 
+constant SPAWN_STR = "\n\n" +
+    "Spawn period(seconds): {0}\n".color(GOLD_COLOR) +
+    "Max unit count: {1}".color(GOLD_COLOR)
 
 public function createSpawnedUnit(int newId, int origId) returns UnitDefinition
     return new UnitDefinition(newId, origId)
@@ -82,3 +89,16 @@ public function UnitDefinition.setHotkeyEnhance(string hotkey)
 public function UnitDefinition.setGoldData(int data)
     this.setGoldCost(data)
     this.setPointValue(data)
+
+public function UnitDefinition.setTooltipSpawning(string toolTipExt)
+    if spawnDataConstant.has(this.getNewId())
+    this.setTooltipExtended(
+        toolTipExt + SPAWN_STR.format(
+            spawnDataConstant.get(this.getNewId()).spawnPeriod.toString().color(COLOR_LIGHT_BLUE),
+            spawnDataConstant.get(this.getNewId()).unitCap.toString().color(COLOR_LIGHT_BLUE)
+        ))
+
+public function UnitDefinition.setNameEnhance(string hotkey, string name)
+    this.setHotkeyEnhance(hotkey)
+    this.setName(name)
+    this.setTooltipBasic(makeToolTipNorm(hotkey, "Recruit " + name))

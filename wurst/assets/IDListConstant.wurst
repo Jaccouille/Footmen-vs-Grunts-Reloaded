@@ -5,6 +5,7 @@ import LinkedList
 import LocalObjectIDs
 
 public let HUMAN_TRAINING_LIST = asList(
+    UNIT_RIFLEMAN,
     UNIT_PRIEST,
     UNIT_KNIGHT,
     UNIT_MORTAR,
@@ -34,7 +35,6 @@ public let ORC_TRAINING_LIST = asList(
 public let ORC_UNITS = ORC_TRAINING_LIST..addtoStart(UNIT_GRUNT)
 
 public let NIGHT_ELF_TRAINING_LIST = asList(
-    UNIT_SENTRY,
     UNIT_ARCHER,
     UNIT_HUNTRESS,
     UNIT_HYPPO_RIDER,
