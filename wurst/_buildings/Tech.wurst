@@ -38,6 +38,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setResearchesAvailable("")
         ..setSightRadiusDay(99999)
         ..setUnitsTrained(HUMAN_TRAINABLE)
+        ..setPriority(10)
 
 @compiletime function createHumanUpgradesCenter()
     createTechBuilding(UNIT_HUMAN_UPGRADE_CENTER, UnitIds.blacksmith)
@@ -46,6 +47,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setUnitsTrained("")
         ..setScalingValue(0.9)
         ..setNormalAbilities(commaList(ABILITY_TOGGLE_FOOTMAN) + TECH_ABILITIES)
+        ..setPriority(9)
 
 @compiletime function createNightelfTrainingCenter()
     createTechBuilding(UNIT_NELF_TRAINING_CENTER, UnitIds.chimaeraroost)
@@ -58,12 +60,14 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setScalingValue(1.1)
         ..setUnitSoundSet(Soundsets.ancientOfLore)
         ..setPriority(3)
+        ..setPriority(8)
 
 @compiletime function createNightelfUpgradesCenter()
     createTechBuilding(UNIT_NELF_UPGRADE_CENTER, UnitIds.huntershall)
         ..setName("Night Elf Upgrade Center")
         ..setResearchesAvailable(NIGHT_ELF_UPGD)
         ..setUnitsTrained("")
+        ..setPriority(7)
 
 @compiletime function createOrcTrainingCenter()
     createTechBuilding(UNIT_ORC_TRAINING_CENTER, UnitIds.spiritlodge)
@@ -71,6 +75,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setResearchesAvailable("")
         ..setUnitsTrained(ORC_TRAINABLE)
         ..setScalingValue(1.2)
+        ..setPriority(10)
 
 @compiletime function createOrcUpgradesCenter()
     createTechBuilding(UNIT_ORC_UPGRADE_CENTER, UnitIds.warmill)
@@ -78,6 +83,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setResearchesAvailable(ORC_UPGD)
         ..setUnitsTrained("")
         ..setScalingValue(0.85)
+        ..setPriority(9)
 
 @compiletime function createUndeadTrainingCenter()
     createTechBuilding(UNIT_UNDEAD_TRAINING_CENTER, UnitIds.templeofthedamned)
@@ -85,6 +91,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setResearchesAvailable("")
         ..setUnitsTrained(UNDEAD_TRAINABLE)
         ..setScalingValue(1.1)
+        ..setPriority(8)
 
 @compiletime function createUndeadUpgradesCenter()
     createTechBuilding(UNIT_UNDEAD_UPGRADE_CENTER, UnitIds.graveyard)
@@ -92,6 +99,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setResearchesAvailable(UNDEAD_UPGD)
         ..setUnitsTrained("")
         ..setScalingValue(0.85)
+        ..setPriority(7)
 
 @compiletime function createNagaTrainingCenter()
     createTechBuilding(UNIT_NAGA_TRAINING_CENTER, UnitIds.shrineofazshara)
@@ -100,6 +108,7 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setModelFile(Buildings.tidalGuardian1)
         ..setUnitsTrained(ORC_TRAINABLE)
         ..setScalingValue(1.2)
+        ..setPriority(6)
 
 @compiletime function createNagaUpgradesCenter()
     createTechBuilding(UNIT_NAGA_UPGRADE_CENTER, UnitIds.spawninggrounds)
@@ -107,3 +116,4 @@ function createTechBuilding(int newId, int origId) returns BuildingDefinition
         ..setResearchesAvailable("")
         ..setUnitsTrained(UNDEAD_TRAINABLE)
         ..setScalingValue(0.7)
+        ..setPriority(5)

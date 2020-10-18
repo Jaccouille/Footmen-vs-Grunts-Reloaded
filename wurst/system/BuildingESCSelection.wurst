@@ -1,0 +1,24 @@
+package BuildingESCSelection
+
+import ClosureEvents
+
+import PlayerExtension
+import PlayerData
+
+function selectBuildings(player owner)
+    owner.clearSelection()
+    let playerBuilding = owner.getPlayerData().playerBuilding
+    for key in playerBuilding
+        owner.select(playerBuilding.get(key))
+
+public function initSelection()
+    for i = 0 to 10
+        if players[i].isIngame()
+            selectBuildings(players[i])
+
+
+init
+    // Select all player's building on ESCAPE key press
+    EventListener.add(EVENT_PLAYER_END_CINEMATIC) ->
+        let owner = EventData.getTriggerPlayer()
+        selectBuildings(owner)

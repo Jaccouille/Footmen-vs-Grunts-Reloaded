@@ -23,7 +23,7 @@ public class PlayerData
 
 
     player _player
-    let playerBuilding = new HashMap<int, unit>
+    let playerBuilding = new IterableMap<int, unit>
 
 
     construct(player _player)

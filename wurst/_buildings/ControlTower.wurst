@@ -58,3 +58,4 @@ let ARMY_ORDER_ABILITIES = commaList(
         ..setSightRadiusDay(6000)
         ..setSightRadiusNight(6000)
         ..setAttack1TargetsAllowed("value")
+        ..setPriority(12)
