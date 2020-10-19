@@ -2,6 +2,11 @@ package LocalAssets
 
 
 public class LocalIcons
+    static constant bTNStop = "ReplaceableTextures\\CommandButtons\\BTNStop.blp"
+    static constant bTNStopAlternate = "ReplaceableTextures\\CommandButtons\\BTNStopAlternate.blp"
+    static constant bTNFocus = "ReplaceableTextures\\CommandButtons\\BTNFocus.blp"
+    static constant bTNHoldPosition = "ReplaceableTextures\\CommandButtons\\BTNHoldPosition.blp"
+    static constant bTNMove = "ReplaceableTextures\\CommandButtons\\BTNMoveAlternate.blp"
 
 public class LocalUnits
     // A nonexistent model used to hide units.

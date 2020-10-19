@@ -8,82 +8,79 @@ import Assets
 import PlayerExtension
 import LocalObjectIDs
 import TooltipsUtils
+import LocalAssets
 import AbilityObjEditingUtils
 
 
-@compiletime function createMoveOrder()
-    new ChannelAbilityPreset(ABILITY_ARMY_MOVE, 1, true)
+function createControlTowerAbility(int abilId) returns ChannelAbilityPreset
+    return new ChannelAbilityPreset(abilId, 1, true)
         ..setDummyAbility()
-        ..setIconNormal(Icons.bTNMove)
+        ..setCastingTime(1, 0)
+
+
+@compiletime function createMoveOrder()
+    createControlTowerAbility(ABILITY_ARMY_MOVE)
+        ..setIconNormal(LocalIcons.bTNMove)
         ..presetTargetTypes(Targettype.POINT)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("W", "Army Move Order")
-        ..setCastingTime(1, 0)
 
 @compiletime function createStopOrder()
-    new ChannelAbilityPreset(ABILITY_ARMY_STOP, 1, true)
-        ..setDummyAbility()
-        ..setIconNormal(Icons.bTNStop)
+    createControlTowerAbility(ABILITY_ARMY_STOP)
+        ..setIconNormal(LocalIcons.bTNStopAlternate)
         ..presetTargetTypes(Targettype.NONE)
         ..setNameEnhance("S", "Army Stop Order")
-        ..setCastingTime(1, 0)
 
 @compiletime function createHoldOrder()
-    new ChannelAbilityPreset(ABILITY_ARMY_HOLD, 1, true)
-        ..setDummyAbility()
-        ..setIconNormal(Icons.bTNHoldPosition)
+    createControlTowerAbility(ABILITY_ARMY_HOLD)
+        ..setIconNormal(LocalIcons.bTNHoldPosition)
         ..presetTargetTypes(Targettype.NONE)
         ..setNameEnhance("E", "Army Hold Order")
-        ..setCastingTime(1, 0)
+
+@compiletime function createMassAttackOrder()
+    createControlTowerAbility(ABILITY_MASS_ATTACK)
+        ..setIconNormal(Icons.bTNMove)
+        ..presetTargetTypes(Targettype.NONE)
+        ..setNameEnhance("R", "Mass Attack Order")
 
 @compiletime function createAttackPointOrder()
-    new ChannelAbilityPreset(ABILITY_ARMY_ATTACK, 1, true)
-        ..setDummyAbility()
-        ..setIconNormal(Icons.bTNAttack)
+    createControlTowerAbility(ABILITY_ARMY_ATTACK)
+        ..setIconNormal(Icons.bTNAttackGround)
         ..presetTargetTypes(Targettype.POINT)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("Q", "Army Attack Order")
-        ..setCastingTime(1, 0)
 
 @compiletime function createAttackTargetOrder()
-    new ChannelAbilityPreset(ABILITY_ARMY_FOCUS, 1, true)
-        ..setDummyAbility()
-        ..setIconNormal(Icons.bTNAttack)
+    createControlTowerAbility(ABILITY_ARMY_FOCUS)
+        ..setIconNormal(LocalIcons.bTNFocus)
         ..presetTargetTypes(Targettype.UNIT)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("A", "Army Focus Order")
-        ..setCastingTime(1, 0)
 
 @compiletime function createStandByOrder()
-    new ChannelAbilityPreset(ABILITY_UNIT_STANDBY, 1, true)
-        ..setDummyAbility()
-        ..setIconNormal(Icons.bTNCancel)
+    createControlTowerAbility(ABILITY_UNIT_STANDBY)
+        ..setIconNormal(Icons.bTNCryptFiendBurrow)
         ..presetTargetTypes(Targettype.UNIT)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("D", "Unit Standby Order")
-        ..setCastingTime(1, 0)
-        ..setTargetsAllowed(1, TargetsAllowed.playerunits)
+        ..setTargetsAllowed(1, TargetsAllowed.player_t)
 
 @compiletime function createToggleSpawn()
-    new ChannelAbilityPreset(ABILITY_TOGGLE_SPAWN, 1, true)
-        ..setDummyAbility()
-        ..setIconNormal(Icons.bTNSell)
+    createControlTowerAbility(ABILITY_TOGGLE_SPAWN)
+        ..setIconNormal(Icons.bTNCancel)
         ..presetTargetTypes(Targettype.UNIT)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("F", "Unit Toggle Spawn")
-        ..setCastingTime(1, 0)
-        ..setTargetsAllowed(1, TargetsAllowed.playerunits)
+        ..setTargetsAllowed(1, TargetsAllowed.player_t)
 
 @compiletime function createSetSpawn()
-    new ChannelAbilityPreset(ABILITY_SET_SPAWN, 1, true)
-        ..setDummyAbility()
+    createControlTowerAbility(ABILITY_SET_SPAWN)
         ..setIconNormal(Icons.bTNMassTeleport)
         ..presetTargetTypes(Targettype.UNIT)
         ..presetOption(Option.VISIBLE, true)
         ..presetOption(Option.PHYSICALSPELL, true)
         ..presetOption(Option.UNIVERSALSPELL, true)
         ..setNameEnhance("V", "Unit Set Spawn")
-        ..setCastingTime(1, 0)
         ..setTargetsAllowed(1, commaList(
             TargetsAllowed.vulnerable,
             TargetsAllowed.invulnerable,
@@ -92,13 +89,11 @@ import AbilityObjEditingUtils
             ))
 
 @compiletime function createToggleAutoSend()
-    new ChannelAbilityPreset(ABILITY_AUTO_SEND, 1, true)
-        ..setDummyAbility()
+    createControlTowerAbility(ABILITY_AUTO_SEND)
         ..setIconNormal(Icons.bTNSelectUnit)
         ..presetTargetTypes(Targettype.NONE)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("Z", "Toggle Auto Send")
-        ..setCastingTime(1, 0)
 
 
 function onPoint(unit caster, int orderId, vec2 targetPos)
@@ -137,6 +132,11 @@ init
 
     EventListener.onCast(ABILITY_ARMY_STOP, (unit caster) -> onCast(caster, OrderIds.stop))
     EventListener.onCast(ABILITY_ARMY_HOLD, (unit caster) -> onCast(caster, OrderIds.holdposition))
+    EventListener.onCast(ABILITY_MASS_ATTACK) (unit caster) ->
+        let owner = EventData.getTriggerPlayer()
+        // Target opposite side of spawning position
+        let targetPos = owner.getUnitSpawner().spawningPos.op_mult(vec2(-1, 1))
+        onPoint(caster, OrderIds.attack, targetPos)
 
     EventListener.onTargetCast(ABILITY_UNIT_STANDBY, (unit caster, unit target) -> onTargetCast(caster, target))
     EventListener.onTargetCast(ABILITY_TOGGLE_SPAWN, (unit caster, unit target) -> onTargetCast(caster, target))

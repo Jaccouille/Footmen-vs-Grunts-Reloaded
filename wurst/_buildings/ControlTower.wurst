@@ -5,17 +5,21 @@ import UnitObjEditing
 import UnitIds
 import Units
 import Abilities
+
 import LocalObjectIDs
+
 
 let ARMY_ORDER_ABILITIES = commaList(
     ABILITY_ARMY_MOVE,
     ABILITY_ARMY_STOP,
     ABILITY_ARMY_HOLD,
     ABILITY_ARMY_ATTACK,
+    ABILITY_MASS_ATTACK,
     ABILITY_UNIT_STANDBY,
     ABILITY_SET_SPAWN,
     ABILITY_ARMY_FOCUS,
-    ABILITY_TOGGLE_SPAWN
+    ABILITY_TOGGLE_SPAWN,
+    ABILITY_AUTO_SEND
 )
 
 @compiletime function createControlTower()

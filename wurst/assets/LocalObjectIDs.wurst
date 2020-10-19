@@ -16,6 +16,7 @@ public let ABILITY_UNIT_STANDBY = compiletime(ABIL_ID_GEN.next())..registerObjec
 public let ABILITY_TOGGLE_SPAWN = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_TOGGLE_SPAWN" )
 public let ABILITY_SET_SPAWN    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_SET_SPAWN" )
 public let ABILITY_AUTO_SEND    = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_AUTO_SEND"    )
+public let ABILITY_MASS_ATTACK  = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_MASS_ATTACK"    )
 
 public let ABILITY_TOGGLE_FOOTMAN        = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_TOGGLE_FOOTMAN"        )
 public let ABILITY_TOGGLE_RIFLEMAN       = compiletime(ABIL_ID_GEN.next())..registerObjectID("ABIL_TOGGLE_RIFLEMAN"       )
