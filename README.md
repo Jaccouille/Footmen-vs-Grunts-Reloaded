@@ -11,9 +11,9 @@ The project also aim at getting rid of GUI trigger/object definition from the or
 Development is currently on stale, `Footmen vs Grunts` still has an active player, putting out a derived version now could fire up conflict/community split, which may bring toxic behavior between players and toward the developer.
 
 ## Features actually implemented:
--Automatic spawn of units
--Army ordering (move, attack, stop, hold)
--Army organization (melee units in front of ranged)
--Bounty on Kill
--Race units object definition
+- Automatic spawn of units
+- Army ordering (move, attack, stop, hold)
+- Army organization (melee units in front of ranged)
+- Bounty on Kill
+- Race units object definition
 
