@@ -95,6 +95,18 @@ function createControlTowerAbility(int abilId) returns ChannelAbilityPreset
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("Z", "Toggle Auto Send")
 
+@compiletime function createToggleFormation()
+    new AbilityDefinitionManaShieldCreep(ABILITY_TOGGLE_FORMATION)
+        ..setDummyAbility()
+        ..setCastingTime(1, 0)
+        ..setIconNormal(LocalIcons.bTNFormation)
+        ..setIconTurnOff(LocalIcons.bTNScramble)
+        ..setNameEnhance("C", "Toggle Formation")
+        ..setHotkeyTurnOff("C")
+        ..setTooltipTurnOff(1, makeToolTipNorm("C", "Scramble Units"))
+        ..setButtonPositionTurnOffX(2)
+        ..setButtonPositionTurnOffY(2)
+
 
 function onPoint(unit caster, int orderId, vec2 targetPos)
     let owner = caster.getOwner()
@@ -129,6 +141,15 @@ function onTargetCast(unit caster, unit target)
 init
     EventListener.onPointCast(ABILITY_ARMY_MOVE, (unit caster, vec2 target) -> onPoint(caster, OrderIds.move, target))
     EventListener.onPointCast(ABILITY_ARMY_ATTACK, (unit caster, vec2 target) -> onPoint(caster, OrderIds.attack, target))
+
+    EventListener.add(EVENT_PLAYER_UNIT_ISSUED_ORDER) ->
+        let owner = EventData.getTriggerPlayer()
+        let orderId = EventData.getIssuedOrderId()
+
+        // Checking by orderId since ability is a toggle
+        if EventData.getTriggerUnit().getTypeId() == UNIT_CONTROL_TOWER
+            and (orderId == Orders.manashieldon or orderId == Orders.manashieldoff)
+            owner.getArmyHandler().toggleFormation()
 
     EventListener.onCast(ABILITY_ARMY_STOP, (unit caster) -> onCast(caster, OrderIds.stop))
     EventListener.onCast(ABILITY_ARMY_HOLD, (unit caster) -> onCast(caster, OrderIds.holdposition))

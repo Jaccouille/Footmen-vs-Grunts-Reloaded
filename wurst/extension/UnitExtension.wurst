@@ -6,3 +6,6 @@ public function getUnitName(int unitId) returns string
     let unitName = u.getName()
     u.remove()
     return unitName
+
+public function unit.getUnitAttackRange(int index) returns real
+    return BlzGetUnitWeaponRealField(this, UNIT_WEAPON_RF_ATTACK_RANGE, index)

@@ -2,15 +2,19 @@ package ArmyHandler
 
 
 import Orders
-import ClosureEvents
 import HashMap
-import ClosureTimers
 import ClosureForGroups
 import LinkedList
 
 import PlayerExtension
-import LocalObjectIDs
+import UnitExtension
 
+// Distance between units positioned in formation mode
+@configurable constant FORMATION_WIDTH = 120
+@configurable constant FORMATION_HEIGHT = 80
+
+// Max number of unit per line
+@configurable constant UNIT_PER_LINE = 12
 
 public class ArmyHandler
     static let playerToArmyHandlerMap = new HashMap<player, ArmyHandler>
@@ -20,6 +24,7 @@ public class ArmyHandler
             return playerToArmyHandlerMap.get(_player)
         return null
 
+    boolean formation = false
     player _player
     var spawnOrder = 0
     var spawnOrderPos = vec2(0, 0)
@@ -27,26 +32,83 @@ public class ArmyHandler
     let army = new LinkedList<unit>
     let disabledOrderUnitId = new LinkedList<int>
 
+    static Comparator<unit> attackRangeComparator = (e1, e2) -> (e1.getUnitAttackRange(0) - e2.getUnitAttackRange(0)).toInt()
+
     construct(player _player, int order, vec2 orderPos)
         this._player = _player
         this.spawnOrder = order
         this.spawnOrderPos = orderPos
         playerToArmyHandlerMap.put(_player, this)
 
+    function orderUnitSpreadFormation(int orderId, vec2 targetPos)
+        var finalPos = vec2(0, 0)
+        let x = 300 + _player.getCurrentSupply()
+        let y = 300 + _player.getCurrentSupply() * 5
+
+        for u in army
+            if targetPos.x - x <= u.getPos().x and u.getPos().x <= targetPos.x + x
+                finalPos.x = u.getPos().x
+            else
+                finalPos.x = GetRandomReal(targetPos.x - x, targetPos.x + x)
+            if targetPos.y - y <= u.getPos().y and u.getPos().y <= targetPos.y + y
+                finalPos.y = u.getPos().y
+            else
+                finalPos.y = GetRandomReal(targetPos.y - y, targetPos.y + y)
+            if u.getPos() == finalPos
+                u.issueImmediateOrderById(orderId)
+            else
+                u.issuePointOrderById(orderId, finalPos)
+
+    function formLines(int orderId, vec2 targetPos, LinkedList<unit> army, int sidePriority)
+        let size = army.size()
+        let row = 1 + size / UNIT_PER_LINE
+        let width = row * 50
+        let heigth = UNIT_PER_LINE * 50
+
+        for x = 0 to row.toInt()
+            let offsetX = (width / 2 - FORMATION_WIDTH * x) * sidePriority
+            for y = 0 to UNIT_PER_LINE
+                let offsetY = heigth / 2 - FORMATION_HEIGHT * y
+                let newPos = targetPos + vec2(offsetX, offsetY)
+                army.dequeue().issuePointOrderById(orderId, newPos)
+                if army.size() == 0
+                    break
+
+    // TODO: cleanup
+    // air position is ok
+    // remove effect
+    function orderUnitTightFormation(int orderId, vec2 targetPos)
+        let armyCopy = army.copy()
+        armyCopy.sortWith(attackRangeComparator)
+        let armyGround = armyCopy
+                            .filter(elem -> elem.getDefaultFlyHeight() == 0)
+        let armyAir = armyCopy
+                            .filter(elem -> elem.getDefaultFlyHeight() > 0)
+        destroy armyCopy
+        let sidePriority = _player.getUnitSpawner().spawningPos.x > 0 ? -1 : 1
+        this.formLines(orderId, targetPos, armyGround, sidePriority)
+        this.formLines(orderId, targetPos, armyAir, sidePriority * -1)
+
+        destroy armyAir
+        destroy armyGround
+
+
     function addUnit(unit u)
         army.push(u)
 
     function issueOrderById(int orderId)
-        army.forEach() (unit t) ->
-            t.issueImmediateOrderById(orderId)
+        army.forEach() (unit u) ->
+            u.issueImmediateOrderById(orderId)
 
     function issueOrderById(int orderId, vec2 pos)
-        army.forEach() (unit t) ->
-            t.issuePointOrderById(orderId, pos)
+        if formation
+            orderUnitTightFormation(orderId, pos)
+        else
+            orderUnitSpreadFormation(orderId, pos)
 
     function issueOrderById(int orderId, unit target)
-        army.forEach() (unit t) ->
-            t.issueTargetOrderById(orderId, target)
+        army.forEach() (unit u) ->
+            u.issueTargetOrderById(orderId, target)
 
     function updateOrderGroup(int unitId)
         // TODO: add print message
@@ -80,3 +142,10 @@ public class ArmyHandler
     function updateSpawnOrder(int orderId, unit target)
         this.spawnOrder = orderId
         this.spawnOrderTarget = target
+
+    function toggleFormation()
+        if formation
+            formation = false
+        else
+            formation = true
+        issueOrderById(OrderIds.move, spawnOrderPos)
