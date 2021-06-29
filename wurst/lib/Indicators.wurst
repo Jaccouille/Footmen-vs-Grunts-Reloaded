@@ -12,6 +12,7 @@ public interface Callback
 
 // A mapping of IDs from indicator units to actual units.
 public let indicators = new IterableMap<int, int>()
+    ..put('h000', UNIT_CONTROL_TOWER)
     ..put('haro', UNIT_ALLIANCE_CAPITAL)
     ..put('hcas', UNIT_ALLIANCE_CASTLE)
     ..put('hars', UNIT_HUMAN_TRAINING_CENTER)
@@ -29,7 +30,6 @@ public let indicators = new IterableMap<int, int>()
     ..put('h01L', UNIT_BASIC_TOWER)
     ..put('hgtw', UNIT_ALLIANCE_BASIC_TOWER)
     ..put('owtw', UNIT_HORDE_BASIC_TOWER)
-    ..put('h000', UNIT_CONTROL_TOWER)
 
 
 public let indicatorCallbacks = new IterableMap<int, LinkedList<Callback>>()
