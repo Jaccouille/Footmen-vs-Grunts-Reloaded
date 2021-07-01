@@ -138,7 +138,7 @@ function onTargetCast(unit caster, unit target)
             owner.getArmyHandler().updateOrderGroup(target.getTypeId())
 
 
-init
+public function initControlTower()
     EventListener.onPointCast(ABILITY_ARMY_MOVE, (unit caster, vec2 target) -> onPoint(caster, OrderIds.move, target))
     EventListener.onPointCast(ABILITY_ARMY_ATTACK, (unit caster, vec2 target) -> onPoint(caster, OrderIds.attack, target))
 

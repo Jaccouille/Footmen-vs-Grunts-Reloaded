@@ -16,8 +16,6 @@ public function initSelection()
         if players[i].isIngame()
             selectBuildings(players[i])
 
-
-init
     // Select all player's building on ESCAPE key press
     EventListener.add(EVENT_PLAYER_END_CINEMATIC) ->
         let owner = EventData.getTriggerPlayer()

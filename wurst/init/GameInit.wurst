@@ -7,6 +7,7 @@ import PlayerData
 import UnitSpawner
 import SpawnDataInit
 import BuildingESCSelection
+import ControlTowerAbilities
 
 function preload()
     let abils = new IdGenerator('AM00')
@@ -24,3 +25,4 @@ init
         UnitSpawner.initialize()
         initSpawnData()
         initSelection()
+        initControlTower()
