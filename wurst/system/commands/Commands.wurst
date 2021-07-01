@@ -1,0 +1,41 @@
+package Commands
+
+// Standard library imports:
+import LinkedList
+
+// Local imports:
+import ChatCommands
+import ColorUtils
+import StringExtensions
+
+function setCamePos(player _player, real offset)
+    if (offset > 2000 or offset < 0)
+        printTimedToPlayer("Choose a value between 0 & 2000".color(COLOR_RED), 5, _player)
+    else
+        _player.setCameraField(CAMERA_FIELD_ZOFFSET, offset, 1)
+
+init
+    registerCommandAll("clear") (triggerPlayer, args) ->
+        if localPlayer == triggerPlayer
+            ClearTextMessages()
+
+    registerCommandAll("ms") (triggerPlayer, args) ->
+        let units = CreateGroup()..enumUnitsSelected(triggerPlayer, null)
+        if units.isEmpty()
+            printTimedToPlayer("Need selected unit(s)", 5, triggerPlayer)
+        else
+            for u from units
+                let msg = "{0} the {1} movement speed is {2}".format(u.getProperName().color(HIGHLIGHT_COLOR), u.getName().color(SPECIAL_COLOR), u.getMoveSpeed().toString().color(HIGHLIGHT_COLOR))
+                printTimedToPlayer(msg, 5, triggerPlayer)
+        units.destr()
+
+    registerCommandAll("cc") (triggerPlayer, args) ->
+        let id = args.get(1).toInt() mod 12
+        let msg = "Adjusted player color to {0}Player {1}|r".format(id.toPlayerColor().toColor().toColorString(), (id + 1).toString())
+        printTimedToPlayer(msg, 5, triggerPlayer)
+        triggerPlayer.setColor(ConvertPlayerColor(id))
+
+    registerCommandAll("cam") (triggerPlayer, args) ->
+        setCamePos(triggerPlayer, args.get(1).toReal())
+    registerCommandAll("zoom") (triggerPlayer, args) ->
+        setCamePos(triggerPlayer, args.get(1).toReal())
