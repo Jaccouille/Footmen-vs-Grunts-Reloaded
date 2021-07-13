@@ -9,11 +9,13 @@ import ColorUtils
 import StringExtensions
 import PlayerData
 
+
 function setCamePos(player _player, real offset)
     if (offset > 2000 or offset < 0)
         printTimedToPlayer("Choose a value between 0 & 2000".color(COLOR_RED), 5, _player)
     else
         _player.setCameraField(CAMERA_FIELD_ZOFFSET, offset, 1)
+
 
 init
     registerCommandAll("clear") (triggerPlayer, args) ->
