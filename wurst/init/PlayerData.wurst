@@ -16,6 +16,10 @@ import Indicators
 **/
 public class PlayerData
     private static let playerDataMap = new HashMap<player, PlayerData>
+
+    // Sum of gains from all players
+    static var totalGain = 0
+
     static function initialize()
         for i = 0 to 10
             // TODO: remove on release
@@ -23,6 +27,9 @@ public class PlayerData
             new PlayerData(players[i])
 
         replaceIndicator()
+        doPeriodically(5) (CallbackPeriodic cb) ->
+            updateTotalGain()
+            updatePlayersData()
 
     static function getPlayerData(player _player) returns PlayerData
         if playerDataMap.has(_player)
@@ -33,15 +40,40 @@ public class PlayerData
         if playerDataMap.has(_player)
             playerDataMap.remove(_player)
 
+    static function updateTotalGain()
+        totalGain = 0
+        for i = 0 to 10
+            totalGain += playerDataMap.get(players[i]).getGain()
+
+    static function getTotalGain() returns int
+        return totalGain
+
+    static function updatePlayersData()
+        for i = 0 to 10
+            playerDataMap.get(players[i])
+                ..updatePlayerValue()
+                ..updateTaxRate()
+
 
     player _player
     let playerBuilding = new IterableMap<int, unit>
+
+    // Player income
     real playerIncome = 5.
-    real playerValue = 0
+
+    // Sum of bounty earned
     int playerGain = 0
+
+    // Sum of bounty given
     int playerFeed = 0
+
+    // Value of a player relative to the other player
+    // playerValue = 100 * playerGain / total gain
+    real playerValue = 0
+
     // tax used to compute lumber bounty
     // the higher the player value, the lower the tax
+    // tax = playerValue * (- 1 / 100) + 1
     real goldFactorTax = 1
 
     construct(player _player)
@@ -90,22 +122,20 @@ public class PlayerData
     function getPlayerValue() returns real
         return this.playerValue
 
-    // playerValue = 100 * playerGain / total gain
-    // playerValue is the value of the player in the game compared to the rest
-    // of the player, the value is used to adjust taxes, the lower the
-    // playerValue, the lesser the taxes, this is a tiny helping hand for
-    // player who are behind
-    // TODO: Update player value periodically with the scoreboard
     function setPlayerValue(real playerValue)
         this.playerValue = playerValue
 
     function updateTaxRate()
-        // set total_gain=player_gain[10]+player_gain[11]
         // This linear equation is taken from Compit's Footmen vs Grunts
         // if playerValue > 40, tax = 0.6
         // if playerValue == 0, tax = 1
         this.setGoldFactorTax(this.playerValue * (- 1 / 100) + 1)
 
+    function updatePlayerValue()
+        if totalGain > 0
+            this.setPlayerValue(100 * this.playerGain / totalGain)
+        else
+            this.setPlayerValue(0)
 
 // It's easier to place units on editor and then replace them with our
 // Wurst defined units
@@ -145,10 +175,3 @@ function replaceIndicator()
                 //     if list != null
                 //         list.forEach() (Callback cb) ->
                 //             cb.run(target)
-
-
-init
-    EventListener.add(EVENT_PLAYER_LEAVE) ->
-        let _player = EventData.getTriggerPlayer()
-        destroy PlayerData.getPlayerData(_player)
-        PlayerData.removePlayerData(_player)
