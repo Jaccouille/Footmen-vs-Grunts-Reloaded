@@ -7,6 +7,7 @@ import LinkedList
 import ChatCommands
 import ColorUtils
 import StringExtensions
+import PlayerData
 
 function setCamePos(player _player, real offset)
     if (offset > 2000 or offset < 0)
@@ -39,3 +40,20 @@ init
         setCamePos(triggerPlayer, args.get(1).toReal())
     registerCommandAll("zoom") (triggerPlayer, args) ->
         setCamePos(triggerPlayer, args.get(1).toReal())
+
+    registerCommandAll("score") (triggerPlayer, args) ->
+        let pData = PlayerData.getPlayerData(triggerPlayer)
+        let msg = (""+
+        "Scores:\n".color(GOLD_COLOR)+
+        "Income: ".color(HIGHLIGHT_COLOR) + "{0}\n"+
+        "Gain (Bounty sum earned): ".color(HIGHLIGHT_COLOR) + "{1}\n"+
+        "Feed (Bounty sum given): ".color(HIGHLIGHT_COLOR) + "{2}\n"+
+        "Value (100 * Gain / Total Gain): ".color(HIGHLIGHT_COLOR) + "{3}\n"+
+        "Gold Tax: ".color(HIGHLIGHT_COLOR) + "{4}").format(
+            pData.getIncome().toInt().toString().color(GENERAL_COLOR),
+            pData.getGain().toString().color(GENERAL_COLOR),
+            pData.getFeed().toString().color(GENERAL_COLOR),
+            pData.getPlayerValue().toString(2).color(GENERAL_COLOR),
+            pData.getGoldFactorTax().toString(2).color(GENERAL_COLOR)
+        )
+        printTimedToPlayer(msg, 10, triggerPlayer)

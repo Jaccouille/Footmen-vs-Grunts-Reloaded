@@ -15,7 +15,7 @@ import Indicators
     playerValue = 100 * playerGain / total gain
 **/
 public class PlayerData
-    static let playerDataMap = new HashMap<player, PlayerData>
+    private static let playerDataMap = new HashMap<player, PlayerData>
     static function initialize()
         for i = 0 to 10
             // TODO: remove on release
@@ -29,16 +29,20 @@ public class PlayerData
             return playerDataMap.get(_player)
         return null
 
+    static function removePlayerData(player _player)
+        if playerDataMap.has(_player)
+            playerDataMap.remove(_player)
+
 
     player _player
     let playerBuilding = new IterableMap<int, unit>
     real playerIncome = 5.
     real playerValue = 0
-    real playerGain = 0
-    real playerFeed = 0
+    int playerGain = 0
+    int playerFeed = 0
     // tax used to compute lumber bounty
     // the higher the player value, the lower the tax
-    real goldFactorTax = 0
+    real goldFactorTax = 1
 
     construct(player _player)
         this._player = _player
@@ -65,16 +69,16 @@ public class PlayerData
     function addIncome(real income)
         this.playerIncome += income
 
-    function getGain() returns real
+    function getGain() returns int
         return this.playerGain
 
-    function setGain(real gain)
+    function setGain(int gain)
         this.playerGain = gain
 
-    function getFeed() returns real
+    function getFeed() returns int
         return this.playerFeed
 
-    function setFeed(real feed)
+    function setFeed(int feed)
         this.playerFeed = feed
 
     function getGoldFactorTax() returns real
@@ -91,6 +95,7 @@ public class PlayerData
     // of the player, the value is used to adjust taxes, the lower the
     // playerValue, the lesser the taxes, this is a tiny helping hand for
     // player who are behind
+    // TODO: Update player value periodically with the scoreboard
     function setPlayerValue(real playerValue)
         this.playerValue = playerValue
 
@@ -99,7 +104,7 @@ public class PlayerData
         // This linear equation is taken from Compit's Footmen vs Grunts
         // if playerValue > 40, tax = 0.6
         // if playerValue == 0, tax = 1
-        this.setGoldFactorTax(this.playerValue * (-0.01) + 1)
+        this.setGoldFactorTax(this.playerValue * (- 1 / 100) + 1)
 
 
 // It's easier to place units on editor and then replace them with our
@@ -126,7 +131,7 @@ function replaceIndicator()
                 let target = createUnit(owner, targetID, pos, angle)
                 // TODO: add condition before accesing map
                 if target.getOwner().getId() < 10
-                    let pData = PlayerData.playerDataMap.get(target.getOwner())
+                    let pData = PlayerData.getPlayerData(target.getOwner())
                     pData.addBuilding(target)
 
                 // TODO : for some reason this following code
@@ -145,5 +150,5 @@ function replaceIndicator()
 init
     EventListener.add(EVENT_PLAYER_LEAVE) ->
         let _player = EventData.getTriggerPlayer()
-        destroy PlayerData.playerDataMap.get(_player)
-        PlayerData.playerDataMap.remove(_player)
+        destroy PlayerData.getPlayerData(_player)
+        PlayerData.removePlayerData(_player)

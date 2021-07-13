@@ -10,6 +10,7 @@ public abstract class BountifulUnitEntity extends UnitEntity
         super(whichUnit)
 
     function giveIncome()
+        // TODO: Income mode
         // Income note
         //  if(GetUnitUserData(GetTriggerUnit())==-1)then
         // let killerOwner = EventData.getKillingUnit().getOwner()
