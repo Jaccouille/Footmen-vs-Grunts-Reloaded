@@ -13,3 +13,16 @@ public function player.getUnitSpawner() returns UnitSpawner
 
 public function player.getArmyHandler() returns ArmyHandler
     return ArmyHandler.getArmyHandler(this)
+
+public function player.addGain(int bounty)
+    let p_data = this.getPlayerData()
+    p_data.setGain(p_data.getGain() + bounty)
+
+public function player.addFeed(int bounty)
+    let p_data = this.getPlayerData()
+    p_data.setFeed(p_data.getFeed() + bounty)
+
+public function player.addBountyLumber(int bounty)
+    let p_data = this.getPlayerData()
+    // The lower the gold factor tax, the higher the bounty lumber
+    this.addLumber((bounty / 5.00 / p_data.getGoldFactorTax()).floor())

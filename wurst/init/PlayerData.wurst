@@ -6,15 +6,23 @@ import ClosureEvents
 
 import Indicators
 
+
+/**
+    Player Value is the percent of gain compared to the total gain in the game
+    total gain = sum of all player gain
+    playerGain = playerGain + bounty from kills (killer)
+    playerFeed = playerFeed + bounty from kills (victim)
+    playerValue = 100 * playerGain / total gain
+**/
 public class PlayerData
     static let playerDataMap = new HashMap<player, PlayerData>
     static function initialize()
         for i = 0 to 10
+            // TODO: remove on release
             // if players[i].isIngame()
             new PlayerData(players[i])
 
         replaceIndicator()
-
 
     static function getPlayerData(player _player) returns PlayerData
         if playerDataMap.has(_player)
@@ -24,7 +32,13 @@ public class PlayerData
 
     player _player
     let playerBuilding = new IterableMap<int, unit>
-
+    real playerIncome = 5.
+    real playerValue = 0
+    real playerGain = 0
+    real playerFeed = 0
+    // tax used to compute lumber bounty
+    // the higher the player value, the lower the tax
+    real goldFactorTax = 0
 
     construct(player _player)
         this._player = _player
@@ -41,6 +55,51 @@ public class PlayerData
         EventListener.add(building, EVENT_PLAYER_UNIT_DEATH) ->
             playerBuilding.remove(building.getTypeId())
             unregisterEventsForUnit(building)
+
+    function getIncome() returns real
+        return this.playerIncome
+
+    function setIncome(real income)
+        this.playerIncome = income
+
+    function addIncome(real income)
+        this.playerIncome += income
+
+    function getGain() returns real
+        return this.playerGain
+
+    function setGain(real gain)
+        this.playerGain = gain
+
+    function getFeed() returns real
+        return this.playerFeed
+
+    function setFeed(real feed)
+        this.playerFeed = feed
+
+    function getGoldFactorTax() returns real
+        return this.goldFactorTax
+
+    function setGoldFactorTax(real goldFactorTax)
+        this.goldFactorTax = goldFactorTax
+
+    function getPlayerValue() returns real
+        return this.playerValue
+
+    // playerValue = 100 * playerGain / total gain
+    // playerValue is the value of the player in the game compared to the rest
+    // of the player, the value is used to adjust taxes, the lower the
+    // playerValue, the lesser the taxes, this is a tiny helping hand for
+    // player who are behind
+    function setPlayerValue(real playerValue)
+        this.playerValue = playerValue
+
+    function updateTaxRate()
+        // set total_gain=player_gain[10]+player_gain[11]
+        // This linear equation is taken from Compit's Footmen vs Grunts
+        // if playerValue > 40, tax = 0.6
+        // if playerValue == 0, tax = 1
+        this.setGoldFactorTax(this.playerValue * (-0.01) + 1)
 
 
 // It's easier to place units on editor and then replace them with our

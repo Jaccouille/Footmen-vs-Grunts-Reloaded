@@ -1,0 +1,53 @@
+package BountifulUnitEntity
+
+import UnitEntity
+import SpawnDataConstant
+import PlayerExtension
+
+
+public abstract class BountifulUnitEntity extends UnitEntity
+    construct(unit whichUnit)
+        super(whichUnit)
+
+    function giveIncome()
+        // Income note
+        //  if(GetUnitUserData(GetTriggerUnit())==-1)then
+        // let killerOwner = EventData.getKillingUnit().getOwner()
+        // let unitKilled = EventData.getTriggerUnit()
+
+        // let income_stream = player_gain / income_factor
+
+    function giveBounty()
+        let killerOwner = EventData.getKillingUnit().getOwner()
+        let deathOwner = EventData.getTriggerUnit().getOwner()
+        let unitKilled = EventData.getTriggerUnit()
+        var bounty = 0
+        let unitCap = spawnDataConstant.get(unitKilled.getTypeId()).unitCap
+
+        if killerOwner != players[PLAYER_NEUTRAL_AGGRESSIVE]
+            bounty = (unitKilled.getPointValue() / (3 * unitCap)).floor()
+
+            createTTEx(
+                unitKilled.getPos3Real(),
+                "+" + bounty.toString(),
+                10,
+                colorA(255,220,0,255),
+                killerOwner
+            )
+            ..setVelocity(0.0, 0.03)
+            ..setFadepoint(1.5)
+            ..setLifespan(2.0)
+            ..setPermanent(false)
+
+            killerOwner.addGold(bounty)
+            killerOwner.addBountyLumber(bounty)
+            killerOwner.addGain(bounty)
+            deathOwner.addFeed(bounty)
+        // TODO: handle increase bounty on naga secret upgd?
+        // Bounty for tower
+        // bounty for summons
+        // checkout gold factor
+
+    override function postDeath()
+        super.postDeath()
+        giveBounty()

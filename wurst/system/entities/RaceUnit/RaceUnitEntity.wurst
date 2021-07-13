@@ -1,6 +1,6 @@
 package RaceUnitEntity
 
-import UnitEntity
+import BountifulUnitEntity
 import PlayerExtension
 import LinkedList
 
@@ -14,7 +14,7 @@ let typeIDs = new LinkedList<int>
 ..addAll(UNDEAD_UNITS)
 
 
-public class RaceUnitEntity extends UnitEntity
+public class RaceUnitEntity extends BountifulUnitEntity
     construct(unit whichUnit)
         super(whichUnit)
 
