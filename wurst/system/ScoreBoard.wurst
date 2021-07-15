@@ -1,0 +1,152 @@
+package ScoreBoard
+
+import Boards
+import ColorUtils
+import LinkedList
+import HashMap
+import ClosureTimers
+
+import StringExtensions
+import TimeUtils
+import PlayerData
+
+let REAL_COLUMN_WIDTH = 0.07
+let NAME_LABEL_WIDTH = 0.13
+let INT_COLUMN_WIDTH = 0.06
+
+let GAME_TIMER = CreateTimer()
+Board scoreBoard
+
+let NON_PERCENT_TEMPLATE = "{0}" + "/{1}".color(COLOR_GRAY)
+let PERCENT_TEMPLATE = "{0}%" + "/{1}%".color(COLOR_GRAY)
+
+function getFormattedEntry(int val1, int val2, string template) returns string
+    return template.format(val1.toString(), val2.toString())
+
+function getFormattedEntry(real val1, real val2, string template, int precision) returns string
+    return template.format(val1.toString(precision), val2.toString(precision))
+
+function getUnitKillDeathText(player _player) returns string
+    let pData = PlayerData.getPlayerData(_player)
+    let kill = pData.getPlayerUnitKill()
+    let death = pData.getPlayerUnitDeath()
+    return getFormattedEntry(kill, death, NON_PERCENT_TEMPLATE)
+
+function getHeroKillDeathText(player _player) returns string
+    let pData = PlayerData.getPlayerData(_player)
+    let kill = pData.getPlayerHeroKill()
+    let death = pData.getPlayerHeroDeath()
+    return getFormattedEntry(kill, death, NON_PERCENT_TEMPLATE)
+
+function getGainFeed(player _player) returns string
+    let pData = PlayerData.getPlayerData(_player)
+    let gain = pData.getGain() / 1000
+    let feed = pData.getFeed() / 1000
+    return getFormattedEntry(gain, feed, NON_PERCENT_TEMPLATE, 1)
+
+function getGainFeedPercent(player _player) returns string
+    let pData = PlayerData.getPlayerData(_player)
+    let totalGain = PlayerData.getTotalGain()
+    let totalFeed = PlayerData.getTotalFeed()
+    let gainPercent = totalGain == 0 ? 0.0 : pData.getGain() * 100 / totalGain
+    let feedPercent = totalFeed == 0 ? 0.0 : pData.getFeed() * 100 / totalFeed
+    return getFormattedEntry(gainPercent, feedPercent, PERCENT_TEMPLATE, 1)
+
+class Category
+    string text
+    real width
+    string initialString
+
+    construct(string text, real width, string initialString)
+        this.text = text
+        this.width = width
+        this.initialString = initialString
+
+// ScoreBoard category listed
+let categories = asList(
+    new Category("Player"        , NAME_LABEL_WIDTH, "No Player"),
+    new Category("K/D (Unit)"    , INT_COLUMN_WIDTH, getFormattedEntry(0, 0, NON_PERCENT_TEMPLATE) ),
+    new Category("K/D (Hero)"    , INT_COLUMN_WIDTH, getFormattedEntry(0, 0, NON_PERCENT_TEMPLATE) ),
+    new Category("Gain/Feed (k)" , REAL_COLUMN_WIDTH, getFormattedEntry(0.0, 0.0, NON_PERCENT_TEMPLATE, 1)),
+    new Category("Gain/Feed (%)" , REAL_COLUMN_WIDTH, getFormattedEntry(0.0, 0.0, NON_PERCENT_TEMPLATE, 1))
+)
+
+public class ScoreBoardColumnEntries
+    static int column = 0
+    Category category
+    int columnIndex = 0
+
+    construct()
+        category = categories.get(column)
+        columnIndex = categories.indexOf(category)
+        initRow(0, category.text)
+        initForPlayer(category.initialString)
+        column++
+
+    function updateEntryColor(string name, color color)
+        let entryRow = scoreBoard.getPlayerPos(name)
+        scoreBoard.updateColor(entryRow, columnIndex, color)
+
+    function initForPlayer(string value)
+        var row = 1
+        // Iterate over the 12 players
+        for i = 0 to 11
+
+            if columnIndex == 0
+                // Prefixing player name with their position from lobby
+                // important for some command such as "-votekick 5" (Player 5)
+                // 10 & 11 are computer player, cannot be affected by command
+                let text = i < 10
+                    ? getFormattedPlayerName(players[i])
+                    : players[i].getNameColored()
+                initRow(row, text)
+            else
+                initRow(row, value)
+            row++
+
+    function initRow(int row, string value)
+        let itm = scoreBoard.getItem(row, columnIndex)
+        itm.setWidth(category.width)
+
+        // Set gold color for column title
+        if row == 0
+            itm.setValueColor(GOLD_COLOR.withAlpha(0))
+        scoreBoard.setNewItem(row, columnIndex, value, null)
+        scoreBoard.updateItem(row, columnIndex, value, null)
+
+function getFormattedPlayerName(player _player) returns string
+    let index = _player.getId() + 1
+    return "{0} {1}".format(index.toString().color(COLOR_GRAY), _player.getNameColored())
+
+public let scoreBoardEntries = new HashMap<string, ScoreBoardColumnEntries>
+
+function updateScoreBoardEntries()
+    for i = 0 to 9
+        scoreBoard.updateValue(i + 1, 0, getFormattedPlayerName(players[i]))
+        scoreBoard.updateValue(i + 1, 1, getUnitKillDeathText(players[i]))
+        scoreBoard.updateValue(i + 1, 2, getHeroKillDeathText(players[i]))
+        scoreBoard.updateValue(i + 1, 3, getGainFeed(players[i]))
+        scoreBoard.updateValue(i + 1, 4, getGainFeedPercent(players[i]))
+
+public function getGameTimersBoardTitle() returns string
+    let time = GAME_TIMER.getElapsed().toInt()
+
+    return toTimeString(time).color(GOLD_COLOR)
+
+public function initScoreBoard()
+    // 12 player + title row
+    var rowCount = 13
+
+    // Trying to display a multiboard with 0 row result in wc3 crashing
+    GAME_TIMER.start(99999999, null)
+    scoreBoard = new Board(rowCount, categories.size())
+
+    scoreBoard.board.setTitle(getGameTimersBoardTitle())
+
+    for category in categories
+        scoreBoardEntries.put(category.text, new ScoreBoardColumnEntries)
+    scoreBoard.board.display(true)
+    doPeriodically(1) (CallbackPeriodic cb) ->
+        scoreBoard.board.setTitle(getGameTimersBoardTitle())
+    doPeriodically(5) (CallbackPeriodic cb) ->
+        updateScoreBoardEntries()

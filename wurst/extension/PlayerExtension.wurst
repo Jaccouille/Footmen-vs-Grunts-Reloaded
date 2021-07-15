@@ -26,3 +26,17 @@ public function player.addBountyLumber(int bounty)
     let p_data = this.getPlayerData()
     // The lower the gold factor tax, the higher the bounty lumber
     this.addLumber((bounty / 5.00 / p_data.getGoldFactorTax()).floor())
+
+public function player.addKill(unit u)
+    let pData = this.getPlayerData()
+    if u.isType(UNIT_TYPE_HERO)
+        pData.addPlayerHeroKill(1)
+    else
+        pData.addPlayerUnitKill(1)
+
+public function player.addDeath(unit u)
+    let pData = this.getPlayerData()
+    if u.isType(UNIT_TYPE_HERO)
+        pData.addPlayerHeroDeath(1)
+    else
+        pData.addPlayerUnitDeath(1)

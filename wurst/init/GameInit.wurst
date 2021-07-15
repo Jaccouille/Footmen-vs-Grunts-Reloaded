@@ -8,6 +8,7 @@ import UnitSpawner
 import SpawnDataInit
 import BuildingESCSelection
 import ControlTowerAbilities
+import ScoreBoard
 
 function preload()
     let abils = new IdGenerator('AM00')
@@ -18,6 +19,7 @@ function preload()
     while preloadUnit(units.next())
     destroy units
 
+
 init
     // preload()
     PlayerData.initialize()
@@ -26,3 +28,4 @@ init
         initSpawnData()
         initSelection()
         initControlTower()
+        initScoreBoard()
