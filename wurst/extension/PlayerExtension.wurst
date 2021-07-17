@@ -15,28 +15,28 @@ public function player.getArmyHandler() returns ArmyHandler
     return ArmyHandler.getArmyHandler(this)
 
 public function player.addGain(int bounty)
-    let p_data = this.getPlayerData()
-    p_data.setGain(p_data.getGain() + bounty)
+    let pData = this.getPlayerData()
+    pData.addScore(ScoreType.GAIN, bounty)
 
 public function player.addFeed(int bounty)
-    let p_data = this.getPlayerData()
-    p_data.setFeed(p_data.getFeed() + bounty)
+    let pData = this.getPlayerData()
+    pData.addScore(ScoreType.FEED, bounty)
 
 public function player.addBountyLumber(int bounty)
-    let p_data = this.getPlayerData()
+    let pData = this.getPlayerData()
     // The lower the gold factor tax, the higher the bounty lumber
-    this.addLumber((bounty / 5.00 / p_data.getGoldFactorTax()).floor())
+    this.addLumber((bounty / 5.00 / pData.goldFactorTax).floor())
 
 public function player.addKill(unit u)
     let pData = this.getPlayerData()
     if u.isType(UNIT_TYPE_HERO)
-        pData.addPlayerHeroKill(1)
+        pData.addScore(ScoreType.UNITKILL, 1)
     else
-        pData.addPlayerUnitKill(1)
+        pData.addScore(ScoreType.HEROKILL, 1)
 
 public function player.addDeath(unit u)
     let pData = this.getPlayerData()
     if u.isType(UNIT_TYPE_HERO)
-        pData.addPlayerHeroDeath(1)
+        pData.addScore(ScoreType.UNITDEATH, 1)
     else
-        pData.addPlayerUnitDeath(1)
+        pData.addScore(ScoreType.HERODEATH, 1)

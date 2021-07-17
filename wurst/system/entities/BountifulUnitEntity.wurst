@@ -43,8 +43,8 @@ public abstract class BountifulUnitEntity extends UnitEntity
             killerOwner.addGold(bounty)
             killerOwner.addBountyLumber(bounty)
             killerOwner.addGain(bounty)
-            killerOwner.addKill(unitKilled)
             deathOwner.addFeed(bounty)
+            killerOwner.addKill(unitKilled)
             deathOwner.addDeath(unitKilled)
         // TODO: handle increase bounty on naga secret upgd?
         // Bounty for tower

@@ -52,10 +52,10 @@ init
         "Feed (Bounty sum given): ".color(HIGHLIGHT_COLOR) + "{2}\n"+
         "Value (100 * Gain / Total Gain): ".color(HIGHLIGHT_COLOR) + "{3}\n"+
         "Gold Tax: ".color(HIGHLIGHT_COLOR) + "{4}").format(
-            pData.getIncome().toInt().toString().color(GENERAL_COLOR),
-            pData.getGain().toString().color(GENERAL_COLOR),
-            pData.getFeed().toString().color(GENERAL_COLOR),
-            pData.getPlayerValue().toString(2).color(GENERAL_COLOR),
-            pData.getGoldFactorTax().toString(2).color(GENERAL_COLOR)
+            pData.income.toInt().toString().color(GENERAL_COLOR),
+            pData.getScore(ScoreType.GAIN).toString().color(GENERAL_COLOR),
+            pData.getScore(ScoreType.FEED).toString().color(GENERAL_COLOR),
+            pData.playerValue.toString(2).color(GENERAL_COLOR),
+            pData.goldFactorTax.toString(2).color(GENERAL_COLOR)
         )
         printTimedToPlayer(msg, 10, triggerPlayer)

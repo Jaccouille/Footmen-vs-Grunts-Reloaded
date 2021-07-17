@@ -1,82 +1,76 @@
 package PlayerData
 
 import HashMap
+import LinkedList
 import ClosureTimers
 import ClosureEvents
 
 import Indicators
 
 
-// TODO: refactor alliance & horde data into a Faction object
-/**
-    Player Value is the percent of gain compared to the total gain in the game
-    total gain = sum of all player gain
-    playerGain = playerGain + bounty from kills (killer)
-    playerFeed = playerFeed + bounty from kills (victim)
-    playerValue = 100 * playerGain / total gain
-**/
+function player.getPlayerData() returns PlayerData
+    return PlayerData.getPlayerData(this)
+
+public enum ScoreType
+    UNITKILL
+    HEROKILL
+    UNITDEATH
+    HERODEATH
+    GAIN
+    FEED
+
+
+public class FactionData
+    static let playerToFactionMap = new HashMap<player, thistype>
+    static let factions = new LinkedList<thistype>
+
+    let members = new LinkedList<player>
+
+    static function ofPlayer(player query) returns thistype
+        return playerToFactionMap.get(query)
+
+    static function getTotalScore(ScoreType scoreType) returns int
+        var sum = 0
+        for faction in factions
+            sum += faction.getScore(scoreType)
+        return sum
+
+    player _player
+
+    construct(player _player)
+        this._player = _player
+
+    function addMember(player _player)
+        this.members.push(_player)
+        playerToFactionMap.put(_player, this)
+
+    function removeMember(player _player)
+        this.members.remove(_player)
+        playerToFactionMap.remove(_player)
+
+    function getScore(ScoreType scoreType) returns int
+        var sum = 0
+        for member in members
+            sum += member.getPlayerData().getScore(scoreType)
+        return sum
+
+
 public class PlayerData
-    private static let playerDataMap = new HashMap<player, PlayerData>
-    // Sum of gains from all players
-    static var totalGain = 0
-    static var totalFeed = 0
+    private static let playerDataMap = new HashMap<player, thistype>
 
-    static function initialize()
-        for i = 0 to 10
-            // TODO: remove on release
-            // if players[i].isIngame()
-            new PlayerData(players[i])
-
-        replaceIndicator()
-        doPeriodically(5) (CallbackPeriodic cb) ->
-            updateTotalGainFeed()
-            updatePlayersData()
-
-    static function getPlayerData(player _player) returns PlayerData
+    static function getPlayerData(player _player) returns thistype
         if playerDataMap.has(_player)
             return playerDataMap.get(_player)
         return null
 
     static function removePlayerData(player _player)
         if playerDataMap.has(_player)
-            playerDataMap.remove(_player)
+            destroy playerDataMap.getAndRemove(_player)
 
-    static function updateTotalGainFeed()
-        totalGain = 0
-        totalFeed = 0
-        for i = 0 to 10
-            totalGain += playerDataMap.get(players[i]).getGain()
-            totalFeed += playerDataMap.get(players[i]).getFeed()
-
-    static function getTotalGain() returns int
-        return totalGain
-
-    static function getTotalFeed() returns int
-        return totalFeed
-
-    static function updatePlayersData()
-        for i = 0 to 10
-            playerDataMap.get(players[i])
-                ..updatePlayerValue()
-                ..updateTaxRate()
-
-
-    player _player
     let playerBuilding = new IterableMap<int, unit>
 
-    int playerUnitKill = 0
-    int playerHeroKill = 0
-    int playerUnitDeath = 0
-    int playerHeroDeath = 0
-
     // Player income
-    real playerIncome = 5.
-
-    // Sum of bounty earned
-    int playerGain = 0
-
-    // Sum of bounty given
-    int playerFeed = 0
+    real income = 5.
 
     // Value of a player relative to the other player
     // playerValue = 100 * playerGain / total gain
@@ -87,8 +81,18 @@ public class PlayerData
     // tax = playerValue * (- 1 / 100) + 1
     real goldFactorTax = 1
 
+    let score = new HashMap<ScoreType, int>
+    player _player
+
     construct(player _player)
         this._player = _player
+        score..put(ScoreType.UNITKILL, 0)
+             ..put(ScoreType.HEROKILL, 0)
+             ..put(ScoreType.UNITDEATH, 0)
+             ..put(ScoreType.HERODEATH, 0)
+             ..put(ScoreType.GAIN, 0)
+             ..put(ScoreType.FEED, 0)
+
         playerDataMap.put(_player, this)
 
     function addBuilding(unit building)
@@ -103,74 +107,27 @@ public class PlayerData
             playerBuilding.remove(building.getTypeId())
             unregisterEventsForUnit(building)
 
-    function getPlayerUnitKill() returns int
-        return this.playerUnitKill
+    function getScore(ScoreType scoreType) returns int
+        return score.get(scoreType)
 
-    function addPlayerUnitKill(int value)
-        this.playerUnitKill += value
+    function addScore(ScoreType scoreType, int value)
+        let currentVal = score.get(scoreType)
+        let newVal = currentVal + value
+        score.put(scoreType, newVal)
 
-    function getPlayerHeroKill() returns int
-        return this.playerHeroKill
-
-    function addPlayerHeroKill(int value)
-        this.playerHeroKill += value
-
-    function getPlayerUnitDeath() returns int
-        return this.playerUnitDeath
-
-    function addPlayerUnitDeath(int value)
-        this.playerUnitDeath += value
-
-    function getPlayerHeroDeath() returns int
-        return this.playerHeroDeath
-
-    function addPlayerHeroDeath(int value)
-        this.playerHeroDeath += value
-
-    function getIncome() returns real
-        return this.playerIncome
-
-    function setIncome(real income)
-        this.playerIncome = income
-
-    function addIncome(real income)
-        this.playerIncome += income
-
-    function getGain() returns int
-        return this.playerGain
-
-    function setGain(int gain)
-        this.playerGain = gain
-
-    function getFeed() returns int
-        return this.playerFeed
-
-    function setFeed(int feed)
-        this.playerFeed = feed
-
-    function getGoldFactorTax() returns real
-        return this.goldFactorTax
-
-    function setGoldFactorTax(real goldFactorTax)
-        this.goldFactorTax = goldFactorTax
-
-    function getPlayerValue() returns real
-        return this.playerValue
-
-    function setPlayerValue(real playerValue)
-        this.playerValue = playerValue
 
     function updateTaxRate()
         // This linear equation is taken from Compit's Footmen vs Grunts
         // if playerValue > 40, tax = 0.6
         // if playerValue == 0, tax = 1
-        this.setGoldFactorTax(this.playerValue * (- 1 / 100) + 1)
+        this.goldFactorTax = (this.playerValue * (- 1 / 100) + 1)
 
     function updatePlayerValue()
-        if PlayerData.getTotalGain() > 0
-            this.setPlayerValue(100 * this.playerGain / PlayerData.getTotalGain())
+        let totalGain = FactionData.getTotalScore(ScoreType.GAIN)
+        if totalGain > 0
+            this.playerValue = 100 * this.getScore(ScoreType.GAIN) / totalGain
         else
-            this.setPlayerValue(0)
+            this.playerValue = 0
 
 // It's easier to place units on editor and then replace them with our
 // Wurst defined units
@@ -196,7 +153,7 @@ function replaceIndicator()
                 let target = createUnit(owner, targetID, pos, angle)
                 // TODO: add condition before accesing map
                 if target.getOwner().getId() < 10
-                    let pData = PlayerData.getPlayerData(target.getOwner())
+                    let pData = owner.getPlayerData()
                     pData.addBuilding(target)
 
                 // TODO : for some reason this following code
@@ -210,3 +167,15 @@ function replaceIndicator()
                 //     if list != null
                 //         list.forEach() (Callback cb) ->
                 //             cb.run(target)
+
+public function initPlayerData()
+    let alliance = new FactionData(players[10])
+    let horde = new FactionData(players[11])
+
+    for i = 0 to 10
+        new PlayerData(players[i])
+        if i < 5
+            alliance.addMember(players[i])
+        else
+            horde.addMember(players[i])
+    replaceIndicator()

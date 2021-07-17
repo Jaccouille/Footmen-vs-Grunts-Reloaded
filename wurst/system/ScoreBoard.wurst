@@ -28,28 +28,28 @@ function getFormattedEntry(real val1, real val2, string template, int precision)
 
 function getUnitKillDeathText(player _player) returns string
     let pData = PlayerData.getPlayerData(_player)
-    let kill = pData.getPlayerUnitKill()
-    let death = pData.getPlayerUnitDeath()
+    let kill = pData.getScore(ScoreType.UNITKILL)
+    let death = pData.getScore(ScoreType.UNITDEATH)
     return getFormattedEntry(kill, death, NON_PERCENT_TEMPLATE)
 
 function getHeroKillDeathText(player _player) returns string
     let pData = PlayerData.getPlayerData(_player)
-    let kill = pData.getPlayerHeroKill()
-    let death = pData.getPlayerHeroDeath()
+    let kill = pData.getScore(ScoreType.HEROKILL)
+    let death = pData.getScore(ScoreType.HERODEATH)
     return getFormattedEntry(kill, death, NON_PERCENT_TEMPLATE)
 
 function getGainFeed(player _player) returns string
     let pData = PlayerData.getPlayerData(_player)
-    let gain = pData.getGain() / 1000
-    let feed = pData.getFeed() / 1000
+    let gain = pData.getScore(ScoreType.GAIN) / 1000
+    let feed = pData.getScore(ScoreType.FEED) / 1000
     return getFormattedEntry(gain, feed, NON_PERCENT_TEMPLATE, 1)
 
 function getGainFeedPercent(player _player) returns string
     let pData = PlayerData.getPlayerData(_player)
-    let totalGain = PlayerData.getTotalGain()
-    let totalFeed = PlayerData.getTotalFeed()
-    let gainPercent = totalGain == 0 ? 0.0 : pData.getGain() * 100 / totalGain
-    let feedPercent = totalFeed == 0 ? 0.0 : pData.getFeed() * 100 / totalFeed
+    let totalGain = FactionData.getTotalScore(ScoreType.GAIN)
+    let totalFeed = FactionData.getTotalScore(ScoreType.FEED)
+    let gainPercent = totalGain == 0 ? 0.0 : pData.getScore(ScoreType.GAIN) * 100 / totalGain
+    let feedPercent = totalFeed == 0 ? 0.0 : pData.getScore(ScoreType.FEED) * 100 / totalFeed
     return getFormattedEntry(gainPercent, feedPercent, PERCENT_TEMPLATE, 1)
 
 class Category

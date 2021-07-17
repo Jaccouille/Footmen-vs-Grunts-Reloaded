@@ -22,7 +22,7 @@ function preload()
 
 init
     // preload()
-    PlayerData.initialize()
+    initPlayerData()
     nullTimer() ->
         UnitSpawner.initialize()
         initSpawnData()
