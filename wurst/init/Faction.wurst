@@ -1,0 +1,52 @@
+package Faction
+
+import LinkedList
+import HashMap
+
+
+import PlayerExtension
+
+abstract class Score
+    int unitKill = 0
+    int heroKill = 0
+    int unitDeath = 0
+    int heroDeath = 0
+
+    // Sum of bounty earned
+    int gain = 0
+
+    // Sum of bounty given
+    int feed = 0
+
+class Faction
+    static let playerToFactionMap = new HashMap<player, thistype>
+
+    let members = new LinkedList<player>
+    static thistype alliance
+    static thistype horde
+    player factionPlayer
+
+    static function initialize()
+        alliance = new Faction(players[10])
+        for i = 0 to 5
+            alliance.addMember(players[i])
+
+        horde = new Faction(players[11])
+        for i = 5 to 10
+            horde.addMember(players[i])
+
+    static function ofPlayer(player query) returns thistype
+        return playerToFactionMap.get(query)
+
+    construct(player _player)
+        this.factionPlayer = _player
+
+    function addMember(player _player)
+        this.members.push(_player)
+        playerToFactionMap.put(_player, this)
+
+    function removeMember(player _player)
+        this.members.remove(_player)
+        playerToFactionMap.remove(_player)
+
+    function
