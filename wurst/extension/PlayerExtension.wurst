@@ -30,13 +30,13 @@ public function player.addBountyLumber(int bounty)
 public function player.addKill(unit u)
     let pData = this.getPlayerData()
     if u.isType(UNIT_TYPE_HERO)
-        pData.addScore(ScoreType.UNITKILL, 1)
-    else
         pData.addScore(ScoreType.HEROKILL, 1)
+    else
+        pData.addScore(ScoreType.UNITKILL, 1)
 
 public function player.addDeath(unit u)
     let pData = this.getPlayerData()
     if u.isType(UNIT_TYPE_HERO)
-        pData.addScore(ScoreType.UNITDEATH, 1)
-    else
         pData.addScore(ScoreType.HERODEATH, 1)
+    else
+        pData.addScore(ScoreType.UNITDEATH, 1)

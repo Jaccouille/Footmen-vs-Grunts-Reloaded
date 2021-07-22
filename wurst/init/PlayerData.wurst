@@ -19,6 +19,8 @@ public enum ScoreType
     GAIN
     FEED
 
+public var TOTAL_GAIN = 0
+public var TOTAL_FEED = 0
 
 public class FactionData
     static let playerToFactionMap = new HashMap<player, thistype>
@@ -27,7 +29,9 @@ public class FactionData
     let members = new LinkedList<player>
 
     static function ofPlayer(player query) returns thistype
-        return playerToFactionMap.get(query)
+        if playerToFactionMap.has(query)
+            return playerToFactionMap.get(query)
+        return null
 
     static function getTotalScore(ScoreType scoreType) returns int
         var sum = 0
@@ -39,6 +43,7 @@ public class FactionData
 
     construct(player _player)
         this._player = _player
+        factions.push(this)
 
     function addMember(player _player)
         this.members.push(_player)
@@ -51,7 +56,8 @@ public class FactionData
     function getScore(ScoreType scoreType) returns int
         var sum = 0
         for member in members
-            sum += member.getPlayerData().getScore(scoreType)
+            if member != this._player
+                sum += member.getPlayerData().getScore(scoreType)
         return sum
 
 
@@ -115,6 +121,14 @@ public class PlayerData
         let newVal = currentVal + value
         score.put(scoreType, newVal)
 
+        let factionPlayer = FactionData.ofPlayer(this._player)._player
+        if factionPlayer.getId() != this._player.getId()
+            if scoreType == ScoreType.GAIN
+                TOTAL_GAIN += value
+            else if scoreType == ScoreType.FEED
+                TOTAL_FEED += value
+            factionPlayer.getPlayerData().addScore(scoreType, value)
+
 
     function updateTaxRate()
         // This linear equation is taken from Compit's Footmen vs Grunts
@@ -168,14 +182,16 @@ function replaceIndicator()
                 //         list.forEach() (Callback cb) ->
                 //             cb.run(target)
 
-public function initPlayerData()
-    let alliance = new FactionData(players[10])
-    let horde = new FactionData(players[11])
+public let alliance = new FactionData(players[10])
+public let horde = new FactionData(players[11])
 
-    for i = 0 to 10
+public function initPlayerData()
+    for i = 0 to 11
         new PlayerData(players[i])
+        alliance.addMember(players[10])
+        horde.addMember(players[11])
         if i < 5
             alliance.addMember(players[i])
-        else
+        else if i < 10
             horde.addMember(players[i])
     replaceIndicator()
