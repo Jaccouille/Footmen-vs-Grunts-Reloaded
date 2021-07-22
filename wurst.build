@@ -52,7 +52,7 @@ buildMapData:
     controller: COMPUTER
     fixedStartLoc: true
   - id: 10
-    name: The Aliiance
+    name: The Alliance
     race: HUMAN
     controller: COMPUTER
     fixedStartLoc: true
