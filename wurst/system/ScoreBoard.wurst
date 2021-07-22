@@ -50,6 +50,11 @@ function getGainFeedPercent(player _player) returns string
     let feedPercent = TOTAL_FEED == 0 ? 0.0 : pData.getScore(ScoreType.FEED) * 100 / TOTAL_FEED
     return getFormattedEntry(gainPercent, feedPercent, PERCENT_TEMPLATE, 1)
 
+function getGainPercent(player _player) returns string
+    let pData = PlayerData.getPlayerData(_player)
+    let gainPercent = TOTAL_GAIN == 0 ? 0.0 : pData.getScore(ScoreType.GAIN) * 100 / TOTAL_GAIN
+    return gainPercent.toString(1) + "%"
+
 class Category
     string text
     real width
@@ -113,8 +118,10 @@ public class ScoreBoardColumnEntries
         scoreBoard.updateItem(row, columnIndex, value, null)
 
 function getFormattedPlayerName(player _player) returns string
-    let index = _player.getId() + 1
-    return "{0} {1}".format(index.toString().color(COLOR_GRAY), _player.getNameColored())
+    var prefix = (_player.getId() + 1).toString().color(COLOR_GRAY) + " "
+    if _player.getId() > 9
+        prefix = ""
+    return "{0}{1}".format(prefix, _player.getNameColored())
 
 public let scoreBoardEntries = new HashMap<string, ScoreBoardColumnEntries>
 
@@ -130,8 +137,13 @@ function updateScoreBoardEntries()
 
 public function getGameTimersBoardTitle() returns string
     let time = GAME_TIMER.getElapsed().toInt()
-
-    return toTimeString(time).color(GOLD_COLOR)
+    let title = ""+
+        toTimeString(time).color(GOLD_COLOR) +
+        " - ".color(GOLD_COLOR) +
+        getGainPercent(players[10]).color(COLOR_WHITE) +
+        " <> ".color(GOLD_COLOR) +
+        getGainPercent(players[11]).color(COLOR_WHITE)
+    return title
 
 public function initScoreBoard()
     // 12 player + title row
