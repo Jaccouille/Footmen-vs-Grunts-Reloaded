@@ -25,7 +25,6 @@ import AbilityObjEditingUtils
         ..setHitPointRegeBasic()
         ..setIconGameInterface(Icons.bTNNightElfRunner)
         ..setNameEnhance("Q", "Sentry")
-        ..setTooltipSpawning("Pew pew pew")
 
 @compiletime function createArcher()
     createSpawnedUnit(UNIT_ARCHER, UnitIds.archer)
@@ -37,7 +36,6 @@ import AbilityObjEditingUtils
         ..setHitPointsMaximumBase(400)
         ..setHitPointRegeBasic()
         ..setNameEnhance("Q", "Archer")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_ARCHER, 1)
         ..setIconNormal(Icons.bTNArcher)
@@ -67,7 +65,6 @@ import AbilityObjEditingUtils
         ..setHitPointRegeBasic()
         ..setLevel(4)
         ..setNameEnhance("W", "Huntress")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_HUNTRESS, 1)
         ..setIconNormal(Icons.bTNHuntress)
@@ -89,7 +86,6 @@ import AbilityObjEditingUtils
         ..setPriority(3)
         ..setLevel(6)
         ..setNameEnhance("E", "Hyppogryph Rider")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_HYPPO_RIDER, 1)
         ..setIconNormal(Icons.bTNHippogriffRider)
@@ -111,7 +107,6 @@ import AbilityObjEditingUtils
         ..setLevel(8)
         ..setPriority(7)
         ..setNameEnhance("R", "Glaive Thrower")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_GLAIVE_THROWER, 1)
         ..setIconNormal(Icons.bTNGlaiveThrower)
@@ -130,7 +125,6 @@ import AbilityObjEditingUtils
         ..setLevel(3)
         ..setManaInitialAmount(200)
         ..setNameEnhance("Z", "Druid of the Talon")
-        ..setTooltipSpawning("Pew pew pew")
 
     createSpawnedUnit(UNIT_DRUID_TALON_CROW, UnitIds.druidofthetalonmorphed)
         ..setAttack1DamageUpgradeAmount(1)
@@ -171,7 +165,6 @@ import AbilityObjEditingUtils
         ..setLevel(5)
         ..setPriority(11)
         ..setNameEnhance("X", "Druid of the Claw")
-        ..setTooltipSpawning("Pew pew pew")
 
     createSpawnedUnit(UNIT_DRUID_CLAW_BEAR, UnitIds.druidoftheclawmorphed)
         ..setMaximumPitchAngledegrees(10)
@@ -207,7 +200,6 @@ import AbilityObjEditingUtils
         ..setLevel(5)
         ..setPriority(3)
         ..setNameEnhance("A", "Dryad")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_DRYAD, 1)
         ..setIconNormal(Icons.bTNDryad)
@@ -230,7 +222,6 @@ import AbilityObjEditingUtils
         ..setLevel(11)
         ..setPriority(10)
         ..setNameEnhance("D", "Chimaera")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_CHIMAERA, 1)
         ..setIconNormal(Icons.bTNChimaera)
@@ -257,7 +248,6 @@ import AbilityObjEditingUtils
         ..setLevel(8)
         ..setPriority(12)
         ..setNameEnhance("S", "Mountain Giant")
-        ..setTooltipSpawning("Pew pew pew")
         ..setSelectionScale(2.5)
 
     createToggleAbility(ABILITY_TOGGLE_MOUNTAIN_GIANT, 1)
@@ -293,7 +283,6 @@ import AbilityObjEditingUtils
         ..setTransportedSize(1)
         ..setUnitClassification("")
         ..setNameEnhance("F", "Ancient Protector")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_ANCIENT_PROTECTOR, 1)
         ..setIconNormal(Icons.bTNTreant)
@@ -321,7 +310,6 @@ import AbilityObjEditingUtils
         ..setLevel(20)
         ..setPriority(10)
         ..setNameEnhance("C", "Warden")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_WARDEN, 1)
         ..setIconNormal(Icons.bTNAssassin)

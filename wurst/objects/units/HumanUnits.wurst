@@ -6,19 +6,17 @@ import Assets
 import LocalObjectIDs
 import UnitObjEditingUtils
 import AbilityObjEditingUtils
-
+import UnitObjEditingExt
 
 @compiletime function createFootman()
     createSpawnedUnit(UNIT_FOOTMAN, UnitIds.footman)
         ..setAttack1CooldownTime(1.5)
         ..setAttack1DamageBase(15)
-        ..setAttack1DamageSidesperDie(3)
         ..setCollisionSize(16.0)
         ..setGoldData(900)
         ..setHitPointsMaximumBase(850)
         ..setPriority(2)
         ..setNameEnhance("Q", "Footman")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_FOOTMAN, 1)
         ..setIconNormal(Icons.bTNFootman)
@@ -26,18 +24,19 @@ import AbilityObjEditingUtils
 
 @compiletime function createRifleman()
     createSpawnedUnit(UNIT_RIFLEMAN, UnitIds.rifleman)
-        ..setAttack1DamageBase(15)
-        ..setAttack1DamageNumberofDice(1)
-        ..setAttack1DamageUpgradeAmount(1)
-        ..setDefenseBase(0)
+        ..tooltipStartListen()
+        ..setAttack1DamageBaseExt(15, 1, 10)
+        ..setDefenseBaseExt(0, 2, 5)
+        ..setAttack1CooldownTimeExt(1.350, 0, 0)
+        ..setSpeedBaseExt(270, 0, 0)
+        ..setHitPointsMaximumBaseExt(550, 100, 5)
+        ..tooltipStopListen()
         ..setCollisionSize(16.0)
         ..setGoldBountyAwardedSidesperDie(2)
         ..setGoldData(0)
-        ..setHitPointsMaximumBase(550)
         ..setLevel(2)
         ..setPriority(3)
         ..setNameEnhance("Q", "Rifleman")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_RIFLEMAN, 1)
         ..setIconNormal(Icons.bTNRifleman)
@@ -55,7 +54,6 @@ import AbilityObjEditingUtils
         ..setManaInitialAmount(200)
         ..setPriority(9)
         ..setNameEnhance("Z", "Priest")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_PRIEST, 1)
         ..setIconNormal(Icons.bTNPriest)
@@ -65,7 +63,6 @@ import AbilityObjEditingUtils
     createSpawnedUnit(UNIT_KNIGHT, UnitIds.knight)
         ..setAttack1DamageBase(50)
         ..setAttack1DamageNumberofDice(1)
-        ..setAttack1DamageSidesperDie(4)
         ..setAttack1DamageUpgradeAmount(2)
         ..setAttack1Range(120)
         ..setDefenseBase(4)
@@ -76,7 +73,6 @@ import AbilityObjEditingUtils
         ..setLevel(6)
         ..setPriority(5)
         ..setNameEnhance("A", "Knight")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_KNIGHT, 1)
         ..setIconNormal(Icons.bTNKnight)
@@ -98,7 +94,6 @@ import AbilityObjEditingUtils
         ..setLevel(8)
         ..setPriority(7)
         ..setNameEnhance("R", "Mortar Team")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_MORTAR, 1)
         ..setIconNormal(Icons.bTNMortarTeam)
@@ -114,7 +109,6 @@ import AbilityObjEditingUtils
         ))
         ..setAttack1CooldownTime(1.0)
         ..setAttack1DamageBase(15)
-        ..setAttack1DamageSidesperDie(3)
         ..setAttack1DamageUpgradeAmount(1)
         ..setAttack1TargetsAllowed(commaList(
             TargetsAllowed.air,
@@ -133,7 +127,6 @@ import AbilityObjEditingUtils
         ..setLevel(5)
         ..setRepairCommon(30)
         ..setNameEnhance("E", "Flying Machine")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_FLYING_MACHINE, 1)
         ..setIconNormal(Icons.bTNFlyingMachine)
@@ -145,7 +138,6 @@ import AbilityObjEditingUtils
         ..setAttack1CooldownTime(2)
         ..setAttack1DamageBase(50)
         ..setAttack1DamageLossFactor(0)
-        ..setAttack1DamageSidesperDie(5)
         ..setAttack1DamageSpillDistance(200)
         ..setAttack1DamageUpgradeAmount(3)
         ..setAttack1Range(500)
@@ -164,7 +156,6 @@ import AbilityObjEditingUtils
         ..setLevel(6)
         ..setPriority(6)
         ..setNameEnhance("S", "Gryphon Rider")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_GRYPHON_RIDER, 1)
         ..setIconNormal(Icons.bTNGryphonRider)
@@ -173,7 +164,6 @@ import AbilityObjEditingUtils
 @compiletime function createSorceress()
     createSpawnedUnit(UNIT_SORCERESS, UnitIds.sorceress)
         ..setAttack1DamageBase(10)
-        ..setAttack1DamageSidesperDie(4)
         ..setAttack1Range(550)
         ..setCollisionSize(6.0)
         ..setGoldBountyAwardedBase(30)
@@ -185,7 +175,6 @@ import AbilityObjEditingUtils
         ..setLevel(4)
         ..setPriority(10)
         ..setNameEnhance("X", "Sorceress")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_SORCERESS, 1)
         ..setIconNormal(Icons.bTNSorceress)
@@ -196,7 +185,6 @@ import AbilityObjEditingUtils
         ..setAttack1AttackType(AttackType.Magic)
         ..setAttack1CooldownTime(2.0)
         ..setAttack1DamageBase(15)
-        ..setAttack1DamageSidesperDie(4)
         ..setAttack1DamageUpgradeAmount(1)
         ..setDefenseBase(5)
         ..setCollisionSize(16.0)
@@ -206,7 +194,6 @@ import AbilityObjEditingUtils
         ..setManaMaximum(400)
         ..setPriority(8)
         ..setNameEnhance("W", "Spell Breaker")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_SPELL_BREAKER, 1)
         ..setIconNormal(Icons.bTNSpellBreaker)
@@ -225,7 +212,6 @@ import AbilityObjEditingUtils
         ..setLevel(10)
         ..setPriority(11)
         ..setNameEnhance("D", "Siege Engine")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_SIEGE_ENGINE, 1)
         ..setIconNormal(Icons.bTNSeigeEngine)
@@ -237,7 +223,6 @@ import AbilityObjEditingUtils
         ..setAttack1AttackType(AttackType.Chaos)
         ..setAttack1CooldownTime(1.5)
         ..setAttack1DamageBase(115)
-        ..setAttack1DamageSidesperDie(8)
         ..setAttack1DamageUpgradeAmount(3)
         ..setAttack1Range(125)
         ..setDeathType(3)
@@ -254,7 +239,6 @@ import AbilityObjEditingUtils
         ..setPriority(12)
         ..setRace(Race.Human)
         ..setNameEnhance("F", "War Golem")
-        ..setTooltipSpawning("Pew pew pew")
 
     createToggleAbility(ABILITY_TOGGLE_WAR_GOLEM, 1)
         ..setIconNormal(Icons.bTNArmorGolem)
