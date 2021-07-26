@@ -16,15 +16,15 @@ import UnitObjEditingExt
 import UnitTooltipGenerator
 
 constant SPAWN_STR = "" +
-    "Spawn period(seconds): {0}\n".color(GOLD_COLOR) +
-    "Max unit count: {1}".color(GOLD_COLOR)
+    "Spawn period(seconds):".color(GOLD_COLOR) + " {0}\n" +
+    "Max unit count:".color(GOLD_COLOR) + " {1}"
 
 public function createSpawnedUnit(int newId, int origId) returns UnitExt
     UnitTooltipGenerator tgen
     if spawnDataConstant.has(newId)
         tgen = new UnitTooltipGenerator(SPAWN_STR.format(
-            spawnDataConstant.get(newId).spawnPeriod.toString().color(COLOR_LIGHT_BLUE),
-            spawnDataConstant.get(newId).unitCap.toString().color(COLOR_LIGHT_BLUE)
+            spawnDataConstant.get(newId).spawnPeriod.toString(),
+            spawnDataConstant.get(newId).unitCap.toString()
         ))
     else
         tgen = new UnitTooltipGenerator()

@@ -55,7 +55,7 @@ public class UnitExt extends UnitDefinition
     function setAttack1AttackTypeExt(AttackType data)
         let dataStr = data.toObjectString()
         def.setString("ua1t", dataStr)
-        addTooltipProperty("Attack Type", dataStr.firstUpper(), "", 0)
+        addTooltipProperty("Damage Type", dataStr.firstUpper(), "", 0)
 
     function setAttack1DamageBaseExt(int data)
         setAttack1DamageBaseExt(data, 0, 0)
@@ -85,12 +85,12 @@ public class UnitExt extends UnitDefinition
     function setDefenseBaseExt(int data, int bonus, int lvls)
         def.setInt("udef", data)
         def.setInt("udup", data)
-        addTooltipProperty("Defense", data, bonus, lvls)
+        addTooltipProperty("Armor", data, bonus, lvls)
 
     function setArmorTypeExt(ArmorType data)
         let dataStr = data.toObjectString()
         def.setString("udty", dataStr)
-        addTooltipProperty("Defense Type", dataStr.firstUpper(), "", 0)
+        addTooltipProperty("Armor Type", dataStr.firstUpper(), "", 0)
 
     function setSpeedBaseExt(int data)
         setSpeedBaseExt(data, 0, 0)
@@ -104,7 +104,7 @@ public class UnitExt extends UnitDefinition
 
     function setAttack1RangeExt(int data, int bonus, int lvls)
         def.setInt("ua1r", data)
-        addTooltipProperty("Range", data, bonus, lvls)
+        addTooltipProperty("Attack Range", data, bonus, lvls)
 
     function setManaExt(int data)
         setManaExt(data, 0, 0)

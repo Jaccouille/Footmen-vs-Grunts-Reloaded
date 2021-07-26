@@ -9,8 +9,8 @@ import UnitObjEditing
 import StringExtensions
 import ColorUtils
 
-@configurable constant TITLE_TTYPE = "Format :".color(SPECIAL_COLOR)+
-    " starting value / +bonus per level / max level".color(COLOR_TURQUOISE)
+@configurable constant TITLE_TTYPE = "Format :".color(GOLD_COLOR)+
+    " starting value / +bonus per level / max level"
 @configurable constant MAX_TITLES = 10
 @configurable constant DESCRIPTION_PATTERN = "$description$|r"
 
@@ -49,7 +49,7 @@ public class UnitTooltipGenerator implements TooltipGenerator
 
     private function generateTooltipExtended() returns string
         var s = ""
-        s += TITLE_TTYPE + "|r\n"
+        s += TITLE_TTYPE + "|r\n\n"
 
         for key in propMap
             var tmp = ""
@@ -57,11 +57,11 @@ public class UnitTooltipGenerator implements TooltipGenerator
             let bonusValue = fixValue(propMap.get(key).bonusValue)
             let lvls = fixValue(propMap.get(key).lvls)
 
-            tmp += "|cffFFCC00" + val
+            tmp +=  val
             if bonusValue != ""
                 tmp += " / +" + bonusValue + " / " + lvls
 
-            s += key + ":|r " + tmp + "|r\n\n"
+            s += (key + ": ").color(GOLD_COLOR) + tmp + "|r\n"
         s += DESCRIPTION_PATTERN.replace("$description$", description)
         return s
 
