@@ -63,7 +63,11 @@ public class UnitTooltipGenerator implements TooltipGenerator
 
             s += (key + ": ").color(GOLD_COLOR) + tmp + "|r\n"
         s += DESCRIPTION_PATTERN.replace("$description$", description)
+        this.description = s
         return s
+
+    override function getLastTooltip() returns string
+        return this.description
 
     private static function fixValue(string value) returns string
         var s = value

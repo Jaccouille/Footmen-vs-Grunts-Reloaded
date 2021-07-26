@@ -5,22 +5,17 @@ import Assets
 
 import LocalObjectIDs
 import UnitObjEditingUtils
-import AbilityObjEditingUtils
 import UnitObjEditingExt
 
 @compiletime function createFootman()
     createSpawnedUnit(UNIT_FOOTMAN, UnitIds.footman)
-        ..setAttack1CooldownTime(1.5)
+        ..createToggleAbility(ABILITY_TOGGLE_FOOTMAN)
+        ..setIconExt(Icons.bTNFootman)
         ..setAttack1DamageBase(15)
         ..setCollisionSize(16.0)
         ..setGoldData(900)
         ..setHitPointsMaximumBase(850)
         ..setPriority(2)
-        ..setNameEnhance("Q", "Footman")
-
-    createToggleAbility(ABILITY_TOGGLE_FOOTMAN, 1)
-        ..setIconNormal(Icons.bTNFootman)
-        ..setNameEnhance("Q", "Toggle Footman Spawn")
 
 @compiletime function createRifleman()
     createSpawnedUnit(UNIT_RIFLEMAN, UnitIds.rifleman)
@@ -40,11 +35,10 @@ import UnitObjEditingExt
         ..setGoldData(0)
         ..setLevel(2)
         ..setPriority(3)
-        ..setNameEnhance("Q", "Rifleman")
 
-    createToggleAbility(ABILITY_TOGGLE_RIFLEMAN, 1)
-        ..setIconNormal(Icons.bTNRifleman)
-        ..setNameEnhance("Q", "Toggle Rifleman Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_RIFLEMAN)
+        ..setIconExt(Icons.bTNRifleman)
+        ..setNameExt("Q", "Rifleman")
 
 @compiletime function createPriest()
     createSpawnedUnit(UNIT_PRIEST, UnitIds.priest)
@@ -65,11 +59,10 @@ import UnitObjEditingExt
         ..setGoldBountyAwardedSidesperDie(2)
         ..setGoldData(0)
         ..setPriority(9)
-        ..setNameEnhance("Z", "Priest")
 
-    createToggleAbility(ABILITY_TOGGLE_PRIEST, 1)
-        ..setIconNormal(Icons.bTNPriest)
-        ..setNameEnhance("Z", "Toggle Priest Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_PRIEST)
+        ..setIconExt(Icons.bTNPriest)
+        ..setNameExt("Z", "Priest")
 
 @compiletime function createKnight()
     createSpawnedUnit(UNIT_KNIGHT, UnitIds.knight)
@@ -88,11 +81,10 @@ import UnitObjEditingExt
         ..setGoldData(0)
         ..setLevel(6)
         ..setPriority(5)
-        ..setNameEnhance("A", "Knight")
 
-    createToggleAbility(ABILITY_TOGGLE_KNIGHT, 1)
-        ..setIconNormal(Icons.bTNKnight)
-        ..setNameEnhance("A", "Toggle Knight Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_KNIGHT)
+        ..setIconExt(Icons.bTNKnight)
+        ..setNameExt("A", "Knight")
 
 @compiletime function createMortarTeam()
     createSpawnedUnit(UNIT_MORTAR, UnitIds.mortarteam)
@@ -113,11 +105,10 @@ import UnitObjEditingExt
         ..setGoldData(0)
         ..setLevel(8)
         ..setPriority(7)
-        ..setNameEnhance("R", "Mortar Team")
 
-    createToggleAbility(ABILITY_TOGGLE_MORTAR, 1)
-        ..setIconNormal(Icons.bTNMortarTeam)
-        ..setNameEnhance("R", "Toggle Mortar Team Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_MORTAR)
+        ..setIconExt(Icons.bTNMortarTeam)
+        ..setNameExt("R", "Mortar Team")
 
 @compiletime function createFlyinmachine()
     createSpawnedUnit(UNIT_FLYING_MACHINE, UnitIds.flyingmachine)
@@ -152,11 +143,10 @@ import UnitObjEditingExt
         ..setHitPointsRegenerationType("always")
         ..setLevel(5)
         ..setRepairCommon(30)
-        ..setNameEnhance("E", "Flying Machine")
 
-    createToggleAbility(ABILITY_TOGGLE_FLYING_MACHINE, 1)
-        ..setIconNormal(Icons.bTNFlyingMachine)
-        ..setNameEnhance("E", "Toggle Flyinmachine Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_FLYING_MACHINE)
+        ..setIconExt(Icons.bTNFlyingMachine)
+        ..setNameExt("E", "Flying Machine")
 
 @compiletime function createGryphonrider()
     createSpawnedUnit(UNIT_GRYPHON_RIDER, UnitIds.gryphonrider)
@@ -187,11 +177,10 @@ import UnitObjEditingExt
         ..setGoldData(0)
         ..setLevel(6)
         ..setPriority(6)
-        ..setNameEnhance("S", "Gryphon Rider")
 
-    createToggleAbility(ABILITY_TOGGLE_GRYPHON_RIDER, 1)
-        ..setIconNormal(Icons.bTNGryphonRider)
-        ..setNameEnhance("S", "Toggle Gryphonrider Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_GRYPHON_RIDER)
+        ..setIconExt(Icons.bTNGryphonRider)
+        ..setNameExt("S", "Gryphon Rider")
 
 @compiletime function createSorceress()
     createSpawnedUnit(UNIT_SORCERESS, UnitIds.sorceress)
@@ -214,11 +203,10 @@ import UnitObjEditingExt
         ..setGoldData(0)
         ..setLevel(4)
         ..setPriority(10)
-        ..setNameEnhance("X", "Sorceress")
 
-    createToggleAbility(ABILITY_TOGGLE_SORCERESS, 1)
-        ..setIconNormal(Icons.bTNSorceress)
-        ..setNameEnhance("X", "Toggle Sorceress Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_SORCERESS)
+        ..setIconExt(Icons.bTNSorceress)
+        ..setNameExt("X", "Sorceress")
 
 @compiletime function createSpellbreaker()
     createSpawnedUnit(UNIT_SPELL_BREAKER, UnitIds.spellbreaker)
@@ -238,11 +226,10 @@ import UnitObjEditingExt
         ..setGoldData(0)
         ..setHitPointsRegenerationRate(0.250)
         ..setPriority(8)
-        ..setNameEnhance("W", "Spell Breaker")
 
-    createToggleAbility(ABILITY_TOGGLE_SPELL_BREAKER, 1)
-        ..setIconNormal(Icons.bTNSpellBreaker)
-        ..setNameEnhance("W", "Toggle Spell Breaker Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_SPELL_BREAKER)
+        ..setIconExt(Icons.bTNSpellBreaker)
+        ..setNameExt("W", "Spell Breaker")
 
 // TODO: proper unit definition
 @compiletime function createSiegeEngine()
@@ -264,11 +251,10 @@ import UnitObjEditingExt
         ..setGoldData(0)
         ..setLevel(10)
         ..setPriority(11)
-        ..setNameEnhance("D", "Siege Engine")
 
-    createToggleAbility(ABILITY_TOGGLE_SIEGE_ENGINE, 1)
-        ..setIconNormal(Icons.bTNSeigeEngine)
-        ..setNameEnhance("D", "Toggle Siege Engine Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_SIEGE_ENGINE)
+        ..setIconExt(Icons.bTNSeigeEngine)
+        ..setNameExt("D", "Siege Engine")
 
 @compiletime function createWarGolem()
     createSpawnedUnit(UNIT_WAR_GOLEM, UnitIds.wargolem)
@@ -295,8 +281,7 @@ import UnitObjEditingExt
         ..setLevel(20)
         ..setPriority(12)
         ..setRace(Race.Human)
-        ..setNameEnhance("F", "War Golem")
 
-    createToggleAbility(ABILITY_TOGGLE_WAR_GOLEM, 1)
-        ..setIconNormal(Icons.bTNArmorGolem)
-        ..setNameEnhance("F", "Toggle War Golem Spawn")
+        ..createToggleAbility(ABILITY_TOGGLE_WAR_GOLEM)
+        ..setIconExt(Icons.bTNArmorGolem)
+        ..setNameExt("F", "War Golem")

@@ -176,7 +176,6 @@ import LocalAssets
         ..setDefenseBase(4)
         ..setCollisionSize(22.0)
         ..setGoldBountyAwardedSidesperDie(2)
-        ..setGoldData(0)
         ..setHitPointsMaximumBase(600)
         ..setLevel(8)
         ..setPriority(5)

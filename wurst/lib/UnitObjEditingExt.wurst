@@ -1,7 +1,11 @@
 package UnitObjEditingExt
 
-import UnitObjEditing
-import ObjEditingNatives
+import ChannelAbilityPreset
+import ErrorHandling
+
+import AbilityObjEditingUtils
+import CommonUtils
+import TooltipsUtils
 
 /** Configure this variable to `false` if you don't want the
 	property names to have spaces. */
@@ -12,10 +16,12 @@ import ObjEditingNatives
 public interface TooltipGenerator
     function addProperty(string title, string value, string bonusValue, int lvls)
     function applyToDef(UnitOrHeroDefinition def)
+    function getLastTooltip() returns string
 
 public class UnitExt extends UnitDefinition
     TooltipGenerator tooltipGen = null
     boolean listen = false
+    ChannelAbilityPreset toggleAbil = null
 
     construct(int newId, int origId, TooltipGenerator tgen)
         super(newId, origId)
@@ -113,3 +119,43 @@ public class UnitExt extends UnitDefinition
         def.setInt("umpm", data)
         def.setInt("umpi", data)
         addTooltipProperty("Mana", data, bonus, lvls)
+
+    function createToggleAbility(int id)
+        this.toggleAbil = new ChannelAbilityPreset(id, 1, true)
+            ..setDummyAbility()
+            ..presetTargetTypes(Targettype.NONE)
+            ..setCastingTime(1, 0)
+            ..setTooltipNormalExtended(1, this.tooltipGen.getLastTooltip())
+
+    function setNameExt(string hotkey, string name)
+        this.setHotkeyEnhance(hotkey)
+        this.setName(name)
+        this.setTooltipBasic(makeToolTipNorm(hotkey, "Recruit " + name))
+        if this.toggleAbil != null
+            this.toggleAbil.setNameEnhance(hotkey, "Toggle " + name + " Spawn")
+
+    function setIconExt(string path)
+        this.setIconGameInterface(path)
+        if this.toggleAbil != null
+            this.toggleAbil.setIconNormal(path)
+
+    function setHotkeyEnhance(string hotkey)
+        if not hotKeyMapping.has(hotkey)
+            error("Hotkey button position mapping has no \"{0}\" element".format(hotkey))
+            return
+        this.setHotkey(hotkey)
+        this.setButtonPositionX(hotKeyMapping.get(hotkey).x)
+        this.setButtonPositionY(hotKeyMapping.get(hotkey).y)
+
+    function setRepairCommon(int repairTime)
+        this.setRepairTime(repairTime)
+        this.setRepairGoldCost(0)
+        this.setRepairLumberCost(0)
+
+    function setHitPointRegeBasic()
+        this.setHitPointsRegenerationRate(0.250)
+        this.setHitPointsRegenerationType("always")
+
+    function setGoldData(int data)
+        this.setGoldCost(data)
+        this.setPointValue(data)
