@@ -69,7 +69,10 @@ public class UnitExt extends UnitDefinition
     function setAttack1DamageBaseExt(int data, int bonus, int lvls)
         def.setInt("ua1b", data)
         def.setInt("udu1", bonus)
-        addTooltipProperty("Damage", data, bonus, lvls)
+        // Setting base damage to 15 without random spread set the damage to  16
+        // Add +1 to make sure the tooltip is accurate
+        let dataAdjusted = data + 1
+        addTooltipProperty("Damage", dataAdjusted, bonus, lvls)
 
     function setAttack1CooldownTimeExt(real data)
         setAttack1CooldownTimeExt(data, 0, 0)
