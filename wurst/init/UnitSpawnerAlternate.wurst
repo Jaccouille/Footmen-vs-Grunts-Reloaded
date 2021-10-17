@@ -77,6 +77,7 @@ public class UnitSpawner
     function spawnUnit()
         this.groupTemplate.forEach() (unit template, integer activeAbil) ->
             if unitToSpawnDataMap.get(template.getTypeId()).canSpawn()
+                and not template.isPaused()
                 let pos = template.getPos() + vec2(2550, 0)
                 let u = createUnit(this._player, template.getTypeId(), pos, 270..asAngleDegrees())
                 if activeAbil != 0

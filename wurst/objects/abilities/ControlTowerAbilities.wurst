@@ -4,6 +4,7 @@ import ChannelAbilityPreset
 import ClosureEvents
 import OrderIds
 import Assets
+import BuffObjEditing
 
 import PlayerExtension
 import LocalObjectIDs
@@ -11,6 +12,15 @@ import TooltipsUtils
 import LocalAssets
 import AbilityObjEditingUtils
 
+let battlefield_region = CreateRegion()..addRect(gg_rct_battlefield)
+let BUFF_DISABLED = compiletime(
+    createDummyBuffObject("Spawn Disable",
+                        "This unit won't spawn in the next wave",
+                        Icons.bTNUnholyFrenzy,
+                        Abilities.unholyFrenzyTarget,
+                        "overhead"
+                          )
+                          )
 
 function createControlTowerAbility(int abilId) returns ChannelAbilityPreset
     return new ChannelAbilityPreset(abilId, 1, true)
@@ -127,7 +137,17 @@ function onTargetCast(unit caster, unit target)
     // TODO: refactor previous into this switch
     switch abilId
         case ABILITY_TOGGLE_SPAWN
-            owner.getUnitSpawner().toggleSpawn(target.getTypeId())
+            if not target.isInRegion(battlefield_region)
+                if target.isPaused()
+                    target.unpause()
+                    target.removeAbility(BUFF_DISABLED.abilId)
+                else
+                    target.addAbility(BUFF_DISABLED.abilId)
+                    target.pause()
+            // owner.getUnitSpawner().toggleSpawn(target.getTypeId())
+            else
+                let msg = "Must target a unit from the spawning area"
+                printTimedToPlayer(msg, 5, owner)
         case ABILITY_SET_SPAWN
             owner.getUnitSpawner().spawningPos = target.getPos()
         case ABILITY_ARMY_FOCUS
