@@ -13,6 +13,7 @@ let typeIDs = new LinkedList<int>
 ..addAll(NIGHT_ELF_UNITS)
 ..addAll(UNDEAD_UNITS)
 
+let battlefield_reg = CreateRegion()..addRect(gg_rct_battlefield)
 
 public class RaceUnitEntity extends BountifulUnitEntity
     construct(unit whichUnit)
@@ -21,11 +22,13 @@ public class RaceUnitEntity extends BountifulUnitEntity
     override function postCreate()
         super.postCreate()
         if getUnit().getOwner().getUnitSpawner() != null
-            getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit().getTypeId(), 1)
+            and getUnit().isInRegion(battlefield_reg)
+            getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit(), 1)
 
     override function postDeath()
         super.postDeath()
-        getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit().getTypeId(), -1)
+        if getUnit().isInRegion(battlefield_reg)
+            getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit(), -1)
 
 init
     typeIDs.forEach() (int typeID) ->

@@ -1,7 +1,6 @@
 package UnitSpawnData
 
 import ClosureEvents
-import UnitSpawner
 import LinkedList
 
 import Lodash
@@ -21,76 +20,6 @@ function LinkedList<T>.firstToLast<T>()
     let first = this.dequeue()
     this.push(first)
 
-
-// Dirty implementation, would need some rework
-/**
-    This object is supposed to handle unit spawn data who can have
-    different unit for the same toggle ability
-    e.g Footman & Sentry doesn't require training to be spawned, but you can
-    only spawn 1 of each at the same time
-    if footman is ON, sentry is OFF, can also disable both
-*/
-public class SwapedUnitSpawnData extends UnitSpawnData
-    let alterSpawn = new LinkedList<UnitSpawnData>
-    boolean firstSwap = true
-    var idx = 0
-
-    construct(int unitId, int abilId, int period, unitCounter spawnCounter)
-        super(unitId, abilId, period, spawnCounter)
-
-    function addAlterSpawn(UnitSpawnData newAlterSpawn)
-        // set spawn option to "OFF" since it won't spawn until it is toggled
-        while newAlterSpawn.toggleOption.getFirst().a != "OFF"
-            newAlterSpawn.onToggle()
-        this.alterSpawn.push(newAlterSpawn)
-
-    function switchSpawn()
-        // create a copy of the current instance to be stored in the alternative spawn list
-        let copy = new UnitSpawnData(unitId, abilId, period, spawnCounter)
-        copy.toggleOption = this.toggleOption.copy()
-        alterSpawn.push(copy)
-
-        // Replacing current spawnData with new one
-        let newSpawn = alterSpawn.dequeue()
-        this.unitId = newSpawn.unitId
-        this.unitId = newSpawn.unitId
-        this.period = newSpawn.period
-        this.spawnCounter = newSpawn.spawnCounter
-        this.toggleOption = newSpawn.toggleOption
-
-    /**
-        Returns a formatted string of current spawn mode
-        e.g "Footman Spawn: ON - Sentry Spawn: OFF
-    */
-    function getSpawnString() returns string
-        let strTemplate = "{0} Spawn: {1}".color(GENERAL_COLOR)
-        var toRet = strTemplate.format(
-            getUnitName(this.unitId),
-            this.getCurrentOptionColored()
-        )
-        for spawnData in alterSpawn
-            toRet += " - " + strTemplate.format(
-                getUnitName(spawnData.unitId),
-                spawnData.getCurrentOptionColored()
-            )
-        return toRet
-
-    override function onToggle() returns string
-        var toDisplay = ""
-        if idx < alterSpawn.size()
-            toggleOption.firstToLast()
-            toDisplay += toggleOption.getFirst().a
-
-            if toDisplay == "OFF"
-                switchSpawn()
-                toggleOption.firstToLast()
-                idx++
-                toDisplay = toggleOption.getFirst().a
-        else
-            toggleOption.firstToLast()
-            switchSpawn()
-            idx = 0
-        return toDisplay
 
 public class UnitSpawnData
     int unitId
@@ -135,9 +64,7 @@ public class UnitSpawnData
             let owner = trainer.getOwner()
 
             if unitId == trained.getTypeId()
-                SetPlayerTechMaxAllowed(owner, trained.getTypeId(), 0)
                 trained.remove()
-                trainer.addAbility(abilId)
                 owner.getUnitSpawner().addUnitSpawner(this.copy())
 
     function addSpawnOrder(string mode, int orderId)

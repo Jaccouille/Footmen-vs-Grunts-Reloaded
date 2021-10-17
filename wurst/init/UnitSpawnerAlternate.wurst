@@ -1,0 +1,111 @@
+package UnitSpawnerAlternate
+
+import HashMap
+import UnitSpawnData
+import ClosureTimers
+import PlayerData
+import PlayerExtension
+import LocalObjectIDs
+import Orders
+import ArmyHandler
+import BuffObjEditing
+
+let playerToSpawnRect = new HashMap<player, rect>
+    ..put(players[0], gg_rct_Spawner_0)
+    ..put(players[1], gg_rct_Spawner_1)
+    ..put(players[2], gg_rct_Spawner_2)
+    ..put(players[3], gg_rct_Spawner_3)
+    ..put(players[4], gg_rct_Spawner_4)
+    ..put(players[5], gg_rct_Spawner_5)
+    ..put(players[6], gg_rct_Spawner_6)
+    ..put(players[7], gg_rct_Spawner_7)
+    ..put(players[8], gg_rct_Spawner_8)
+    ..put(players[9], gg_rct_Spawner_9)
+
+
+public class UnitSpawner
+    static let playerToSpawnerMap = new HashMap<player, UnitSpawner>
+
+    static function initialize()
+        for i = 0 to 9
+            // TODO: check player isingame
+            // if players[i].isIngame()
+            let pData = players[i].getPlayerData()
+            var initialSpawn = vec2(0, 0)
+
+            // TODO: Init first spawn outside of this class
+            if i < 5
+                initialSpawn = pData.playerBuilding.get(UNIT_ALLIANCE_CASTLE).getPos()
+            if i >= 5
+                initialSpawn = pData.playerBuilding.get(UNIT_HORDE_CASTLE).getPos()
+
+            let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
+            new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
+
+    static function getUnitSpawner(player _player) returns UnitSpawner
+        return playerToSpawnerMap.get(_player)
+
+    var spawningPos = vec2(0, 0)
+    rect templateRect
+    player _player
+    var autoSend = true
+    ArmyHandler armyHandler = null
+    let groupTemplate = new IterableMap<unit, int>
+    let unitToSpawnDataMap = new IterableMap<int, UnitSpawnData>
+
+    construct(player _player, vec2 spawningPos, int order, vec2 orderPos)
+        this._player = _player
+        this.spawningPos = spawningPos
+        this.templateRect = gg_rct_Spawner_0
+        this.armyHandler = new ArmyHandler(_player, order, orderPos)
+        playerToSpawnerMap.put(_player, this)
+
+    // TODO: call update total counter
+    function addUnitSpawner(UnitSpawnData spawnData)
+        // TODO: check if those 2 hashmap store the same reference
+        if not unitToSpawnDataMap.has(spawnData.unitId)
+            unitToSpawnDataMap.put(spawnData.unitId, spawnData)
+        groupTemplate.put(
+            createUnit(this._player,
+            spawnData.unitId,
+            playerToSpawnRect.get(this._player).getCenter(),
+            270..asAngleDegrees()
+            ),
+            0
+        )
+
+    function spawnUnit()
+        this.groupTemplate.forEach() (unit template, integer activeAbil) ->
+            if unitToSpawnDataMap.get(template.getTypeId()).canSpawn()
+                let pos = template.getPos() + vec2(2550, 0)
+                let u = createUnit(this._player, template.getTypeId(), pos, 270..asAngleDegrees())
+                if activeAbil != 0
+                    u.issueImmediateOrderById(activeAbil)
+
+                // If unit can take movement order on spawn
+                if not armyHandler.isSpawnOrderDisabled(u.getTypeId())
+                    armyHandler.addUnit(u)
+                    if autoSend
+                        let order = armyHandler.spawnOrder
+                        if order == OrderIds.move or order == OrderIds.attack
+                            u.issuePointOrderById(order, armyHandler.spawnOrderPos)
+                        else if order == OrderIds.smart
+                            u.issueTargetOrderById(order, armyHandler.spawnOrderTarget)
+                        else
+                            u.issueImmediateOrderById(order)
+
+    function updateUnitCounter(unit u, int value)
+        unitToSpawnDataMap.get(u.getTypeId()).spawnCounter.current += value
+        let currentUnitCount = _player.getState(PLAYER_STATE_RESOURCE_FOOD_USED)
+        _player.setState(PLAYER_STATE_RESOURCE_FOOD_USED, currentUnitCount + value)
+
+    function hasSpawnData(UnitSpawnData a) returns boolean
+        return false
+
+    function toggleSpawn(int abilId)
+
+
+init
+    doPeriodically(5) (CallbackPeriodic cb) ->
+        for i = 0 to 9
+            UnitSpawner.getUnitSpawner(players[i]).spawnUnit()

@@ -19,128 +19,127 @@ public class UnitSpawner
     static let playerToSpawnerMap = new HashMap<player, UnitSpawner>
 
     static function initialize()
-        for i = 0 to 9
-            // TODO: check player isingame
-            // if players[i].isIngame()
-            let pData = players[i].getPlayerData()
-            var initialSpawn = vec2(0, 0)
-            SwapedUnitSpawnData firstSpawn = null
+        // for i = 0 to 9
+        //     // TODO: check player isingame
+        //     // if players[i].isIngame()
+        //     let pData = players[i].getPlayerData()
+        //     var initialSpawn = vec2(0, 0)
+        //     SwapedUnitSpawnData firstSpawn = null
 
-            // TODO: Init first spawn outside of this class
-            if i < 5
-                if pData.playerBuilding.has(UNIT_ALLIANCE_CASTLE)
-                    initialSpawn = pData.playerBuilding.get(UNIT_ALLIANCE_CASTLE).getPos()
-                let spawnData = spawnDataConstant.get(UNIT_FOOTMAN)
-                firstSpawn = new SwapedUnitSpawnData(UNIT_FOOTMAN, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
-                firstSpawn.addAlterSpawn(new UnitSpawnData(UNIT_SENTRY, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap)))
-            if i >= 5
-                initialSpawn = pData.playerBuilding.get(UNIT_HORDE_CASTLE).getPos()
-                let spawnData = spawnDataConstant.get(UNIT_GRUNT)
-                firstSpawn = new SwapedUnitSpawnData(UNIT_GRUNT, ABILITY_TOGGLE_HEADHUNTER, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
-                firstSpawn.addAlterSpawn(new UnitSpawnData(UNIT_GHOUL, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap)))
+        //     // TODO: Init first spawn outside of this class
+        //     if i < 5
+        //         if pData.playerBuilding.has(UNIT_ALLIANCE_CASTLE)
+        //             initialSpawn = pData.playerBuilding.get(UNIT_ALLIANCE_CASTLE).getPos()
+        //         let spawnData = spawnDataConstant.get(UNIT_FOOTMAN)
+        //         firstSpawn = new SwapedUnitSpawnData(UNIT_FOOTMAN, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
+        //         firstSpawn.addAlterSpawn(new UnitSpawnData(UNIT_SENTRY, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap)))
+        //     if i >= 5
+        //         initialSpawn = pData.playerBuilding.get(UNIT_HORDE_CASTLE).getPos()
+        //         let spawnData = spawnDataConstant.get(UNIT_GRUNT)
+        //         firstSpawn = new SwapedUnitSpawnData(UNIT_GRUNT, ABILITY_TOGGLE_HEADHUNTER, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap))
+        //         firstSpawn.addAlterSpawn(new UnitSpawnData(UNIT_GHOUL, ABILITY_TOGGLE_FOOTMAN, spawnData.spawnPeriod, unitCounter(0, spawnData.unitCap)))
 
-            let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
-            new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
-               ..addUnitSpawner(firstSpawn)
+        //     let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
+        //     new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
+        //        ..addUnitSpawner(firstSpawn)
 
-    static function getUnitSpawner(player _player) returns UnitSpawner
-        return playerToSpawnerMap.get(_player)
+    // static function getUnitSpawner(player _player) returns UnitSpawner
+    //     return playerToSpawnerMap.get(_player)
 
-    var spawningPos = vec2(0, 0)
-    player _player
-    let unitToSpawnDataMap = new IterableMap<int, UnitSpawnData>
-    let abilToSpawnDataMap = new HashMap<int, UnitSpawnData>
-    var autoSend = true
-    ArmyHandler armyHandler = null
+    // var spawningPos = vec2(0, 0)
+    // player _player
+    // let abilToSpawnDataMap = new HashMap<int, UnitSpawnData>
+    // var autoSend = true
+    // ArmyHandler armyHandler = null
 
-    construct(player _player, vec2 spawningPos, int order, vec2 orderPos)
-        this._player = _player
-        this.spawningPos = spawningPos
-        this.armyHandler = new ArmyHandler(_player, order, orderPos)
-        playerToSpawnerMap.put(_player, this)
+    // construct(player _player, vec2 spawningPos, int order, vec2 orderPos)
+    //     this._player = _player
+    //     this.spawningPos = spawningPos
+    //     this.armyHandler = new ArmyHandler(_player, order, orderPos)
+    //     playerToSpawnerMap.put(_player, this)
 
-    function spawnUnit(UnitSpawnData spawnData)
-        if not spawnData.canSpawn()
-            return
-        let u = createUnit(this._player, spawnData.unitId, spawningPos, 270..asAngleDegrees())
-        // issue special on spawn order (autocasting, ravenform...)
-        if spawnData.getCurrentOrder() > 1
-            u.issueImmediateOrderById(spawnData.getCurrentOrder())
+    // function spawnUnit(UnitSpawnData spawnData)
+    //     if not spawnData.canSpawn()
+    //         return
+    //     let u = createUnit(this._player, spawnData.unitId, spawningPos, 270..asAngleDegrees())
+    //     // issue special on spawn order (autocasting, ravenform...)
+    //     if spawnData.getCurrentOrder() > 1
+    //         u.issueImmediateOrderById(spawnData.getCurrentOrder())
 
-        // If unit can take movement order on spawn
-        if not armyHandler.isSpawnOrderDisabled(u.getTypeId())
-            armyHandler.addUnit(u)
-            if autoSend
-                let order = armyHandler.spawnOrder
-                if order == OrderIds.move or order == OrderIds.attack
-                    u.issuePointOrderById(order, armyHandler.spawnOrderPos)
-                else if order == OrderIds.smart
-                    u.issueTargetOrderById(order, armyHandler.spawnOrderTarget)
-                else
-                    u.issueImmediateOrderById(order)
+    //     // If unit can take movement order on spawn
+    //     if not armyHandler.isSpawnOrderDisabled(u.getTypeId())
+    //         armyHandler.addUnit(u)
+    //         if autoSend
+    //             let order = armyHandler.spawnOrder
+    //             if order == OrderIds.move or order == OrderIds.attack
+    //                 u.issuePointOrderById(order, armyHandler.spawnOrderPos)
+    //             else if order == OrderIds.smart
+    //                 u.issueTargetOrderById(order, armyHandler.spawnOrderTarget)
+    //             else
+    //                 u.issueImmediateOrderById(order)
 
 
-    // TODO: call update total counter
-    function addUnitSpawner(UnitSpawnData spawnData)
-        // TODO: check if those 2 hashmap store the same reference
-        abilToSpawnDataMap.put(spawnData.abilId, spawnData)
-        unitToSpawnDataMap.put(spawnData.unitId, spawnData)
-        updateUnitCap(spawnData.spawnCounter.max)
+    // // TODO: call update total counter
+    // function addUnitSpawner(UnitSpawnData spawnData)
+    //     // TODO: check if those 2 hashmap store the same reference
+    //     abilToSpawnDataMap.put(spawnData.abilId, spawnData)
+    //     unitToSpawnDataMap.put(spawnData.unitId, spawnData)
+    //     updateUnitCap(spawnData.spawnCounter.max)
 
-        spawnUnit(spawnData)
-        // TODO: add listener on ability cast
-        doPeriodically(spawnData.period.toReal()) cb ->
-            spawnUnit(spawnData)
-        EventListener.onCast(spawnData.abilId) (unit caster) ->
-            if caster.getOwner() == _player
-                this.toggleSpawn(spawnData.abilId)
+    //     spawnUnit(spawnData)
+    //     // TODO: add listener on ability cast
+    //     doPeriodically(spawnData.period.toReal()) cb ->
+    //         spawnUnit(spawnData)
+    //     EventListener.onCast(spawnData.abilId) (unit caster) ->
+    //         if caster.getOwner() == _player
+    //             this.toggleSpawn(spawnData.abilId)
 
-    function updateSpawningPos(vec2 pos)
-        this.spawningPos = pos
+    // function updateSpawningPos(vec2 pos)
+    //     this.spawningPos = pos
 
-    function updateUnitCounter(int unitTypeID, int value)
-        unitToSpawnDataMap.get(unitTypeID).spawnCounter.current += value
-        let currentUnitCount = _player.getState(PLAYER_STATE_RESOURCE_FOOD_USED)
-        _player.setState(PLAYER_STATE_RESOURCE_FOOD_USED, currentUnitCount + value)
+    // function updateUnitCounter(int unitTypeID, int value)
+    //     unitToSpawnDataMap.get(unitTypeID).spawnCounter.current += value
+    //     let currentUnitCount = _player.getState(PLAYER_STATE_RESOURCE_FOOD_USED)
+    //     _player.setState(PLAYER_STATE_RESOURCE_FOOD_USED, currentUnitCount + value)
 
-    function updateUnitCap(int value)
-        let currentCap = _player.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
-        _player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, currentCap + value)
+    // function updateUnitCap(int value)
+    //     let currentCap = _player.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
+    //     _player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, currentCap + value)
 
-    function toggleAutoSend()
-        if autoSend
-            autoSend = false
-        else
-            autoSend = true
+    // function toggleAutoSend()
+    //     if autoSend
+    //         autoSend = false
+    //     else
+    //         autoSend = true
 
-    // TODO: rework SwapedUnitSpawnData handling
-    function toggleSpawn(int abilId)
-        if abilToSpawnDataMap.has(abilId)
-            let spawnData = abilToSpawnDataMap.get(abilId)
-            var modeStr = spawnData.onToggle()
-            let unitName = getUnitName(spawnData.unitId)
+    // // TODO: rework SwapedUnitSpawnData handling
+    // function toggleSpawn(int abilId)
+    //     if abilToSpawnDataMap.has(abilId)
+    //         let spawnData = abilToSpawnDataMap.get(abilId)
+    //         var modeStr = spawnData.onToggle()
+    //         let unitName = getUnitName(spawnData.unitId)
 
-            // TODO: change print to printtimedToPlayer
-            if spawnData instanceof SwapedUnitSpawnData
-                modeStr = (spawnData castTo SwapedUnitSpawnData).getSpawnString()
-                if not modeStr.contains("ON")
-                    updateUnitCap(-spawnData.spawnCounter.max)
-                print(modeStr)
-            else
-                if modeStr == "OFF"
-                    updateUnitCap(-spawnData.spawnCounter.max)
-                else if modeStr == "ON"
-                    updateUnitCap(spawnData.spawnCounter.max)
-                modeStr = spawnData.getCurrentOptionColored()
-                print("{0} Spawn: |r{1}".color(GENERAL_COLOR).format(unitName, modeStr))
-        else
-            print("This isn't a spawnable unit")
+    //         // TODO: change print to printtimedToPlayer
+    //         if spawnData instanceof SwapedUnitSpawnData
+    //             modeStr = (spawnData castTo SwapedUnitSpawnData).getSpawnString()
+    //             if not modeStr.contains("ON")
+    //                 updateUnitCap(-spawnData.spawnCounter.max)
+    //             print(modeStr)
+    //         else
+    //             if modeStr == "OFF"
+    //                 updateUnitCap(-spawnData.spawnCounter.max)
+    //             else if modeStr == "ON"
+    //                 updateUnitCap(spawnData.spawnCounter.max)
+    //             modeStr = spawnData.getCurrentOptionColored()
+    //             print("{0} Spawn: |r{1}".color(GENERAL_COLOR).format(unitName, modeStr))
+    //     else
+    //         print("This isn't a spawnable unit")
 
-    function getSpawnData(int abilId) returns UnitSpawnData
-        return abilToSpawnDataMap.get(abilId)
+    // function getSpawnData(int abilId) returns UnitSpawnData
+    //     return abilToSpawnDataMap.get(abilId)
 
-    function hasSpawnData(UnitSpawnData spawnData) returns boolean
-        for key in unitToSpawnDataMap
-            if unitToSpawnDataMap.get(key) == spawnData
-                return true
-        return false
+    // function hasSpawnData(UnitSpawnData spawnData) returns boolean
+    //     for key in unitToSpawnDataMap
+    //         if unitToSpawnDataMap.get(key) == spawnData
+    //             return true
+        // return false
