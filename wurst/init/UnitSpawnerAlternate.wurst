@@ -65,6 +65,7 @@ public class UnitSpawner
         // TODO: check if those 2 hashmap store the same reference
         if not unitToSpawnDataMap.has(spawnData.unitId)
             unitToSpawnDataMap.put(spawnData.unitId, spawnData)
+            updateUnitCap(spawnData.spawnCounter.max)
         groupTemplate.put(
             createUnit(this._player,
             spawnData.unitId,
@@ -79,6 +80,7 @@ public class UnitSpawner
             if unitToSpawnDataMap.get(template.getTypeId()).canSpawn()
                 and not template.isPaused()
                 let pos = template.getPos() + vec2(2550, 0)
+                updateUnitCounter(template, 1)
                 let u = createUnit(this._player, template.getTypeId(), pos, 270..asAngleDegrees())
                 if activeAbil != 0
                     u.issueImmediateOrderById(activeAbil)
@@ -103,8 +105,18 @@ public class UnitSpawner
     function hasSpawnData(UnitSpawnData a) returns boolean
         return false
 
+    function updateUnitCap(int value)
+        let currentCap = _player.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
+        _player.setState(PLAYER_STATE_RESOURCE_FOOD_CAP, currentCap + value)
+
     function toggleSpawn(int abilId)
 
+    function countTemplateUnitId(int unitId) returns int
+        int count = 0
+        for u in groupTemplate
+            if u.getTypeId() == unitId
+                count += 1
+        return count
 
 init
     doPeriodically(5) (CallbackPeriodic cb) ->

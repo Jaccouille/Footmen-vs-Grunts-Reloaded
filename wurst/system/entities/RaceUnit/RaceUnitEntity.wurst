@@ -21,9 +21,14 @@ public class RaceUnitEntity extends BountifulUnitEntity
 
     override function postCreate()
         super.postCreate()
-        if getUnit().getOwner().getUnitSpawner() != null
-            and getUnit().isInRegion(battlefield_reg)
-            getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit(), 1)
+        // Had to move followiing code into UnitSpawnerAlternate otherwise
+        // the food supply increase is registered after unit spawn
+        // if 2 unit spawn at the same time, food will increase after the second
+        // unit spawn
+
+        // if getUnit().getOwner().getUnitSpawner() != null
+        //     and getUnit().isInRegion(battlefield_reg)
+        //     getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit(), 1)
 
     override function postDeath()
         super.postDeath()
