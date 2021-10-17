@@ -65,7 +65,11 @@ public class UnitSpawnData
 
             if unitId == trained.getTypeId()
                 trained.remove()
-                owner.getUnitSpawner().addUnitSpawner(this.copy())
+                if owner.getUnitSpawner().countTemplateUnitId(unitId) >= this.spawnCounter.max
+                    SetPlayerTechMaxAllowed(owner, trained.getTypeId(), 0)
+                    owner.addGold(trained.getPointValue())
+                else
+                    owner.getUnitSpawner().addUnitSpawner(this.copy())
 
     function addSpawnOrder(string mode, int orderId)
         let idx = toggleOption.size() - 1
