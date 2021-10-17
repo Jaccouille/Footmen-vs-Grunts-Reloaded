@@ -6,10 +6,6 @@ buildMapData:
   name: DefaultName
   fileName: DefaultFileName
   author: DefaultAuthor
-  # scenarioData:
-  #   description: Never seen before # The map's description
-  #   suggestedPlayers: 5v5 # Hint text displayed in lobby
-
   players:
   - id: 0
     race: HUMAN
@@ -70,12 +66,6 @@ buildMapData:
     - 3
     - 4
     - 10
-    flags:
-      allied: true
-      alliedVictory: true
-      sharedVision: true
-      sharedControl: false
-      sharedControlAdvanced: false
   - name: The Horde
     playerIds:
     - 5
@@ -84,9 +74,3 @@ buildMapData:
     - 8
     - 9
     - 11
-    flags:
-      allied: true
-      alliedVictory: true
-      sharedVision: true
-      sharedControl: false
-      sharedControlAdvanced: false
