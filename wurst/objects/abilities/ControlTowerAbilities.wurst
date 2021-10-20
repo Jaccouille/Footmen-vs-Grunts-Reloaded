@@ -81,7 +81,8 @@ function createControlTowerAbility(int abilId) returns ChannelAbilityPreset
         ..presetTargetTypes(Targettype.UNIT)
         ..presetOption(Option.VISIBLE, true)
         ..setNameEnhance("F", "Unit Toggle Spawn")
-        ..setTargetsAllowed(1, TargetsAllowed.player_t)
+        ..setTargetsAllowed(1, commaList(TargetsAllowed.player_t,
+                                         TargetsAllowed.invulnerable))
 
 @compiletime function createSetSpawn()
     createControlTowerAbility(ABILITY_SET_SPAWN)
