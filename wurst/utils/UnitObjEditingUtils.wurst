@@ -5,7 +5,7 @@ import HashMap
 import ObjectIds
 
 import LocalAssets
-import SpawnDataConstant
+import UnitSpawnData
 import StringExtensions
 import ColorUtils
 
@@ -13,15 +13,13 @@ import UnitObjEditingExt
 import UnitTooltipGenerator
 
 constant SPAWN_STR = "" +
-    "Spawn period(seconds):".color(GOLD_COLOR) + " {0}\n" +
-    "Max unit count:".color(GOLD_COLOR) + " {1}"
+    "Max unit count:".color(GOLD_COLOR) + " {0}"
 
 public function createSpawnedUnit(int newId, int origId) returns UnitExt
     UnitTooltipGenerator tgen
     if spawnDataConstant.has(newId)
         tgen = new UnitTooltipGenerator(SPAWN_STR.format(
-            spawnDataConstant.get(newId).spawnPeriod.toString(),
-            spawnDataConstant.get(newId).unitCap.toString()
+            spawnDataConstant.get(newId).toString()
         ))
     else
         tgen = new UnitTooltipGenerator()
