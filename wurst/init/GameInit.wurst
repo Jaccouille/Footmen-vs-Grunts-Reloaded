@@ -4,12 +4,11 @@ import Preloader
 import ClosureTimers
 import ObjectIdGenerator
 import PlayerData
-// import UnitSpawner
-import UnitSpawnerAlternate
-import SpawnDataInit
+import UnitSpawner
 import BuildingESCSelection
 import ControlTowerAbilities
 import ScoreBoard
+import UnitSpawnData
 
 function preload()
     let abils = new IdGenerator('AM00')

@@ -1,7 +1,7 @@
 package BountifulUnitEntity
 
 import UnitEntity
-import SpawnDataConstant
+import UnitSpawnData
 import PlayerExtension
 
 
@@ -23,7 +23,7 @@ public abstract class BountifulUnitEntity extends UnitEntity
         let deathOwner = EventData.getTriggerUnit().getOwner()
         let unitKilled = EventData.getTriggerUnit()
         var bounty = 0
-        let unitCap = spawnDataConstant.get(unitKilled.getTypeId()).unitCap
+        let unitCap = spawnDataConstant.get(unitKilled.getTypeId())
 
         if killerOwner != players[PLAYER_NEUTRAL_AGGRESSIVE]
             bounty = (unitKilled.getPointValue() / (3 * unitCap)).floor()

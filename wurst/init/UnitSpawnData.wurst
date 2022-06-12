@@ -1,107 +1,87 @@
 package UnitSpawnData
 
+import HashMap
 import ClosureEvents
-import LinkedList
-
-import Lodash
 
 import PlayerExtension
-import SpawnDataConstant
-import UnitExtension
-import StringExtensions
-import ColorUtils
-
-public tuple unitCounter(int current, int max)
-
-/**
-    Move first element to last element position
-*/
-function LinkedList<T>.firstToLast<T>()
-    let first = this.dequeue()
-    this.push(first)
+import LocalObjectIDs
 
 
-public class UnitSpawnData
-    int unitId
-    int abilId
-    int period
-    unitCounter spawnCounter = unitCounter(0, 0)
-    var toggleOption = new LinkedList<Pair<string, int>>
+public let spawnDataConstant = new IterableMap<int, integer>()
+    ..put(UNIT_FOOTMAN        , 18)
+    ..put(UNIT_RIFLEMAN       , 12)
+    ..put(UNIT_PRIEST         , 12)
+    ..put(UNIT_KNIGHT         , 12)
+    ..put(UNIT_MORTAR         , 12)
+    ..put(UNIT_FLYING_MACHINE , 12)
+    ..put(UNIT_GRYPHON_RIDER  , 12)
+    ..put(UNIT_SORCERESS      , 12)
+    ..put(UNIT_SPELL_BREAKER  , 12)
+    ..put(UNIT_SIEGE_ENGINE   , 12)
+    ..put(UNIT_WAR_GOLEM      , 12)
 
-    construct(int unitId, int abilId)
-        let period = spawnDataConstant.get(unitId).spawnPeriod
-        let unitCap = spawnDataConstant.get(unitId).unitCap
-        standardInit(unitId, abilId, period, unitCap)
-        enableTrainingListener()
+    ..put(UNIT_SENTRY           , 18)
+    ..put(UNIT_ARCHER           , 12)
+    ..put(UNIT_HUNTRESS         , 12)
+    ..put(UNIT_HYPPO_RIDER      , 12)
+    ..put(UNIT_GLAIVE_THROWER   , 12)
+    ..put(UNIT_DRUID_TALON      , 12)
+    ..put(UNIT_DRUID_CLAW       , 12)
+    ..put(UNIT_DRYAD            , 12)
+    ..put(UNIT_CHIMAERA         , 12)
+    ..put(UNIT_MOUNTAIN_GIANT   , 12)
+    ..put(UNIT_ANCIENT_PROTECTOR, 12)
+    ..put(UNIT_WARDEN           , 12)
 
-    construct(int unitId, int abilId, int period, int unitCap)
-        standardInit(unitId, abilId, period, unitCap)
-        enableTrainingListener()
+    ..put(UNIT_GRUNT       , 18)
+    ..put(UNIT_HEADHUNTER  , 12)
+    ..put(UNIT_WARLOCK     , 12)
+    ..put(UNIT_SHAMAN      , 12)
+    ..put(UNIT_WITCH_DOCTOR, 12)
+    ..put(UNIT_RAIDER      , 12)
+    ..put(UNIT_TAUREN      , 12)
+    ..put(UNIT_DEMOLISHER  , 12)
+    ..put(UNIT_WIND_RIDER  , 12)
+    ..put(UNIT_KODO_BEAST  , 12)
+    ..put(UNIT_OGRE        , 12)
 
-    construct(int unitId, int abilId, int period, unitCounter spawnCounter)
-        standardInit(unitId, abilId, period, spawnCounter.max)
-        this.spawnCounter = spawnCounter
+    ..put(UNIT_GHOUL           , 18)
+    ..put(UNIT_CRYPT_FIEND     , 12)
+    ..put(UNIT_FROST_ARCHER    , 12)
+    ..put(UNIT_SKELETAL_ORC    , 12)
+    ..put(UNIT_GARGOYLE        , 12)
+    ..put(UNIT_ZOMBIE          , 12)
+    ..put(UNIT_MEAT_WAGON      , 12)
+    ..put(UNIT_NECROMANCER     , 12)
+    ..put(UNIT_OBSIDIAN_STATUE , 12)
+    ..put(UNIT_DESTROYER       , 12)
+    ..put(UNIT_FROST_WYRM      , 12)
+    ..put(UNIT_ABOMINATION     , 12)
+    ..put(UNIT_MAIDEN          , 12)
 
-    function standardInit(int unitId, int abilId, int period, int unitCap)
-        this.unitId = unitId
-        this.abilId = abilId
-        this.period = period
-        this.spawnCounter.max = unitCap
-        toggleOption.push(new Pair("ON", 1))
-        toggleOption.push(new Pair("OFF", 0))
 
-    function copy() returns UnitSpawnData
-        let copy = new UnitSpawnData(unitId, abilId, period, spawnCounter)
-        toggleOption.forEach() (Pair<string, integer> t) ->
-            if t.a != "ON" and t.a != "OFF"
-                copy.addSpawnOrder(t.a, t.b)
-        return copy
-
-    function enableTrainingListener()
-        EventListener.add(EVENT_PLAYER_UNIT_TRAIN_FINISH) ->
-            let trainer = EventData.getTriggerUnit()
-            let trained = EventData.getTrainedUnit()
-            let owner = trainer.getOwner()
-
-            if unitId == trained.getTypeId()
-                trained.remove()
-                if owner.getUnitSpawner().countTemplateUnitId(unitId) >= this.spawnCounter.max
-                    SetPlayerTechMaxAllowed(owner, trained.getTypeId(), 0)
-                    owner.addGold(trained.getPointValue())
-                else
-                    owner.getUnitSpawner().addUnitSpawner(this.copy())
-
-    function addSpawnOrder(string mode, int orderId)
-        let idx = toggleOption.size() - 1
-        toggleOption.addAt(new Pair(mode, orderId), idx)
-
-    // TODO: test spawn order with researched abilities
-    function addSpawnOrder(string mode, int orderId, int researchId)
-        EventListener.add(EVENT_PLAYER_UNIT_UPGRADE_FINISH) ->
-            if researchId == EventData.getResearchedType()
-                let owner = EventData.getResearchingUnit().getOwner()
-                if owner.getUnitSpawner().hasSpawnData(this)
-                    let idx = toggleOption.size() - 1
-                    toggleOption.addAt(new Pair(mode, orderId), idx)
-                    while toggleOption.getFirst().a != mode
-                        toggleOption.firstToLast()
-
-    function onToggle() returns string
-        toggleOption.firstToLast()
-        return toggleOption.getFirst().a
-
-    function getCurrentOrder() returns int
-        return toggleOption.getFirst().b
-
-    function canSpawn() returns boolean
-        return (spawnCounter.current < spawnCounter.max and toggleOption.getFirst().a != "OFF")
-
-    function getCurrentOptionColored() returns string
-        var option = toggleOption.getFirst().a
-        if option == "ON"
-            option = option.color(COLOR_GREEN)
-        else if option == "OFF"
-            option = option.color(COLOR_RED)
+function addToTemplateSpawner(int unitId, int count, player owner)
+    for i = 1 to count
+        // Refund unit if max cap is reached
+        if owner.getUnitSpawner().countTemplateUnitId(unitId) >= spawnDataConstant.get(unitId)
+            // TODO: Should gray out icon, not remove it
+            SetPlayerTechMaxAllowed(owner, unitId, 0)
+            owner.addGold(GetUnitPointValueByType(unitId))
+            break
         else
-            option = option.color(GOLD_COLOR)
-        return option
+            owner.getUnitSpawner().addUnitSpawner(unitId)
+
+function enableTrainingListener(int unitId)
+    EventListener.add(EVENT_PLAYER_UNIT_TRAIN_FINISH) ->
+        let trainer = EventData.getTriggerUnit()
+        let trained = EventData.getTrainedUnit()
+        let owner = trainer.getOwner()
+
+        if unitId == trained.getTypeId()
+            trained.remove()
+            addToTemplateSpawner(unitId, 1, owner)
+
+public function initSpawnData()
+    for key in spawnDataConstant
+        enableTrainingListener(key)
+    addToTemplateSpawner(UNIT_FOOTMAN, 12, players[0])

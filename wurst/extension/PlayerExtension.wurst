@@ -2,7 +2,7 @@ package PlayerExtension
 
 
 import PlayerData
-import initlater UnitSpawnerAlternate
+import initlater UnitSpawner
 import initlater ArmyHandler
 
 public function player.getPlayerData() returns PlayerData
