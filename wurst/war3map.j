@@ -69,10 +69,10 @@ function CreateBuildingsForPlayer0 takes nothing returns nothing
     local real life
 
     set u=BlzCreateUnitWithSkin(p, 'nbsw', 32.0, 32.0, 270.000, 'nbsw')
-    set u=BlzCreateUnitWithSkin(p, 'hcas', - 7680.0, 1536.0, 270.000, 'hcas')
-    set u=BlzCreateUnitWithSkin(p, 'hars', - 8064.0, 1664.0, 270.000, 'hars')
-    set u=BlzCreateUnitWithSkin(p, 'hbla', - 8064.0, 1408.0, 270.000, 'hbla')
-    set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, 1536.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hcas', - 9664.0, 1536.0, 270.000, 'hcas')
+    set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, 1600.0, 270.000, 'hars')
+    set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, 1344.0, 270.000, 'hbla')
+    set u=BlzCreateUnitWithSkin(p, 'h000', - 9984.0, 1536.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 4096.0, 1536.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, 1280.0, 270.000, 'hgtw')
 endfunction
@@ -96,10 +96,10 @@ function CreateBuildingsForPlayer1 takes nothing returns nothing
     local trigger t
     local real life
 
-    set u=BlzCreateUnitWithSkin(p, 'hcas', - 7680.0, 768.0, 270.000, 'hcas')
-    set u=BlzCreateUnitWithSkin(p, 'hars', - 8064.0, 896.0, 270.000, 'hars')
-    set u=BlzCreateUnitWithSkin(p, 'hbla', - 8064.0, 640.0, 270.000, 'hbla')
-    set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, 768.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hcas', - 9664.0, 768.0, 270.000, 'hcas')
+    set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, 832.0, 270.000, 'hars')
+    set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, 576.0, 270.000, 'hbla')
+    set u=BlzCreateUnitWithSkin(p, 'h000', - 9984.0, 768.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 3328.0, 1152.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, 640.0, 270.000, 'hgtw')
 endfunction
@@ -112,10 +112,10 @@ function CreateBuildingsForPlayer2 takes nothing returns nothing
     local trigger t
     local real life
 
-    set u=BlzCreateUnitWithSkin(p, 'hcas', - 7680.0, 0.0, 270.000, 'hcas')
-    set u=BlzCreateUnitWithSkin(p, 'hars', - 8064.0, 128.0, 270.000, 'hars')
-    set u=BlzCreateUnitWithSkin(p, 'hbla', - 8064.0, - 128.0, 270.000, 'hbla')
-    set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, 0.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hcas', - 9664.0, 0.0, 270.000, 'hcas')
+    set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, 64.0, 270.000, 'hars')
+    set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, - 192.0, 270.000, 'hbla')
+    set u=BlzCreateUnitWithSkin(p, 'h000', - 9984.0, 0.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 2944.0, 0.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, 0.0, 270.000, 'hgtw')
 endfunction
@@ -128,10 +128,10 @@ function CreateBuildingsForPlayer3 takes nothing returns nothing
     local trigger t
     local real life
 
-    set u=BlzCreateUnitWithSkin(p, 'hcas', - 7680.0, - 768.0, 270.000, 'hcas')
-    set u=BlzCreateUnitWithSkin(p, 'hars', - 8064.0, - 640.0, 270.000, 'hars')
-    set u=BlzCreateUnitWithSkin(p, 'hbla', - 8064.0, - 896.0, 270.000, 'hbla')
-    set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, - 768.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hcas', - 9664.0, - 768.0, 270.000, 'hcas')
+    set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, - 704.0, 270.000, 'hars')
+    set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, - 960.0, 270.000, 'hbla')
+    set u=BlzCreateUnitWithSkin(p, 'h000', - 9984.0, - 768.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 3328.0, - 1152.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, - 640.0, 270.000, 'hgtw')
 endfunction
@@ -144,10 +144,10 @@ function CreateBuildingsForPlayer4 takes nothing returns nothing
     local trigger t
     local real life
 
-    set u=BlzCreateUnitWithSkin(p, 'hcas', - 7680.0, - 1536.0, 270.000, 'hcas')
-    set u=BlzCreateUnitWithSkin(p, 'hars', - 8064.0, - 1408.0, 270.000, 'hars')
-    set u=BlzCreateUnitWithSkin(p, 'hbla', - 8064.0, - 1664.0, 270.000, 'hbla')
-    set u=BlzCreateUnitWithSkin(p, 'h000', - 8320.0, - 1536.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hcas', - 9664.0, - 1536.0, 270.000, 'hcas')
+    set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, - 1472.0, 270.000, 'hars')
+    set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, - 1728.0, 270.000, 'hbla')
+    set u=BlzCreateUnitWithSkin(p, 'h000', - 9984.0, - 1536.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 4096.0, - 1536.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, - 1280.0, 270.000, 'hgtw')
 endfunction
@@ -291,11 +291,11 @@ endfunction
 function CreateRegions takes nothing returns nothing
     local weathereffect we
 
-    set gg_rct_Spawner_0=Rect(- 9888.0, 1184.0, - 8832.0, 1888.0)
-    set gg_rct_Spawner_1=Rect(- 9888.0, 416.0, - 8832.0, 1120.0)
-    set gg_rct_Spawner_2=Rect(- 9888.0, - 352.0, - 8832.0, 352.0)
-    set gg_rct_Spawner_3=Rect(- 9888.0, - 1120.0, - 8832.0, - 416.0)
-    set gg_rct_Spawner_4=Rect(- 9888.0, - 1888.0, - 8832.0, - 1184.0)
+    set gg_rct_Spawner_0=Rect(- 13024.0, 1152.0, - 11968.0, 1856.0)
+    set gg_rct_Spawner_1=Rect(- 13024.0, 384.0, - 11968.0, 1088.0)
+    set gg_rct_Spawner_2=Rect(- 13024.0, - 384.0, - 11968.0, 320.0)
+    set gg_rct_Spawner_3=Rect(- 13024.0, - 1152.0, - 11968.0, - 448.0)
+    set gg_rct_Spawner_4=Rect(- 13024.0, - 1920.0, - 11968.0, - 1216.0)
     set gg_rct_Spawner_5=Rect(8832.0, 1056.0, 9888.0, 1760.0)
     set gg_rct_Spawner_6=Rect(8832.0, 288.0, 9888.0, 992.0)
     set gg_rct_Spawner_7=Rect(8832.0, - 480.0, 9888.0, 224.0)
@@ -626,7 +626,7 @@ endfunction
 
 //===========================================================================
 function main takes nothing returns nothing
-    call SetCameraBounds(- 9984.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), - 9728.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 9856.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 9216.0 - GetCameraMargin(CAMERA_MARGIN_TOP), - 9984.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 9216.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 9856.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), - 9728.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
+    call SetCameraBounds(- 13568.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), - 6272.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 14464.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 5632.0 - GetCameraMargin(CAMERA_MARGIN_TOP), - 13568.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 5632.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 14464.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), - 6272.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
     call SetDayNightModels("Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl")
     call NewSoundEnvironment("Default")
     call SetAmbientDaySound("CityScapeDay")
@@ -654,11 +654,11 @@ function config takes nothing returns nothing
     call SetTeams(12)
     call SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)
 
-    call DefineStartLocation(0, - 7680.0, 1472.0)
-    call DefineStartLocation(1, - 7680.0, 768.0)
-    call DefineStartLocation(2, - 7680.0, 0.0)
-    call DefineStartLocation(3, - 7680.0, - 832.0)
-    call DefineStartLocation(4, - 7680.0, - 1536.0)
+    call DefineStartLocation(0, - 9664.0, 1472.0)
+    call DefineStartLocation(1, - 9664.0, 768.0)
+    call DefineStartLocation(2, - 9664.0, 0.0)
+    call DefineStartLocation(3, - 9664.0, - 832.0)
+    call DefineStartLocation(4, - 9664.0, - 1536.0)
     call DefineStartLocation(5, 7680.0, 1536.0)
     call DefineStartLocation(6, 7680.0, 704.0)
     call DefineStartLocation(7, 7680.0, 0.0)
