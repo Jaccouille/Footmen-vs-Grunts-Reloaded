@@ -20,11 +20,11 @@ buildMapData:
     controller: COMPUTER
     fixedStartLoc: true
   - id: 3
-    race: HUMAN
+    race: ORC
     controller: COMPUTER
     fixedStartLoc: true
   - id: 4
-    race: HUMAN
+    race: ORC
     controller: COMPUTER
     fixedStartLoc: true
   - id: 5
@@ -32,27 +32,11 @@ buildMapData:
     controller: COMPUTER
     fixedStartLoc: true
   - id: 6
-    race: ORC
-    controller: COMPUTER
-    fixedStartLoc: true
-  - id: 7
-    race: ORC
-    controller: COMPUTER
-    fixedStartLoc: true
-  - id: 8
-    race: ORC
-    controller: COMPUTER
-    fixedStartLoc: true
-  - id: 9
-    race: ORC
-    controller: COMPUTER
-    fixedStartLoc: true
-  - id: 10
     name: The Alliance
     race: HUMAN
     controller: COMPUTER
     fixedStartLoc: true
-  - id: 11
+  - id: 7
     name: The Horde
     race: ORC
     controller: COMPUTER
@@ -63,14 +47,10 @@ buildMapData:
     - 0
     - 1
     - 2
-    - 3
-    - 4
-    - 10
+    - 6
   - name: The Horde
     playerIds:
+    - 3
+    - 4
     - 5
-    - 6
     - 7
-    - 8
-    - 9
-    - 11
