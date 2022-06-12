@@ -29,8 +29,6 @@ public class RaceUnitEntity extends BountifulUnitEntity
         // if getUnit().getOwner().getUnitSpawner() != null
         //     and getUnit().isInRegion(battlefield_reg)
         //     getUnit().getOwner().getUnitSpawner().updateUnitCounter(this.getUnit(), 1)
-        if not getUnit().isInRegion(battlefield_reg)
-            getUnit().addAbility('Avul')
 
     override function postDeath()
         super.postDeath()

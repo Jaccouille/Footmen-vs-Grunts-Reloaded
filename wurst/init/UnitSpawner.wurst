@@ -68,7 +68,7 @@ public class UnitSpawner
             unitCounter.put(unitId, 0)
             updateMaxUnitCap(spawnDataConstant.get(unitId))
         // Add unit to spawner rect
-        groupTemplate.put(createUnit(this._player, unitId, pos, 270..asAngleDegrees()), 0)
+        groupTemplate.put(createUnit(this._player, unitId, pos, 270..asAngleDegrees())..addAbility('Avul'), 0)
 
     function updateMaxUnitCap(int value)
         let currentCap = _player.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
