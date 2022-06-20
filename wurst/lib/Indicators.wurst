@@ -30,6 +30,9 @@ public let indicators = new IterableMap<int, int>()
     ..put('h01L', UNIT_BASIC_TOWER)
     ..put('hgtw', UNIT_ALLIANCE_BASIC_TOWER)
     ..put('owtw', UNIT_HORDE_BASIC_TOWER)
+    ..put('ngol', UNIT_INCOME_GOLD_1)
+    ..put('hlum', UNIT_INCOME_WOOD_1)
+    ..put('nbse', UNIT_VICTORY_POINT)
 
 
 public let indicatorCallbacks = new IterableMap<int, LinkedList<Callback>>()

@@ -1,0 +1,52 @@
+package CapturableBuildings
+
+import UnitObjEditing
+import Assets
+import LocalObjectIDs
+
+
+function createTemplateDefinition(int newId) returns BuildingDefinition
+    return new BuildingDefinition(newId, UnitIds.humanlumbermill)
+        ..setResearchesAvailable("")
+        ..setUpgradesUsed("")
+        ..setHitPointsMaximumBase(500)
+        ..setDefenseBase(5)
+
+// Gold income
+@compiletime function createGoldIncomeBuildingLevel1()
+    createTemplateDefinition(UNIT_INCOME_GOLD_1)
+        ..setModelFile(Buildings.goldmine1)
+        ..setName("Gold Building Level 1")
+
+@compiletime function createGoldIncomeBuildingLevel2()
+    createTemplateDefinition(UNIT_INCOME_GOLD_2)
+        ..setModelFile(Buildings.goldmine1)
+        ..setName("Gold Building Level 2")
+        ..setHitPointsMaximumBase(1000)
+
+@compiletime function createGoldIncomeBuildingLevel3()
+    createTemplateDefinition(UNIT_INCOME_GOLD_3)
+        ..setModelFile(Buildings.goldmine1)
+        ..setName("Gold Building Level 3")
+        ..setHitPointsMaximumBase(1500)
+
+// Wood Income
+@compiletime function createWoodIncomeBuildingLevel1()
+    createTemplateDefinition(UNIT_INCOME_WOOD_1)
+        ..setName("Wood Building Level 1")
+
+@compiletime function createWoodIncomeBuildingLevel2()
+    createTemplateDefinition(UNIT_INCOME_WOOD_2)
+        ..setName("Wood Building Level 2")
+        ..setHitPointsMaximumBase(1000)
+
+@compiletime function createWoodIncomeBuildingLevel3()
+    createTemplateDefinition(UNIT_INCOME_WOOD_3)
+        ..setName("Wood Building Level 3")
+        ..setHitPointsMaximumBase(1500)
+
+// Victory Point
+@compiletime function createVictoryPoint()
+    createTemplateDefinition(UNIT_VICTORY_POINT)
+        ..setModelFile(Doodads.ressurectionStoneSE)
+        ..setName("Victory Point")

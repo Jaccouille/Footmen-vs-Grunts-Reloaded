@@ -140,6 +140,14 @@ public let UNIT_FROST_WYRM      = compiletime(UNIT_ID_GEN.next())..registerObjec
 public let UNIT_ABOMINATION     = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_ABOMINATION"     )
 public let UNIT_MAIDEN          = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_MAIDEN"          )
 
+public let UNIT_INCOME_GOLD_1   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_INCOME_GOLD_1")
+public let UNIT_INCOME_GOLD_2   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_INCOME_GOLD_2")
+public let UNIT_INCOME_GOLD_3   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_INCOME_GOLD_3")
+public let UNIT_INCOME_WOOD_1   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_INCOME_WOOD_1")
+public let UNIT_INCOME_WOOD_2   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_INCOME_WOOD_2")
+public let UNIT_INCOME_WOOD_3   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_INCOME_WOOD_3")
+public let UNIT_VICTORY_POINT   = compiletime(UNIT_ID_GEN.next())..registerObjectID("UNIT_VICTORY_POINT")
+
 public let UPGD_HUMAN_MELEE_ATTACK = compiletime(UPGD_ID_GEN.next())..registerObjectID("UPGD_HUMAN_MELEE_ATTACK")
 public let UPGD_HUMAN_RANGED_ATTACK = compiletime(UPGD_ID_GEN.next())..registerObjectID("UPGD_HUMAN_RANGED_ATTACK")
 public let UPGD_HUMAN_MELEE_ARMOR = compiletime(UPGD_ID_GEN.next())..registerObjectID("UPGD_HUMAN_MELEE_ARMOR")
