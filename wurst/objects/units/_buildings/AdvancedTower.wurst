@@ -9,14 +9,14 @@ import Buildings
 import Abilities
 import Icons
 
-public constant let FROST_TOWER = UNIT_ID_GEN.next()
-public constant let FLAME_TOWER = UNIT_ID_GEN.next()
-public constant let ENERGY_TOWER = UNIT_ID_GEN.next()
-public constant let ANTI_AIR_TOWER = UNIT_ID_GEN.next()
-public constant let DESTRUCTION_TOWER = UNIT_ID_GEN.next()
-public constant let DEATH_TOWER = UNIT_ID_GEN.next()
+public constant FROST_TOWER = UNIT_ID_GEN.next()
+public constant FLAME_TOWER = UNIT_ID_GEN.next()
+public constant ENERGY_TOWER = UNIT_ID_GEN.next()
+public constant ANTI_AIR_TOWER = UNIT_ID_GEN.next()
+public constant DESTRUCTION_TOWER = UNIT_ID_GEN.next()
+public constant DEATH_TOWER = UNIT_ID_GEN.next()
 
-constant let UPGRADE_SECOND = commaList(DEATH_TOWER)
+constant UPGRADE_SECOND = commaList(DEATH_TOWER)
 
 @compiletime function createFrostTower()
     new BuildingDefinition(FROST_TOWER, UnitIds.flametowerupgrade)
