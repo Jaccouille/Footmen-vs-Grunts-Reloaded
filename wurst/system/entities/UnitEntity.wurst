@@ -72,8 +72,6 @@ public abstract class UnitEntity
     function getPos() returns vec2
         return theUnit.getPos()
 
-
-
     function onRevive()
         postRevive()
 

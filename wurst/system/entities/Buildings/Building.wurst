@@ -1,0 +1,83 @@
+package Building
+
+// Standard imports:
+import DamageEvent
+import ClosureTimers
+import StandardTextTags
+
+// Local imports:
+import UnitEntity
+import IDListConstant
+
+
+public abstract class Building extends UnitEntity
+    construct(unit whichUnit)
+        super(whichUnit)
+
+class CapturableBuilding extends Building
+    real incomePeriod = 5
+    int incomeAmount = 0
+    colorA textTagColor = colorA(255, 255, 255, 255)
+    CallbackPeriodic incomeCb
+
+    construct(unit whichUnit)
+        super(whichUnit)
+
+        // InitIncome
+        incomeCb = doPeriodically(incomePeriod) (CallbackPeriodic cb) ->
+            this.createTextTag()
+            giveIncome()
+
+    function giveIncome()
+
+    function createTextTag()
+        // Create a text tag to visualize the effect.
+        standardTextTag(
+            getUnit().getPos(),
+            "+{0}".format(incomeAmount.toString())
+        )
+            ..setColor(textTagColor)
+            ..setVisibility(localPlayer == this.getUnit().getOwner())
+            // ..matchVisibility(this.getUnit())
+
+    override function postDeath()
+        destroy incomeCb
+
+
+
+class GoldBuilding extends CapturableBuilding
+    construct(unit whichUnit)
+        super(whichUnit)
+        this.incomeAmount = 15
+        textTagColor = colorA(255, 215, 0, 255)
+
+    override function giveIncome()
+        this.getUnit().getOwner().addGold(incomeAmount)
+
+
+class WooddBuilding extends CapturableBuilding
+
+    construct(unit whichUnit)
+        super(whichUnit)
+        this.incomeAmount = 15
+        textTagColor = colorA(31, 191, 0, 255)
+
+    override function giveIncome()
+        this.getUnit().getOwner().addLumber(incomeAmount)
+
+
+init
+    GOLD_BUILDINGS.forEach() (int typeID) ->
+        GoldBuilding.register(typeID, target -> new GoldBuilding(target))
+
+    WOOD_BUILDINGS.forEach() (int typeID) ->
+        WooddBuilding.register(typeID, target -> new WooddBuilding(target))
+
+    // Init owner switching listener
+    DamageEvent.addListener() ->
+        let target = DamageEvent.getTarget()
+        if (GOLD_BUILDINGS.has(target.getTypeId()) or WOOD_BUILDINGS.has(target.getTypeId()))
+            and DamageEvent.getAmount() > target.getHP()
+            DamageEvent.abortCurrent()
+            target.setHP(target.getMaxHP())
+            target.setOwner(DamageEvent.getSource().getOwner(), true)

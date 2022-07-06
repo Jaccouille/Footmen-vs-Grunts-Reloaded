@@ -9,7 +9,7 @@ function createTemplateDefinition(int newId) returns BuildingDefinition
     return new BuildingDefinition(newId, UnitIds.humanlumbermill)
         ..setResearchesAvailable("")
         ..setUpgradesUsed("")
-        ..setHitPointsMaximumBase(500)
+        ..setHitPointsMaximumBase(1)
         ..setDefenseBase(5)
 
 // Gold income

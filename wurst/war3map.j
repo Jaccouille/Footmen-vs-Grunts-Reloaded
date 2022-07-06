@@ -72,11 +72,11 @@ function CreateBuildingsForPlayer0 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'hcas', - 9664.0, 1536.0, 270.000, 'hcas')
     set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, 1600.0, 270.000, 'hars')
     set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, 1344.0, 270.000, 'hbla')
-    set u=BlzCreateUnitWithSkin(p, 'hlum', - 1568.0, 480.0, 270.000, 'hlum')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 9984.0, 1536.0, 270.000, 'h000')
-    set u=BlzCreateUnitWithSkin(p, 'ngol', - 1536.0, 128.0, 270.000, 'ngol')
-    call SetResourceAmount(u, 12500)
     set u=BlzCreateUnitWithSkin(p, 'nbse', - 1504.0, - 288.0, 270.000, 'nbse')
+    set u=BlzCreateUnitWithSkin(p, 'hlum', - 1568.0, 800.0, 270.000, 'hlum')
+    set u=BlzCreateUnitWithSkin(p, 'ngol', - 1152.0, 128.0, 270.000, 'ngol')
+    call SetResourceAmount(u, 12500)
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 4096.0, 1536.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 3328.0, - 1152.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 4096.0, - 1536.0, 270.000, 'h01L')
@@ -173,6 +173,9 @@ function CreateBuildingsForPlayer5 takes nothing returns nothing
     local trigger t
     local real life
 
+    set u=BlzCreateUnitWithSkin(p, 'hlum', - 1568.0, 480.0, 270.000, 'hlum')
+    set u=BlzCreateUnitWithSkin(p, 'ngol', - 1536.0, 128.0, 270.000, 'ngol')
+    call SetResourceAmount(u, 12500)
     set u=BlzCreateUnitWithSkin(p, 'ofrt', 7680.0, 0.0, 270.000, 'ofrt')
     set u=BlzCreateUnitWithSkin(p, 'ofor', 8064.0, - 128.0, 270.000, 'ofor')
     set u=BlzCreateUnitWithSkin(p, 'osld', 8064.0, 128.0, 270.000, 'osld')
