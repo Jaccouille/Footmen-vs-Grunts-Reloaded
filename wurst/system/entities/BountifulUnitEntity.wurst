@@ -53,4 +53,5 @@ public abstract class BountifulUnitEntity extends UnitEntity
 
     override function postDeath()
         super.postDeath()
-        giveBounty()
+        // TODO: optimize?
+        // giveBounty()
