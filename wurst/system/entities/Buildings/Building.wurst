@@ -80,4 +80,5 @@ init
             and DamageEvent.getAmount() > target.getHP()
             DamageEvent.abortCurrent()
             target.setHP(target.getMaxHP())
+            target.setMana(0)
             target.setOwner(DamageEvent.getSource().getOwner(), true)

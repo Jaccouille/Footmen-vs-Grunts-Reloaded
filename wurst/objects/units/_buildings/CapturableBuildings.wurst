@@ -1,6 +1,7 @@
 package CapturableBuildings
 
 import UnitObjEditing
+import ObjectIds
 import Assets
 import LocalObjectIDs
 
@@ -11,12 +12,19 @@ function createTemplateDefinition(int newId) returns BuildingDefinition
         ..setUpgradesUsed("")
         ..setHitPointsMaximumBase(1)
         ..setDefenseBase(5)
+        ..setManaInitialAmount(0)
+        ..setManaRegeneration(0)
+        ..setBuildTime(1)
+        ..setGoldCost(1)
+        ..setManaMaximum(3)
+
 
 // Gold income
 @compiletime function createGoldIncomeBuildingLevel1()
     createTemplateDefinition(UNIT_INCOME_GOLD_1)
         ..setModelFile(Buildings.goldmine1)
         ..setName("Gold Building Level 1")
+        ..setUpgradesTo(UNIT_INCOME_GOLD_2.toRawCode())
 
 @compiletime function createGoldIncomeBuildingLevel2()
     createTemplateDefinition(UNIT_INCOME_GOLD_2)
@@ -34,6 +42,8 @@ function createTemplateDefinition(int newId) returns BuildingDefinition
 @compiletime function createWoodIncomeBuildingLevel1()
     createTemplateDefinition(UNIT_INCOME_WOOD_1)
         ..setName("Wood Building Level 1")
+        ..setManaMaximum(10)
+        ..setManaRegeneration(1)
 
 @compiletime function createWoodIncomeBuildingLevel2()
     createTemplateDefinition(UNIT_INCOME_WOOD_2)
