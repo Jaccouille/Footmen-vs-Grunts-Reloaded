@@ -6,20 +6,6 @@ rect gg_rct_Spawner_2= null
 rect gg_rct_Spawner_3= null
 rect gg_rct_Spawner_4= null
 rect gg_rct_Spawner_5= null
-rect gg_rct_Spawner_6= null
-rect gg_rct_Spawner_7= null
-rect gg_rct_Spawner_8= null
-rect gg_rct_Spawner_9= null
-rect gg_rct_Spawner_0_Copy= null
-rect gg_rct_Spawner_0_Copy_2= null
-rect gg_rct_Spawner_0_Copy_3= null
-rect gg_rct_Spawner_0_Copy_4= null
-rect gg_rct_Spawner_0_Copy_5= null
-rect gg_rct_Spawner_5_Copy= null
-rect gg_rct_Spawner_5_Copy_2= null
-rect gg_rct_Spawner_5_Copy_3= null
-rect gg_rct_Spawner_5_Copy_4= null
-rect gg_rct_Spawner_5_Copy_5= null
 rect gg_rct_battlefield= null
 
 
@@ -68,11 +54,23 @@ function CreateBuildingsForPlayer0 takes nothing returns nothing
     local trigger t
     local real life
 
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, 1216.0, 270.000, 'hhou')
     set u=BlzCreateUnitWithSkin(p, 'hcas', - 9728.0, 1088.0, 270.000, 'hcas')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, 1088.0, 270.000, 'hhou')
     set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, 1152.0, 270.000, 'hars')
     set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, 896.0, 270.000, 'hbla')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, 960.0, 270.000, 'hhou')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 10048.0, 1088.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, 1088.0, 270.000, 'hhou')
     set u=BlzCreateUnitWithSkin(p, 'nbse', 32.0, 32.0, 270.000, 'nbse')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, 832.0, 270.000, 'hhou')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 4096.0, 1536.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 3328.0, - 1152.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 4096.0, - 1536.0, 270.000, 'h01L')
@@ -104,6 +102,18 @@ function CreateBuildingsForPlayer1 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, 128.0, 270.000, 'hars')
     set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, - 128.0, 270.000, 'hbla')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 10048.0, 0.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, 192.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, 64.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, - 64.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, - 192.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, - 192.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, - 64.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, 64.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, 192.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, 192.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, 64.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, - 64.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, - 192.0, 270.000, 'hhou')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 3328.0, 1152.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, 640.0, 270.000, 'hgtw')
 endfunction
@@ -120,6 +130,18 @@ function CreateBuildingsForPlayer2 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'hars', - 13248.0, - 896.0, 270.000, 'hars')
     set u=BlzCreateUnitWithSkin(p, 'hbla', - 13248.0, - 1152.0, 270.000, 'hbla')
     set u=BlzCreateUnitWithSkin(p, 'h000', - 10048.0, - 1024.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, - 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, - 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, - 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12224.0, - 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, - 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, - 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, - 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12352.0, - 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, - 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, - 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, - 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', - 12480.0, - 1216.0, 270.000, 'hhou')
     set u=BlzCreateUnitWithSkin(p, 'h01L', - 2944.0, 0.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'hgtw', - 4864.0, 0.0, 270.000, 'hgtw')
 endfunction
@@ -136,6 +158,18 @@ function CreateBuildingsForPlayer3 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'ofor', 13248.0, 896.0, 270.000, 'ofor')
     set u=BlzCreateUnitWithSkin(p, 'osld', 13248.0, 1152.0, 270.000, 'osld')
     set u=BlzCreateUnitWithSkin(p, 'h000', 9984.0, 1024.0, 270.000, 'h000')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, 832.0, 270.000, 'hhou')
     set u=BlzCreateUnitWithSkin(p, 'owtw', 4864.0, 1280.0, 270.000, 'owtw')
     set u=BlzCreateUnitWithSkin(p, 'h01L', 3328.0, 1152.0, 270.000, 'h01L')
     set u=BlzCreateUnitWithSkin(p, 'h01L', 4096.0, 1536.0, 270.000, 'h01L')
@@ -159,6 +193,18 @@ function CreateBuildingsForPlayer4 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'osld', 13248.0, 128.0, 270.000, 'osld')
     set u=BlzCreateUnitWithSkin(p, 'h000', 9984.0, 0.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'owtw', 4864.0, 640.0, 270.000, 'owtw')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, 128.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, 0.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, - 128.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, - 256.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, - 256.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, - 128.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, 0.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, 128.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, 128.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, 0.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, - 128.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, - 256.0, 270.000, 'hhou')
 endfunction
 
 //===========================================================================
@@ -174,6 +220,18 @@ function CreateBuildingsForPlayer5 takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'osld', 13248.0, - 896.0, 270.000, 'osld')
     set u=BlzCreateUnitWithSkin(p, 'h000', 9984.0, - 1024.0, 270.000, 'h000')
     set u=BlzCreateUnitWithSkin(p, 'owtw', 4864.0, - 64.0, 270.000, 'owtw')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, - 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, - 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, - 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12608.0, - 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, - 1216.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, - 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, - 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12480.0, - 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, - 832.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, - 960.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, - 1088.0, 270.000, 'hhou')
+    set u=BlzCreateUnitWithSkin(p, 'hhou', 12352.0, - 1216.0, 270.000, 'hhou')
 endfunction
 
 //===========================================================================
@@ -254,26 +312,12 @@ endfunction
 function CreateRegions takes nothing returns nothing
     local weathereffect we
 
-    set gg_rct_Spawner_0=Rect(- 13024.0, 1152.0, - 11968.0, 1856.0)
-    set gg_rct_Spawner_1=Rect(- 13024.0, 384.0, - 11968.0, 1088.0)
-    set gg_rct_Spawner_2=Rect(- 13024.0, - 384.0, - 11968.0, 320.0)
-    set gg_rct_Spawner_3=Rect(- 13024.0, - 1152.0, - 11968.0, - 448.0)
-    set gg_rct_Spawner_4=Rect(- 13024.0, - 1920.0, - 11968.0, - 1216.0)
-    set gg_rct_Spawner_5=Rect(8832.0, 1056.0, 9888.0, 1760.0)
-    set gg_rct_Spawner_6=Rect(8832.0, 288.0, 9888.0, 992.0)
-    set gg_rct_Spawner_7=Rect(8832.0, - 480.0, 9888.0, 224.0)
-    set gg_rct_Spawner_8=Rect(8832.0, - 1248.0, 9888.0, - 544.0)
-    set gg_rct_Spawner_9=Rect(8832.0, - 2016.0, 9888.0, - 1312.0)
-    set gg_rct_Spawner_0_Copy=Rect(- 7424.0, 1152.0, - 6368.0, 1856.0)
-    set gg_rct_Spawner_0_Copy_2=Rect(- 7424.0, 384.0, - 6368.0, 1088.0)
-    set gg_rct_Spawner_0_Copy_3=Rect(- 7424.0, - 384.0, - 6368.0, 320.0)
-    set gg_rct_Spawner_0_Copy_4=Rect(- 7424.0, - 1152.0, - 6368.0, - 448.0)
-    set gg_rct_Spawner_0_Copy_5=Rect(- 7424.0, - 1920.0, - 6368.0, - 1216.0)
-    set gg_rct_Spawner_5_Copy=Rect(6368.0, 1152.0, 7424.0, 1856.0)
-    set gg_rct_Spawner_5_Copy_2=Rect(6368.0, 384.0, 7424.0, 1088.0)
-    set gg_rct_Spawner_5_Copy_3=Rect(6368.0, - 384.0, 7424.0, 320.0)
-    set gg_rct_Spawner_5_Copy_4=Rect(6368.0, - 1152.0, 7424.0, - 448.0)
-    set gg_rct_Spawner_5_Copy_5=Rect(6368.0, - 1920.0, 7424.0, - 1216.0)
+    set gg_rct_Spawner_0=Rect(- 12992.0, 640.0, - 11968.0, 1408.0)
+    set gg_rct_Spawner_1=Rect(- 12992.0, - 384.0, - 11968.0, 384.0)
+    set gg_rct_Spawner_2=Rect(- 12992.0, - 1408.0, - 11968.0, - 640.0)
+    set gg_rct_Spawner_3=Rect(11968.0, 640.0, 12992.0, 1408.0)
+    set gg_rct_Spawner_4=Rect(11968.0, - 384.0, 12992.0, 256.0)
+    set gg_rct_Spawner_5=Rect(11968.0, - 1408.0, 12992.0, - 640.0)
     set gg_rct_battlefield=Rect(- 7872.0, - 4672.0, 7872.0, 4800.0)
 endfunction
 
@@ -349,38 +393,6 @@ function InitCustomPlayerSlots takes nothing returns nothing
     call SetPlayerRaceSelectable(Player(7), false)
     call SetPlayerController(Player(7), MAP_CONTROL_COMPUTER)
 
-    // Player 8
-    call SetPlayerStartLocation(Player(8), 8)
-    call ForcePlayerStartLocation(Player(8), 8)
-    call SetPlayerColor(Player(8), ConvertPlayerColor(8))
-    call SetPlayerRacePreference(Player(8), RACE_PREF_ORC)
-    call SetPlayerRaceSelectable(Player(8), false)
-    call SetPlayerController(Player(8), MAP_CONTROL_USER)
-
-    // Player 9
-    call SetPlayerStartLocation(Player(9), 9)
-    call ForcePlayerStartLocation(Player(9), 9)
-    call SetPlayerColor(Player(9), ConvertPlayerColor(9))
-    call SetPlayerRacePreference(Player(9), RACE_PREF_ORC)
-    call SetPlayerRaceSelectable(Player(9), false)
-    call SetPlayerController(Player(9), MAP_CONTROL_USER)
-
-    // Player 10
-    call SetPlayerStartLocation(Player(10), 10)
-    call ForcePlayerStartLocation(Player(10), 10)
-    call SetPlayerColor(Player(10), ConvertPlayerColor(10))
-    call SetPlayerRacePreference(Player(10), RACE_PREF_HUMAN)
-    call SetPlayerRaceSelectable(Player(10), false)
-    call SetPlayerController(Player(10), MAP_CONTROL_COMPUTER)
-
-    // Player 11
-    call SetPlayerStartLocation(Player(11), 11)
-    call ForcePlayerStartLocation(Player(11), 11)
-    call SetPlayerColor(Player(11), ConvertPlayerColor(11))
-    call SetPlayerRacePreference(Player(11), RACE_PREF_ORC)
-    call SetPlayerRaceSelectable(Player(11), false)
-    call SetPlayerController(Player(11), MAP_CONTROL_COMPUTER)
-
 endfunction
 
 function InitCustomTeams takes nothing returns nothing
@@ -393,52 +405,34 @@ function InitCustomTeams takes nothing returns nothing
     call SetPlayerState(Player(2), PLAYER_STATE_ALLIED_VICTORY, 1)
     call SetPlayerTeam(Player(6), 0)
     call SetPlayerState(Player(6), PLAYER_STATE_ALLIED_VICTORY, 1)
-    call SetPlayerTeam(Player(10), 0)
-    call SetPlayerState(Player(10), PLAYER_STATE_ALLIED_VICTORY, 1)
 
     //   Allied
     call SetPlayerAllianceStateAllyBJ(Player(0), Player(1), true)
     call SetPlayerAllianceStateAllyBJ(Player(0), Player(2), true)
     call SetPlayerAllianceStateAllyBJ(Player(0), Player(6), true)
-    call SetPlayerAllianceStateAllyBJ(Player(0), Player(10), true)
     call SetPlayerAllianceStateAllyBJ(Player(1), Player(0), true)
     call SetPlayerAllianceStateAllyBJ(Player(1), Player(2), true)
     call SetPlayerAllianceStateAllyBJ(Player(1), Player(6), true)
-    call SetPlayerAllianceStateAllyBJ(Player(1), Player(10), true)
     call SetPlayerAllianceStateAllyBJ(Player(2), Player(0), true)
     call SetPlayerAllianceStateAllyBJ(Player(2), Player(1), true)
     call SetPlayerAllianceStateAllyBJ(Player(2), Player(6), true)
-    call SetPlayerAllianceStateAllyBJ(Player(2), Player(10), true)
     call SetPlayerAllianceStateAllyBJ(Player(6), Player(0), true)
     call SetPlayerAllianceStateAllyBJ(Player(6), Player(1), true)
     call SetPlayerAllianceStateAllyBJ(Player(6), Player(2), true)
-    call SetPlayerAllianceStateAllyBJ(Player(6), Player(10), true)
-    call SetPlayerAllianceStateAllyBJ(Player(10), Player(0), true)
-    call SetPlayerAllianceStateAllyBJ(Player(10), Player(1), true)
-    call SetPlayerAllianceStateAllyBJ(Player(10), Player(2), true)
-    call SetPlayerAllianceStateAllyBJ(Player(10), Player(6), true)
 
     //   Shared Vision
     call SetPlayerAllianceStateVisionBJ(Player(0), Player(1), true)
     call SetPlayerAllianceStateVisionBJ(Player(0), Player(2), true)
     call SetPlayerAllianceStateVisionBJ(Player(0), Player(6), true)
-    call SetPlayerAllianceStateVisionBJ(Player(0), Player(10), true)
     call SetPlayerAllianceStateVisionBJ(Player(1), Player(0), true)
     call SetPlayerAllianceStateVisionBJ(Player(1), Player(2), true)
     call SetPlayerAllianceStateVisionBJ(Player(1), Player(6), true)
-    call SetPlayerAllianceStateVisionBJ(Player(1), Player(10), true)
     call SetPlayerAllianceStateVisionBJ(Player(2), Player(0), true)
     call SetPlayerAllianceStateVisionBJ(Player(2), Player(1), true)
     call SetPlayerAllianceStateVisionBJ(Player(2), Player(6), true)
-    call SetPlayerAllianceStateVisionBJ(Player(2), Player(10), true)
     call SetPlayerAllianceStateVisionBJ(Player(6), Player(0), true)
     call SetPlayerAllianceStateVisionBJ(Player(6), Player(1), true)
     call SetPlayerAllianceStateVisionBJ(Player(6), Player(2), true)
-    call SetPlayerAllianceStateVisionBJ(Player(6), Player(10), true)
-    call SetPlayerAllianceStateVisionBJ(Player(10), Player(0), true)
-    call SetPlayerAllianceStateVisionBJ(Player(10), Player(1), true)
-    call SetPlayerAllianceStateVisionBJ(Player(10), Player(2), true)
-    call SetPlayerAllianceStateVisionBJ(Player(10), Player(6), true)
 
     // Force: TRIGSTR_588
     call SetPlayerTeam(Player(3), 1)
@@ -449,100 +443,34 @@ function InitCustomTeams takes nothing returns nothing
     call SetPlayerState(Player(5), PLAYER_STATE_ALLIED_VICTORY, 1)
     call SetPlayerTeam(Player(7), 1)
     call SetPlayerState(Player(7), PLAYER_STATE_ALLIED_VICTORY, 1)
-    call SetPlayerTeam(Player(8), 1)
-    call SetPlayerState(Player(8), PLAYER_STATE_ALLIED_VICTORY, 1)
-    call SetPlayerTeam(Player(9), 1)
-    call SetPlayerState(Player(9), PLAYER_STATE_ALLIED_VICTORY, 1)
-    call SetPlayerTeam(Player(11), 1)
-    call SetPlayerState(Player(11), PLAYER_STATE_ALLIED_VICTORY, 1)
 
     //   Allied
     call SetPlayerAllianceStateAllyBJ(Player(3), Player(4), true)
     call SetPlayerAllianceStateAllyBJ(Player(3), Player(5), true)
     call SetPlayerAllianceStateAllyBJ(Player(3), Player(7), true)
-    call SetPlayerAllianceStateAllyBJ(Player(3), Player(8), true)
-    call SetPlayerAllianceStateAllyBJ(Player(3), Player(9), true)
-    call SetPlayerAllianceStateAllyBJ(Player(3), Player(11), true)
     call SetPlayerAllianceStateAllyBJ(Player(4), Player(3), true)
     call SetPlayerAllianceStateAllyBJ(Player(4), Player(5), true)
     call SetPlayerAllianceStateAllyBJ(Player(4), Player(7), true)
-    call SetPlayerAllianceStateAllyBJ(Player(4), Player(8), true)
-    call SetPlayerAllianceStateAllyBJ(Player(4), Player(9), true)
-    call SetPlayerAllianceStateAllyBJ(Player(4), Player(11), true)
     call SetPlayerAllianceStateAllyBJ(Player(5), Player(3), true)
     call SetPlayerAllianceStateAllyBJ(Player(5), Player(4), true)
     call SetPlayerAllianceStateAllyBJ(Player(5), Player(7), true)
-    call SetPlayerAllianceStateAllyBJ(Player(5), Player(8), true)
-    call SetPlayerAllianceStateAllyBJ(Player(5), Player(9), true)
-    call SetPlayerAllianceStateAllyBJ(Player(5), Player(11), true)
     call SetPlayerAllianceStateAllyBJ(Player(7), Player(3), true)
     call SetPlayerAllianceStateAllyBJ(Player(7), Player(4), true)
     call SetPlayerAllianceStateAllyBJ(Player(7), Player(5), true)
-    call SetPlayerAllianceStateAllyBJ(Player(7), Player(8), true)
-    call SetPlayerAllianceStateAllyBJ(Player(7), Player(9), true)
-    call SetPlayerAllianceStateAllyBJ(Player(7), Player(11), true)
-    call SetPlayerAllianceStateAllyBJ(Player(8), Player(3), true)
-    call SetPlayerAllianceStateAllyBJ(Player(8), Player(4), true)
-    call SetPlayerAllianceStateAllyBJ(Player(8), Player(5), true)
-    call SetPlayerAllianceStateAllyBJ(Player(8), Player(7), true)
-    call SetPlayerAllianceStateAllyBJ(Player(8), Player(9), true)
-    call SetPlayerAllianceStateAllyBJ(Player(8), Player(11), true)
-    call SetPlayerAllianceStateAllyBJ(Player(9), Player(3), true)
-    call SetPlayerAllianceStateAllyBJ(Player(9), Player(4), true)
-    call SetPlayerAllianceStateAllyBJ(Player(9), Player(5), true)
-    call SetPlayerAllianceStateAllyBJ(Player(9), Player(7), true)
-    call SetPlayerAllianceStateAllyBJ(Player(9), Player(8), true)
-    call SetPlayerAllianceStateAllyBJ(Player(9), Player(11), true)
-    call SetPlayerAllianceStateAllyBJ(Player(11), Player(3), true)
-    call SetPlayerAllianceStateAllyBJ(Player(11), Player(4), true)
-    call SetPlayerAllianceStateAllyBJ(Player(11), Player(5), true)
-    call SetPlayerAllianceStateAllyBJ(Player(11), Player(7), true)
-    call SetPlayerAllianceStateAllyBJ(Player(11), Player(8), true)
-    call SetPlayerAllianceStateAllyBJ(Player(11), Player(9), true)
 
     //   Shared Vision
     call SetPlayerAllianceStateVisionBJ(Player(3), Player(4), true)
     call SetPlayerAllianceStateVisionBJ(Player(3), Player(5), true)
     call SetPlayerAllianceStateVisionBJ(Player(3), Player(7), true)
-    call SetPlayerAllianceStateVisionBJ(Player(3), Player(8), true)
-    call SetPlayerAllianceStateVisionBJ(Player(3), Player(9), true)
-    call SetPlayerAllianceStateVisionBJ(Player(3), Player(11), true)
     call SetPlayerAllianceStateVisionBJ(Player(4), Player(3), true)
     call SetPlayerAllianceStateVisionBJ(Player(4), Player(5), true)
     call SetPlayerAllianceStateVisionBJ(Player(4), Player(7), true)
-    call SetPlayerAllianceStateVisionBJ(Player(4), Player(8), true)
-    call SetPlayerAllianceStateVisionBJ(Player(4), Player(9), true)
-    call SetPlayerAllianceStateVisionBJ(Player(4), Player(11), true)
     call SetPlayerAllianceStateVisionBJ(Player(5), Player(3), true)
     call SetPlayerAllianceStateVisionBJ(Player(5), Player(4), true)
     call SetPlayerAllianceStateVisionBJ(Player(5), Player(7), true)
-    call SetPlayerAllianceStateVisionBJ(Player(5), Player(8), true)
-    call SetPlayerAllianceStateVisionBJ(Player(5), Player(9), true)
-    call SetPlayerAllianceStateVisionBJ(Player(5), Player(11), true)
     call SetPlayerAllianceStateVisionBJ(Player(7), Player(3), true)
     call SetPlayerAllianceStateVisionBJ(Player(7), Player(4), true)
     call SetPlayerAllianceStateVisionBJ(Player(7), Player(5), true)
-    call SetPlayerAllianceStateVisionBJ(Player(7), Player(8), true)
-    call SetPlayerAllianceStateVisionBJ(Player(7), Player(9), true)
-    call SetPlayerAllianceStateVisionBJ(Player(7), Player(11), true)
-    call SetPlayerAllianceStateVisionBJ(Player(8), Player(3), true)
-    call SetPlayerAllianceStateVisionBJ(Player(8), Player(4), true)
-    call SetPlayerAllianceStateVisionBJ(Player(8), Player(5), true)
-    call SetPlayerAllianceStateVisionBJ(Player(8), Player(7), true)
-    call SetPlayerAllianceStateVisionBJ(Player(8), Player(9), true)
-    call SetPlayerAllianceStateVisionBJ(Player(8), Player(11), true)
-    call SetPlayerAllianceStateVisionBJ(Player(9), Player(3), true)
-    call SetPlayerAllianceStateVisionBJ(Player(9), Player(4), true)
-    call SetPlayerAllianceStateVisionBJ(Player(9), Player(5), true)
-    call SetPlayerAllianceStateVisionBJ(Player(9), Player(7), true)
-    call SetPlayerAllianceStateVisionBJ(Player(9), Player(8), true)
-    call SetPlayerAllianceStateVisionBJ(Player(9), Player(11), true)
-    call SetPlayerAllianceStateVisionBJ(Player(11), Player(3), true)
-    call SetPlayerAllianceStateVisionBJ(Player(11), Player(4), true)
-    call SetPlayerAllianceStateVisionBJ(Player(11), Player(5), true)
-    call SetPlayerAllianceStateVisionBJ(Player(11), Player(7), true)
-    call SetPlayerAllianceStateVisionBJ(Player(11), Player(8), true)
-    call SetPlayerAllianceStateVisionBJ(Player(11), Player(9), true)
 
 endfunction
 
@@ -568,20 +496,10 @@ function InitAllyPriorities takes nothing returns nothing
     call SetStartLocPrioCount(5, 1)
     call SetStartLocPrio(5, 0, 4, MAP_LOC_PRIO_HIGH)
 
-    call SetStartLocPrioCount(6, 1)
-    call SetStartLocPrio(6, 0, 8, MAP_LOC_PRIO_HIGH)
-
-    call SetStartLocPrioCount(7, 4)
+    call SetStartLocPrioCount(7, 3)
     call SetStartLocPrio(7, 0, 3, MAP_LOC_PRIO_HIGH)
     call SetStartLocPrio(7, 1, 4, MAP_LOC_PRIO_HIGH)
     call SetStartLocPrio(7, 2, 5, MAP_LOC_PRIO_HIGH)
-    call SetStartLocPrio(7, 3, 9, MAP_LOC_PRIO_HIGH)
-
-    call SetStartLocPrioCount(8, 1)
-    call SetStartLocPrio(8, 0, 9, MAP_LOC_PRIO_HIGH)
-
-    call SetStartLocPrioCount(9, 1)
-    call SetStartLocPrio(9, 0, 8, MAP_LOC_PRIO_HIGH)
 endfunction
 
 //***************************************************************************
@@ -616,8 +534,8 @@ endfunction
 function config takes nothing returns nothing
     call SetMapName("TRIGSTR_008")
     call SetMapDescription("")
-    call SetPlayers(12)
-    call SetTeams(12)
+    call SetPlayers(8)
+    call SetTeams(8)
     call SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)
 
     call DefineStartLocation(0, - 9728.0, 1024.0)
@@ -628,10 +546,6 @@ function config takes nothing returns nothing
     call DefineStartLocation(5, 9728.0, - 1024.0)
     call DefineStartLocation(6, - 4096.0, 0.0)
     call DefineStartLocation(7, 4096.0, 0.0)
-    call DefineStartLocation(8, - 1152.0, - 1856.0)
-    call DefineStartLocation(9, - 1344.0, - 640.0)
-    call DefineStartLocation(10, 1216.0, 2560.0)
-    call DefineStartLocation(11, - 2240.0, - 192.0)
 
     // Player setup
     call InitCustomPlayerSlots()

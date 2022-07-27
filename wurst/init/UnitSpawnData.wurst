@@ -59,6 +59,7 @@ public let spawnDataConstant = new IterableMap<int, integer>()
     ..put(UNIT_ABOMINATION     , 12)
     ..put(UNIT_MAIDEN          , 12)
 
+let STARTING_UNIT_INDICATOR = 'hhou'
 
 function addToTemplateSpawner(int unitId, int count, player owner)
     for i = 1 to count
@@ -81,7 +82,23 @@ function enableTrainingListener(int unitId)
             trained.remove()
             addToTemplateSpawner(unitId, 1, owner)
 
+function placeStartingUnit()
+    // Find all matching indicators for the current type.
+    ENUM_GROUP..clear().enumUnitsOfType(STARTING_UNIT_INDICATOR, null)
+    // Replace each indicator with the corresponding unit.
+    for origin in ENUM_GROUP
+        // Extract the relevant information from the indicator.
+        let owner = origin.getOwner()
+        let pos   = origin.getPos()
+        // temporary, update when race selector is done
+        let targetId = owner.isAlliance() ? UNIT_FOOTMAN : UNIT_GRUNT
+
+        // Remove the indicator once it is no longer needed.
+        origin.remove()
+        // Create the actual unit.
+        owner.getUnitSpawner().addUnitSpawner(targetId, pos)
+
 public function initSpawnData()
     for key in spawnDataConstant
         enableTrainingListener(key)
-    addToTemplateSpawner(UNIT_FOOTMAN, 12, players[0])
+    placeStartingUnit()

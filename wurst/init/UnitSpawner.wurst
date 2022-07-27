@@ -8,6 +8,7 @@ import PlayerExtension
 import LocalObjectIDs
 import Orders
 import ArmyHandler
+import GameConstants
 
 let playerToSpawnRect = new HashMap<player, rect>
     ..put(players[0], gg_rct_Spawner_0)
@@ -16,27 +17,20 @@ let playerToSpawnRect = new HashMap<player, rect>
     ..put(players[3], gg_rct_Spawner_3)
     ..put(players[4], gg_rct_Spawner_4)
     ..put(players[5], gg_rct_Spawner_5)
-    ..put(players[6], gg_rct_Spawner_6)
-    ..put(players[7], gg_rct_Spawner_7)
-    ..put(players[8], gg_rct_Spawner_8)
-    ..put(players[9], gg_rct_Spawner_9)
 
+let spawnOffset = vec2(3500, 0)
 
 public class UnitSpawner
     static let playerToSpawnerMap = new HashMap<player, UnitSpawner>
 
     static function initialize()
-        for i = 0 to 9
+        for i = 0 to NBR_USER_PLAYER
             // TODO: check player isingame
             // if players[i].isIngame()
             let pData = players[i].getPlayerData()
-            var initialSpawn = vec2(0, 0)
 
-            // TODO: Init first spawn outside of this class
-            if i < 5
-                initialSpawn = pData.playerBuilding.get(UNIT_ALLIANCE_CASTLE).getPos()
-            if i >= 5
-                initialSpawn = pData.playerBuilding.get(UNIT_HORDE_CASTLE).getPos()
+            let pCastle = players[i].isAlliance() ? UNIT_ALLIANCE_CASTLE : UNIT_HORDE_CASTLE
+            let initialSpawn = pData.playerBuilding.get(pCastle).getPos()
 
             let opponentPos = vec2(initialSpawn.x * (-1), initialSpawn.y)
             new UnitSpawner(players[i], initialSpawn, OrderIds.attack, opponentPos)
@@ -68,7 +62,8 @@ public class UnitSpawner
             unitCounter.put(unitId, 0)
             updateMaxUnitCap(spawnDataConstant.get(unitId))
         // Add unit to spawner rect
-        groupTemplate.put(createUnit(this._player, unitId, pos, 270..asAngleDegrees())..addAbility('Avul'), 0)
+        let angle = (this._player.isHorde() ? 180 : 0).asAngleDegrees()
+        groupTemplate.put(createUnit(this._player, unitId, pos, angle)..addAbility('Avul'), 0)
 
     function updateMaxUnitCap(int value)
         let currentCap = _player.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
@@ -81,7 +76,8 @@ public class UnitSpawner
         this.groupTemplate.forEach() (unit template, integer activeAbil) ->
             if this.canSpawn(template)
                 and not template.isPaused()
-                let pos = template.getPos() + vec2(2550, 0)
+
+                let pos = template.getPos() + spawnOffset * (this._player.isHorde() ? -1 : 1)
                 updateUnitCounter(template, 1)
                 let u = createUnit(this._player, template.getTypeId(), pos, 270..asAngleDegrees())
                 if activeAbil != 0
@@ -118,17 +114,9 @@ public class UnitSpawner
                 count += 1
         return count
 
-function initPlayerSpawner(player _player)
-    let player_rect = playerToSpawnRect.get(_player)
-    var pos = player_rect.getRightTop()
-    let player_spawner = UnitSpawner.getUnitSpawner(_player)
-    for i = 0 to 12
-        // player_spawner.addUnitSpawner(spawnData, pos)
-
-
 
 init
     // TODO: Spawn basic units upon race selection
     doPeriodically(5) (CallbackPeriodic cb) ->
-        for i = 0 to 9
+        for i = 0 to NBR_USER_PLAYER
             UnitSpawner.getUnitSpawner(players[i]).spawnUnit()

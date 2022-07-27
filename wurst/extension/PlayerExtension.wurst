@@ -4,6 +4,7 @@ package PlayerExtension
 import PlayerData
 import initlater UnitSpawner
 import initlater ArmyHandler
+import initlater GameConstants
 
 public function player.getPlayerData() returns PlayerData
     return PlayerData.getPlayerData(this)
@@ -40,3 +41,9 @@ public function player.addDeath(unit u)
         pData.addScore(ScoreType.HERODEATH, 1)
     else
         pData.addScore(ScoreType.UNITDEATH, 1)
+
+public function player.isAlliance() returns boolean
+    return ALLIANCE_MEMBER.has(this)
+
+public function player.isHorde() returns boolean
+    return HORDE_MEMBER.has(this)

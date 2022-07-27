@@ -1,0 +1,10 @@
+package GameConstants
+
+import LinkedList
+
+public let NBR_USER_PLAYER = 6
+public let ALLIANCE_PLAYER = players[6]
+public let HORDE_PLAYER = players[7]
+
+public let ALLIANCE_MEMBER = asList(players[0], players[1], players[2])
+public let HORDE_MEMBER = asList(players[3], players[4], players[5])

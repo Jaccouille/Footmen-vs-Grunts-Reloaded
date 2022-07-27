@@ -6,6 +6,7 @@ import ClosureTimers
 import ClosureEvents
 
 import Indicators
+import GameConstants
 
 
 function player.getPlayerData() returns PlayerData
@@ -44,6 +45,7 @@ public class FactionData
     construct(player _player)
         this._player = _player
         factions.push(this)
+        this.members.push(_player)
 
     function addMember(player _player)
         this.members.push(_player)
@@ -166,7 +168,7 @@ function replaceIndicator()
                 // Create the actual unit.
                 let target = createUnit(owner, targetID, pos, angle)
                 // TODO: add condition before accesing map
-                if target.getOwner().getId() < 10
+                if target.getOwner().getId() < 6
                     let pData = owner.getPlayerData()
                     pData.addBuilding(target)
 
@@ -182,16 +184,14 @@ function replaceIndicator()
                 //         list.forEach() (Callback cb) ->
                 //             cb.run(target)
 
-public let alliance = new FactionData(players[10])
-public let horde = new FactionData(players[11])
+public let allianceFaction = new FactionData(ALLIANCE_PLAYER)
+public let hordeFaction = new FactionData(HORDE_PLAYER)
 
 public function initPlayerData()
-    for i = 0 to 11
+    for i = 0 to NBR_USER_PLAYER
         new PlayerData(players[i])
-        if i < 5
-            alliance.addMember(players[i])
-        else if i < 10
-            horde.addMember(players[i])
-    alliance.addMember(players[10])
-    horde.addMember(players[11])
+        if i < 3
+            allianceFaction.addMember(players[i])
+        else
+            hordeFaction.addMember(players[i])
     replaceIndicator()
