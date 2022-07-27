@@ -194,4 +194,6 @@ public function initPlayerData()
             allianceFaction.addMember(players[i])
         else
             hordeFaction.addMember(players[i])
+    new PlayerData(ALLIANCE_PLAYER)
+    new PlayerData(HORDE_PLAYER)
     replaceIndicator()

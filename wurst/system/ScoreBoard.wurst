@@ -9,6 +9,7 @@ import ClosureTimers
 import StringExtensions
 import TimeUtils
 import PlayerData
+import GameConstants
 
 let REAL_COLUMN_WIDTH = 0.07
 let NAME_LABEL_WIDTH = 0.13
@@ -92,14 +93,12 @@ public class ScoreBoardColumnEntries
 
     function initForPlayer(string value)
         var row = 1
-        // Iterate over the 12 players
-        for i = 0 to 11
+        for i = 0 to NBR_TOTAL_PLAYER
 
             if columnIndex == 0
                 // Prefixing player name with their position from lobby
                 // important for some command such as "-votekick 5" (Player 5)
-                // 10 & 11 are computer player, cannot be affected by command
-                let text = i < 10
+                let text = i < NBR_USER_PLAYER
                     ? getFormattedPlayerName(players[i])
                     : players[i].getNameColored()
                 initRow(row, text)
@@ -119,7 +118,7 @@ public class ScoreBoardColumnEntries
 
 function getFormattedPlayerName(player _player) returns string
     var prefix = (_player.getId() + 1).toString().color(COLOR_GRAY) + " "
-    if _player.getId() > 9
+    if _player.getId() >= NBR_USER_PLAYER
         prefix = ""
     return "{0}{1}".format(prefix, _player.getNameColored())
 
@@ -127,7 +126,7 @@ public let scoreBoardEntries = new HashMap<string, ScoreBoardColumnEntries>
 
 
 function updateScoreBoardEntries()
-    for i = 0 to 11
+    for i = 0 to NBR_USER_PLAYER
         scoreBoard.updateValue(i + 1, 0, getFormattedPlayerName(players[i]))
         scoreBoard.updateValue(i + 1, 1, getUnitKillDeathText(players[i]))
         scoreBoard.updateValue(i + 1, 2, getHeroKillDeathText(players[i]))
@@ -140,14 +139,14 @@ public function getGameTimersBoardTitle() returns string
     let title = ""+
         toTimeString(time).color(GOLD_COLOR) +
         " - ".color(GOLD_COLOR) +
-        getGainPercent(players[10]).color(COLOR_WHITE) +
+        getGainPercent(ALLIANCE_PLAYER).color(COLOR_WHITE) +
         " <> ".color(GOLD_COLOR) +
-        getGainPercent(players[11]).color(COLOR_WHITE)
+        getGainPercent(HORDE_PLAYER).color(COLOR_WHITE)
     return title
 
 public function initScoreBoard()
-    // 12 player + title row
-    var rowCount = 13
+    // NBR_TOTAL_PLAYER player + title row
+    let rowCount = NBR_TOTAL_PLAYER + 1
 
     // Trying to display a multiboard with 0 row result in wc3 crashing
     GAME_TIMER.start(99999999, null)

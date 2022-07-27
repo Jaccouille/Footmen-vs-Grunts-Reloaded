@@ -3,6 +3,8 @@ package GameConstants
 import LinkedList
 
 public let NBR_USER_PLAYER = 6
+public let NBR_TOTAL_PLAYER = NBR_USER_PLAYER + 2
+
 public let ALLIANCE_PLAYER = players[6]
 public let HORDE_PLAYER = players[7]
 

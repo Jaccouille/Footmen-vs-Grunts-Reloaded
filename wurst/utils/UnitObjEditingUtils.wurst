@@ -81,4 +81,5 @@ public function createSiegeUnit(int newId, int origId) returns UnitDefinition
         ..setUnitClassification(UnitClasses.mechanical)
 
 public function UnitDefinition.setNameEnhance(string hotkey, string name)
-    this.setName("Couille")
+    this.setName(name)
+    this.setHotkey(hotkey)
